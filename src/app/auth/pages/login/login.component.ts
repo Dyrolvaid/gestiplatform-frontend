@@ -9,13 +9,10 @@ import {Persona} from "../../../shared/interfaces/persona.interface";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public persona_correo;
-  public persona_clave;
+  public persona_correo = "";
+  public persona_clave = "";
 
-  constructor(private _router: Router, private _personasService: PersonasService) {
-    this.persona_correo = "";
-    this.persona_clave = "";
-  }
+  constructor(private _router: Router, private _personasService: PersonasService) {}
 
   get personaActiva(): Persona {
     return this._personasService.personaActiva;
@@ -34,6 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   public logout() {
-    //this._router.navigate(['/auth']);
+    this._personasService.cerrarSession();
   }
 }

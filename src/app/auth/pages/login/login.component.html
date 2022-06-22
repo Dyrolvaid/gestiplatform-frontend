@@ -1,6 +1,6 @@
 <h4>Login</h4>
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
+<code>{{personaActiva | json}}</code>
 <input type="text" placeholder="Correo Electrónico" [(ngModel)]="persona_correo">
 <input type="text" placeholder="Contraseña" [(ngModel)]="persona_clave">
-<code>{{personaActiva | json}}</code>
+<button (click)="login()">Login</button>
+<button (click)="logout()">Logout</button>
