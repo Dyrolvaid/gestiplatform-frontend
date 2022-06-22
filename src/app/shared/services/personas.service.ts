@@ -47,4 +47,8 @@ export class PersonasService {
     this._personaActiva = undefined;
     localStorage.removeItem("idActivo");
   }
+
+  public crearPersona() {
+
+  }
 }

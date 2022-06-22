@@ -1,6 +1,9 @@
 <h4>Login</h4>
 <code>{{personaActiva | json}}</code>
-<input type="text" placeholder="Correo Electrónico" [(ngModel)]="persona_correo">
-<input type="text" placeholder="Contraseña" [(ngModel)]="persona_clave">
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <input formControlName="persona_correo" type="email" placeholder="Correo Electrónico">
+  <input formControlName="persona_clave" type="password" placeholder="Contraseña">
+  <button type="submit" (click)="loginPulsado()">Iniciar Sesión</button>
+  <button type="submit" (click)="registrarsePulsado()">Registrarse</button>
+</form>
+  <button type="button" (click)="logout()">Cerrar Sesión</button>
