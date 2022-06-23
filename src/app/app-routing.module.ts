@@ -11,7 +11,9 @@ const routes: Routes = [
   },
   {
     path: 'suscripciones',
-    loadChildren: () => import('./suscripciones/suscripciones.module').then(m => m.SuscripcionesModule)
+    loadChildren: () => import('./suscripciones/suscripciones.module').then(m => m.SuscripcionesModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'personas',
