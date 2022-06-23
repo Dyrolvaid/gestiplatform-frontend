@@ -13,7 +13,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     RegistroComponent
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    RegistroComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,40 @@
-<p>registro works!</p>
+<h4>Registro</h4>
+<form [formGroup]="form" (ngSubmit)="registrarse()">
+  <input class="form-control" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" required>
+  <div *ngIf="personaCorreo!.invalid && (personaCorreo!.dirty || personaCorreo!.touched)" class="alert alert-danger">
+    <div *ngIf="personaCorreo!.errors?.['required']">
+      El campo "Correo electrónico" es obligatorio.
+    </div>
+    <div *ngIf="personaCorreo!.errors?.['email']">
+      El campo "Correo electrónico" debe ser una dirección de correo electrónico válida.
+    </div>
+  </div>
+  <input class="form-control" formControlName="persona_nombre" type="text" placeholder="Nombre" required>
+  <div *ngIf="personaNombre!.invalid && (personaNombre!.dirty || personaNombre!.touched)" class="alert alert-danger">
+    <div *ngIf="personaNombre!.errors?.['required']">
+      El campo "Nombre" es obligatorio.
+    </div>
+    <div *ngIf="personaNombre!.errors?.['minlength']">
+      El campo "Nombre" debe tener un mínimo de 5 caracteres.
+    </div>
+  </div>
+  <input class="form-control" formControlName="persona_clave" type="password" placeholder="Contraseña" required>
+  <div *ngIf="personaClave!.invalid && (personaClave!.dirty || personaClave!.touched)" class="alert alert-danger">
+    <div *ngIf="personaClave!.errors?.['required']">
+      El campo "Clave" es obligatorio.
+    </div>
+    <div *ngIf="personaClave!.errors?.['minlength']">
+      El campo "Clave" debe tener un mínimo de 5 caracteres.
+    </div>
+  </div>
+  <input class="form-control" formControlName="persona_telefono" type="tel" placeholder="Telefono" required>
+  <div *ngIf="personaTelefono!.invalid && (personaTelefono!.dirty || personaTelefono!.touched)" class="alert alert-danger">
+    <div *ngIf="personaTelefono!.errors?.['required']">
+      El campo "Telefono" es obligatorio.
+    </div>
+    <div *ngIf="personaTelefono!.errors?.['minlength']">
+      El campo "Correo electrónico" debe tener un mínimo de 9 caracteres.
+    </div>
+  </div>
+  <button type="submit">Registrarse</button>
+</form>

@@ -1,9 +1,24 @@
 <h4>Login</h4>
-<code>{{personaActiva | json}}</code>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <input formControlName="persona_correo" type="email" placeholder="Correo Electrónico">
-  <input formControlName="persona_clave" type="password" placeholder="Contraseña">
-  <button type="submit" (click)="loginPulsado()">Iniciar Sesión</button>
-  <button type="submit" (click)="registrarsePulsado()">Registrarse</button>
+<h5 *ngIf="personaActiva.nombre">Bienvenid@, {{personaActiva.nombre}}</h5>
+<form [formGroup]="form" (ngSubmit)="login()">
+  <input class="form-control" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" required>
+  <div *ngIf="personaCorreo!.invalid && (personaCorreo!.dirty || personaCorreo!.touched)" class="alert alert-danger">
+    <div *ngIf="personaCorreo!.errors?.['required']">
+      El campo "Correo electrónico" es obligatorio.
+    </div>
+    <div *ngIf="personaCorreo!.errors?.['email']">
+      El campo "Correo electrónico" debe ser una dirección de correo electrónico válida.
+    </div>
+  </div>
+  <input class="form-control" formControlName="persona_clave" type="password" placeholder="Contraseña" required>
+  <div *ngIf="personaClave!.invalid && (personaClave!.dirty || personaClave!.touched)" class="alert alert-danger">
+    <div *ngIf="personaClave!.errors?.['required']">
+      El campo "Clave" es obligatorio.
+    </div>
+    <div *ngIf="personaClave!.errors?.['minlength']">
+      El campo "Clave" debe tener un mínimo de 5 caracteres.
+    </div>
+  </div>
+  <button type="submit">Iniciar Sesión</button>
 </form>
   <button type="button" (click)="logout()">Cerrar Sesión</button>

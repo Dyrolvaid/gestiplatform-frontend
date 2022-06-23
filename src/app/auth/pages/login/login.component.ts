@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {PersonasService} from "../../../shared/services/personas.service";
 import {Persona} from "../../../shared/interfaces/persona.interface";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -11,15 +11,22 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
   public form : FormGroup;
-  public inicioPulsado: boolean | undefined = undefined;
 
   constructor(private _router: Router,
               private _personasService: PersonasService,
               private _formBuilder: FormBuilder) {
     this.form = this._formBuilder.group({
-      persona_correo: [],
-      persona_clave: []
+      persona_correo: ["", [Validators.required, Validators.email]],
+      persona_clave: ["", [Validators.required, Validators.minLength(5)]]
     });
+  }
+
+  get personaCorreo() {
+    return this.form.get("persona_correo");
+  }
+
+  get personaClave() {
+    return this.form.get("persona_clave");
   }
 
   get personaActiva(): Persona {
@@ -29,32 +36,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public loginPulsado(): void {
-    this.inicioPulsado = true;
-  }
-
-  public registrarsePulsado(): void {
-    this.inicioPulsado = false;
-  }
-
-  public onSubmit():void {
-    if(this.inicioPulsado) {
-      this.login();
-    } else {
-      this.registrarse();
-    }
-  }
-
   public login() {
     this._personasService.autorizar(this.form.value.persona_correo, this.form.value.persona_clave).subscribe({
       error: (error) => {
         console.error("Autorizar fracasó con el error: ", error);
       }
     });
-  }
-
-  public registrarse() {
-    this._personasService.crearPersona();
   }
 
   public logout() {

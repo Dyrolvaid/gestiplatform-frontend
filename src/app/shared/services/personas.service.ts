@@ -22,7 +22,7 @@ export class PersonasService {
       return of(false);
     }
     const idPersonaActiva = localStorage.getItem("idActivo");
-    const url = `/api/personas/${idPersonaActiva}`;
+    const url = `/api/v1/personas/${idPersonaActiva}`;
     return this._http.get<Persona>(url)
       .pipe(
         map((persona) => {
@@ -33,7 +33,7 @@ export class PersonasService {
   }
 
   public autorizar(correo: string, clave: string): Observable<Persona> {
-    const url = `/api/personas/findByCorreoAndClave/${correo}/${clave}`;
+    const url = `/api/v1/personas/findByCorreoAndClave/${correo}/${clave}`;
     return this._http.get<Persona>(url)
       .pipe(
         tap((resp) => {
@@ -48,7 +48,8 @@ export class PersonasService {
     localStorage.removeItem("idActivo");
   }
 
-  public crearPersona() {
-
+  public crearPersona(persona:Persona): Observable<Persona> {
+    const url = `/api/v2/personas`;
+    return this._http.post<Persona>(url, persona);
   }
 }
