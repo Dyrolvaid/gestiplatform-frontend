@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {PersonasService} from "../../../shared/services/personas.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Persona} from "../../../shared/interfaces/persona.interface";
@@ -7,7 +7,9 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
+  providers: [ PersonasService ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistroComponent implements OnInit {
 
@@ -52,5 +54,6 @@ export class RegistroComponent implements OnInit {
         console.error("crearPersona fracasó con el error: ", error);
       }
     });
+    this._router.navigate(['/inicio']);
   }
 }

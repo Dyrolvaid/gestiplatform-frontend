@@ -1,4 +1,4 @@
-<h4>Registro</h4>
+<h4>Regístrate</h4>
 <form [formGroup]="form" (ngSubmit)="registrarse()">
   <input class="form-control" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" required>
   <div *ngIf="personaCorreo!.invalid && (personaCorreo!.dirty || personaCorreo!.touched)" class="alert alert-danger">
@@ -38,3 +38,4 @@
   </div>
   <button type="submit" [disabled]="form.invalid">Registrarse</button>
 </form>
+<a [routerLink]="['/auth/login']">O inicia sesión.</a>

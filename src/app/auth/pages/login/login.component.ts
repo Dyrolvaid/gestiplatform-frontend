@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {PersonasService} from "../../../shared/services/personas.service";
-import {Persona} from "../../../shared/interfaces/persona.interface";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Persona} from "../../../shared/interfaces/persona.interface";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ PersonasService ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   public form : FormGroup;
+  public personaActiva: Persona;
 
   constructor(private _router: Router,
               private _personasService: PersonasService,
@@ -19,6 +23,7 @@ export class LoginComponent implements OnInit {
       persona_correo: ["", [Validators.required, Validators.email]],
       persona_clave: ["", [Validators.required, Validators.minLength(5)]]
     });
+    this.personaActiva = this._personasService.personaActiva;
   }
 
   get personaCorreo() {
@@ -29,21 +34,25 @@ export class LoginComponent implements OnInit {
     return this.form.get("persona_clave");
   }
 
-  get personaActiva(): Persona {
-    return this._personasService.personaActiva;
-  }
-
   ngOnInit(): void {
   }
 
   public login() {
     this._personasService.autorizar(this.form.value.persona_correo, this.form.value.persona_clave).subscribe({
-      error: (error) => {
-        console.error("Autorizar fracasó con el error: ", error);
+      next: (resp) => {
+        if (resp) {
+          //TODO Redirigir a suscripciones en lugar de devolver a login
+          this._router.navigate(['/auth/login']);
+        } else {
+          this._router.navigate(['/auth/login']);
+        }
+      },
+      error: (error : HttpErrorResponse) => {
+        console.error("Autorizar fracasó con el error: ", error.statusText);
+        this._router.navigate(['/auth/login']);
       }
     });
   }
-
   public logout() {
     this._personasService.cerrarSession();
   }

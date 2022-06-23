@@ -8,13 +8,14 @@ import {map, Observable, of, tap} from "rxjs";
 })
 export class PersonasService {
 
-  private _personaActiva?: Persona;
+  private _personaActiva: Persona;
 
   constructor(private _http: HttpClient) {
+    this._personaActiva = <Persona>{};
   }
 
   get personaActiva(): Persona {
-    return {...this._personaActiva!};
+    return {...this._personaActiva};
   }
 
   public verificarAlmacenamiento(): Observable<boolean> {
@@ -44,7 +45,7 @@ export class PersonasService {
   }
 
   public cerrarSession() {
-    this._personaActiva = undefined;
+    this._personaActiva = <Persona>{};
     localStorage.removeItem("idActivo");
   }
 
