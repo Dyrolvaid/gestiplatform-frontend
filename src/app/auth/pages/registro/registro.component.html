@@ -36,5 +36,5 @@
       El campo "Correo electrónico" debe tener un mínimo de 9 caracteres.
     </div>
   </div>
-  <button type="submit">Registrarse</button>
+  <button type="submit" [disabled]="form.invalid">Registrarse</button>
 </form>

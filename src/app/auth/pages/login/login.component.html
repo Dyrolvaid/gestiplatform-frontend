@@ -19,6 +19,6 @@
       El campo "Clave" debe tener un mínimo de 5 caracteres.
     </div>
   </div>
-  <button type="submit">Iniciar Sesión</button>
+  <button type="submit" [disabled]="form.invalid">Iniciar Sesión</button>
 </form>
-  <button type="button" (click)="logout()">Cerrar Sesión</button>
+  <button type="button" (click)="logout()" [disabled]="!personaActiva.nombre">Cerrar Sesión</button>
