@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanLoad,
-  Route,
-  Router,
-  UrlSegment
-} from '@angular/router';
+import { CanActivate, CanLoad, Router} from '@angular/router';
 import {Observable, tap} from 'rxjs';
 import {PersonasService} from "../../shared/services/personas.service";
 
@@ -24,9 +18,7 @@ export class AuthGuard implements CanLoad, CanActivate {
       })
     );
   }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean> | boolean {
+  canLoad(): Observable<boolean> | boolean {
     return this._personasService.verificarAlmacenamiento().pipe(
       tap(estaAlmacenado => {
         if (!estaAlmacenado) {

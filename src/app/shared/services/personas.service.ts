@@ -8,21 +8,19 @@ import {map, Observable, of, tap} from "rxjs";
 })
 export class PersonasService {
 
-  private _personaActiva: Persona;
+  private _personaActiva?: Persona;
 
-  constructor(private _http: HttpClient) {
-    this._personaActiva = <Persona>{};
-  }
+  constructor(private _http: HttpClient) {}
 
   get personaActiva(): Persona {
-    return {...this._personaActiva};
+    return {...this._personaActiva!};
   }
 
   public verificarAlmacenamiento(): Observable<boolean> {
-    if (!localStorage.getItem("idActivo")){
+    if (!localStorage.getItem("token")){
       return of(false);
     }
-    const idPersonaActiva = localStorage.getItem("idActivo");
+    const idPersonaActiva = localStorage.getItem("token");
     const url = `/api/v1/personas/${idPersonaActiva}`;
     return this._http.get<Persona>(url)
       .pipe(
@@ -39,14 +37,14 @@ export class PersonasService {
       .pipe(
         tap((resp) => {
           this._personaActiva = resp;
-          localStorage.setItem("idActivo", this._personaActiva.id.toString());
+          localStorage.setItem("token", this._personaActiva.id.toString());
         })
       );
   }
 
   public cerrarSession() {
-    this._personaActiva = <Persona>{};
-    localStorage.removeItem("idActivo");
+    this._personaActiva = undefined;
+    localStorage.removeItem("token");
   }
 
   public crearPersona(persona:Persona): Observable<Persona> {
