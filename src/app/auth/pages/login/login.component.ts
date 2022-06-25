@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       next: (resp) => {
         if (resp) {
           //TODO Redirigir a suscripciones en lugar de devolver a login
-          this._router.navigate(['/auth/login']);
+          this._router.navigate(['/home/suscripciones']);
         } else {
           this._router.navigate(['/auth/login']);
         }

@@ -19,7 +19,7 @@ export class AuthGuard implements CanLoad, CanActivate {
     return this._personasService.verificarAlmacenamiento().pipe(
       tap(estaAlmacenado => {
         if (!estaAlmacenado) {
-          this._router.navigate(['./login']);
+          this._router.navigate(['./auth/login']);
         }
       })
     );
@@ -30,7 +30,7 @@ export class AuthGuard implements CanLoad, CanActivate {
     return this._personasService.verificarAlmacenamiento().pipe(
       tap(estaAlmacenado => {
         if (!estaAlmacenado) {
-          this._router.navigate(['./login']);
+          this._router.navigate(['./auth/login']);
         }
       })
     );
