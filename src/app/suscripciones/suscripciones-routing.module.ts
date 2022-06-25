@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {LoginComponent} from "./pages/login/login.component";
-import {RegistroComponent} from "./pages/registro/registro.component";
+import {HomeSuscripcionesComponent} from "./pages/home-suscripciones/home-suscripciones.component";
 import {ErrorComponent} from "../shared/components/error/error.component";
 
 const routes : Routes = [
   {
     path: '',
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'registro', component: RegistroComponent },
-      { path: '**', component: ErrorComponent }
+      { path: 'suscripciones', component: HomeSuscripcionesComponent },
+      { path: '**', component: ErrorComponent}
     ]
   }
 ];
@@ -19,6 +17,5 @@ const routes : Routes = [
   declarations: [],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
-
 })
-export class AuthRoutingModule { }
+export class SuscripcionesRoutingModule { }

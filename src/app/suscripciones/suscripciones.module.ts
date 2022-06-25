@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HomeSuscripcionesComponent } from './pages/home-suscripciones/home-suscripciones.component';
+import {SuscripcionesRoutingModule} from "./suscripciones-routing.module";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HomeSuscripcionesComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    SuscripcionesRoutingModule
   ]
 })
 export class SuscripcionesModule { }
