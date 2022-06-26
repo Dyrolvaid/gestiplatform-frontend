@@ -6,17 +6,21 @@ import {PasswordModule} from "primeng/password";
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {RippleModule} from "primeng/ripple";
+import {MenubarModule} from "primeng/menubar";
+import {PanelMenuModule} from "primeng/panelmenu";
 
 @NgModule({
   declarations: [],
   exports: [
     ButtonModule,
     InputTextModule,
+    MenubarModule,
     MessageModule,
     MessagesModule,
+    PanelMenuModule,
     PasswordModule,
     RippleModule,
-    ToastModule,
+    ToastModule
   ]
 })
 export class PrimengModule { }

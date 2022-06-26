@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {PersonasService} from "../../../shared/services/personas.service";
-import {Persona} from "../../../shared/interfaces/persona.interface";
 
 @Component({
   selector: 'app-home-suscripciones',
@@ -9,13 +7,9 @@ import {Persona} from "../../../shared/interfaces/persona.interface";
 })
 export class HomeSuscripcionesComponent implements OnInit {
 
-  constructor(private _personaService: PersonasService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  get personaActiva(): Persona {
-    return this._personaService.personaActiva;
   }
 
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {PersonasService} from "../../../shared/services/personas.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -62,8 +62,5 @@ export class LoginComponent implements OnInit {
         this._router.navigate(['/auth/login']);
       }
     });
-  }
-  public logout() {
-    this._personasService.cerrarSession();
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PersonasService} from "../../../shared/services/personas.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Persona} from "../../../shared/interfaces/persona.interface";
@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
-  providers: [ PersonasService ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // providers: [ PersonasService ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistroComponent implements OnInit {
 
