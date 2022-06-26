@@ -12,7 +12,6 @@ import {Router} from "@angular/router";
 export class MenuComponent implements OnInit {
 
   public items : MenuItem[];
-  public items2 : MenuItem[];
 
   constructor(private _personasService: PersonasService, private _router:Router) {
     this.items = [
@@ -33,11 +32,10 @@ export class MenuComponent implements OnInit {
       {
         label: 'Recibos',
         //routerLink: '/etc'
-      }
-    ];
-    this.items2 = [
+      },
       {
         label: this.personaActiva.nombre,
+
         items: [
           {
             label: 'Cerrar Sesión',

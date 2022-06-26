@@ -7,7 +7,6 @@ import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {RippleModule} from "primeng/ripple";
 import {MenubarModule} from "primeng/menubar";
-import {PanelMenuModule} from "primeng/panelmenu";
 
 @NgModule({
   declarations: [],
@@ -17,7 +16,6 @@ import {PanelMenuModule} from "primeng/panelmenu";
     MenubarModule,
     MessageModule,
     MessagesModule,
-    PanelMenuModule,
     PasswordModule,
     RippleModule,
     ToastModule
