@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, PrimeIcons} from 'primeng/api';
 import {PersonasService} from "../../../shared/services/personas.service";
 import {Persona} from "../../../shared/interfaces/persona.interface";
 import {Router} from "@angular/router";
@@ -18,29 +18,32 @@ export class MenuComponent implements OnInit {
     this.items = [
       {
         label: 'Suscripciones',
+        icon: PrimeIcons.PLAY,
         routerLink: '/home/suscripciones'
       },
       {
         label: 'Personas',
-        styleClass: 'p-menuitem p-button-raised p-button-text p-button-warning'
-        //routerLink: '/etc'
-      },
-      {
-        label: 'Credenciales',
+        icon: PrimeIcons.USERS,
         //routerLink: '/etc'
       },
       {
         label: 'Recibos',
+        icon: PrimeIcons.EURO,
         //routerLink: '/etc'
       },
       {
         label: this.personaActiva.nombre,
-
+        icon: PrimeIcons.USER,
         items: [
           {
+            label: 'Gestionar cuenta',
+            icon: PrimeIcons.COG
+          },
+          {
             label: 'Cerrar Sesión',
+            icon: PrimeIcons.POWER_OFF,
             command: (event : Event) => this.logout()
-          }
+          },
         ]
       }
     ];
