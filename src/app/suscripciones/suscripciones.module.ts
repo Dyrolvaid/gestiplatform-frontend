@@ -4,13 +4,15 @@ import { HomeSuscripcionesComponent } from './pages/home-suscripciones/home-susc
 import {SuscripcionesRoutingModule} from "./suscripciones-routing.module";
 import { MenuComponent } from './components/menu/menu.component';
 import {PrimengModule} from "../primeng/primeng.module";
+import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
 
 
 
 @NgModule({
   declarations: [
     HomeSuscripcionesComponent,
-    MenuComponent
+    MenuComponent,
+    TarjetaComponent
   ],
   imports: [
     CommonModule,

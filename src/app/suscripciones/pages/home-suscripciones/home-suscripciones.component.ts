@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SuscripcionesService} from "../../../shared/services/suscripciones.service";
 
 @Component({
   selector: 'app-home-suscripciones',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeSuscripcionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _suscripcionesService: SuscripcionesService) {
+    this._suscripcionesService.cargarConjuntoSuscripciones();
+  }
 
   ngOnInit(): void {
   }

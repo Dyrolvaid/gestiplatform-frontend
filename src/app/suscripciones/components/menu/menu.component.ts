@@ -13,11 +13,11 @@ export class MenuComponent implements OnInit {
 
   public items : MenuItem[];
 
-  constructor(private _personasService: PersonasService, private _router:Router) {
+  constructor(private _personasService: PersonasService,
+              private _router:Router) {
     this.items = [
       {
-        label: 'Home',
-        disabled: true,
+        label: 'Suscripciones',
         routerLink: '/home/suscripciones'
       },
       {

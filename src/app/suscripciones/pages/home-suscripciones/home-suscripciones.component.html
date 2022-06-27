@@ -1,7 +1,7 @@
 <app-menu></app-menu>
-
-<h1>Página principal de la aplicación</h1>
-
-<p>Menú para navegar a personas, suscripciones y recibos</p>
-<p>Por defecto, salen las suscripciones que tiene este usuario</p>
-
+<h1 class="text-center">Página principal de la aplicación</h1>
+<div class="d-flex align-content-stretch flex-wrap justify-content-center">
+  <ng-container *ngFor="let suscripcion of this._suscripcionesService.suscripciones; let indiceSuscripcion = index">
+    <app-tarjeta class="m-2" [indiceSuscripcion]="indiceSuscripcion"></app-tarjeta>
+  </ng-container>
+</div>

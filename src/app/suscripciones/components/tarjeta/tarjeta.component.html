@@ -1,0 +1,36 @@
+<p-card header="{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}"
+        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio}} anual"
+        [style]="{width: '17rem'}" styleClass="p-card-shadow">
+  <ng-template pTemplate="header">
+    <!--TODO: Enlazar el enlace de la imagen de la plataforma con desde la base de datos (previos cambios necesarios)-->
+    <img class="mx-auto d-block" alt="Card" src="assets/img/disney.png" [style]="{width: '10rem'}">
+  </ng-template>
+  <ng-template pTemplate="content">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Periodicidad
+        <span class="badge bg-secondary rounded-pill">
+          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.periodicidad.tipo}}
+        </span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Precio
+        <span class="badge bg-secondary rounded-pill">
+          <!--TODO: Meter aquí el resultado de dividir el precio total entre el número de personas que hay en la suscripción.-->
+        </span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Vencimiento
+        <span class="badge bg-secondary rounded-pill">
+          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.fechaProximoCobro}}
+        </span>
+      </li>
+    </ul>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between align-items-center">
+      <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-check"></p-button>
+      <p-button styleClass="p-button-sm p-button-secondary" label="Cancel" icon="pi pi-times" [style]="{'margin-left': '0.5rem'}"></p-button>
+    </div>
+  </ng-template>
+</p-card>
