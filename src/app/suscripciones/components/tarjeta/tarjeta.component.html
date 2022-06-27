@@ -1,6 +1,6 @@
 <p-card header="{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}"
-        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio}} anual"
-        [style]="{width: '17rem'}" styleClass="p-card-shadow">
+        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio | currency }} anual"
+        [style]="{width: '17rem'}" >
   <ng-template pTemplate="header">
     <!--TODO: Enlazar el enlace de la imagen de la plataforma con desde la base de datos (previos cambios necesarios)-->
     <img class="mx-auto d-block" alt="Card" src="assets/img/disney.png" [style]="{width: '10rem'}">
@@ -28,9 +28,26 @@
     </ul>
   </ng-template>
   <ng-template pTemplate="footer">
-    <div class="d-flex justify-content-between align-items-center">
-      <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-check"></p-button>
-      <p-button styleClass="p-button-sm p-button-secondary" label="Cancel" icon="pi pi-times" [style]="{'margin-left': '0.5rem'}"></p-button>
-    </div>
+    <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-pencil" (click)="mostrarDialogoEditarSuscripcion()" ></p-button>
   </ng-template>
 </p-card>
+
+<p-dialog
+  [(visible)]="mostrar"
+  [modal]="true"
+  [resizable]="true"
+  [maximizable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3>{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}</h3>
+    <h4>{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.descripcion}}</h4>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <p>Lo que va dentro de la ventana es TODA la información de la tarjeta</p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton class="p-button-text" label="Cerrar" icon="pi pi-times-circle" (click)="this.cerrarDialogoEditarSuscripcion()"></button>
+  </ng-template>
+
+</p-dialog>

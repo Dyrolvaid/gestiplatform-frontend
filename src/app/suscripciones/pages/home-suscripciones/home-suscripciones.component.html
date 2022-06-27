@@ -1,6 +1,6 @@
 <app-menu></app-menu>
-<h1 class="text-center">Página principal de la aplicación</h1>
-<div class="d-flex align-content-stretch flex-wrap justify-content-center">
+
+<div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
   <ng-container *ngFor="let suscripcion of this._suscripcionesService.suscripciones; let indiceSuscripcion = index">
     <app-tarjeta class="m-2" [indiceSuscripcion]="indiceSuscripcion"></app-tarjeta>
   </ng-container>

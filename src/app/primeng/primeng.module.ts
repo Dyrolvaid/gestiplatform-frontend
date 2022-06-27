@@ -8,10 +8,12 @@ import {MessagesModule} from "primeng/messages";
 import {RippleModule} from "primeng/ripple";
 import {MenubarModule} from "primeng/menubar";
 import {CardModule} from "primeng/card";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [],
   exports: [
+    DialogModule,
     ButtonModule,
     CardModule,
     InputTextModule,
