@@ -5,6 +5,7 @@ import {SuscripcionesRoutingModule} from "./suscripciones-routing.module";
 import { MenuComponent } from './components/menu/menu.component';
 import {PrimengModule} from "../primeng/primeng.module";
 import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
+import {MomentModule} from "angular2-moment";
 
 
 
@@ -17,7 +18,8 @@ import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
   imports: [
     CommonModule,
     SuscripcionesRoutingModule,
-    PrimengModule
+    PrimengModule,
+    MomentModule
   ]
 })
 export class SuscripcionesModule { }

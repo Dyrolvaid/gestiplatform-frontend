@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,7 @@ import {SharedModule} from "./shared/shared.module";
 import {PersonasModule} from "./personas/personas.module";
 import {SuscripcionesModule} from "./suscripciones/suscripciones.module";
 import {AuthModule} from "./auth/auth.module";
+
 
 @NgModule({
   declarations: [
@@ -22,7 +23,12 @@ import {AuthModule} from "./auth/auth.module";
     SuscripcionesModule,
     AuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'es'
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

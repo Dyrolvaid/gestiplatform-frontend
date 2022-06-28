@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SuscripcionesService} from "../../../shared/services/suscripciones.service";
+import localeES from '@angular/common/locales/es';
+import {registerLocaleData} from "@angular/common";
 
 @Component({
   selector: 'app-tarjeta',
@@ -20,6 +22,7 @@ export class TarjetaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    registerLocaleData(localeES);
   }
 
   public mostrarDialogoEditarSuscripcion() {
