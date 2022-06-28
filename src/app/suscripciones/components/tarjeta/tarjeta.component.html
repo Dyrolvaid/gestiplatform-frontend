@@ -1,5 +1,5 @@
 <p-card header="{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}"
-        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio | currency }} anual"
+        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio | currency:'EUR' }} anual"
         [style]="{width: '17rem'}" >
   <ng-template pTemplate="header">
     <!--TODO: Enlazar el enlace de la imagen de la plataforma con desde la base de datos (previos cambios necesarios)-->
@@ -22,7 +22,7 @@
       <li class="list-group-item d-flex justify-content-between align-items-center">
         Vencimiento
         <span class="badge bg-secondary rounded-pill">
-          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.fechaProximoCobro}}
+          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}
         </span>
       </li>
     </ul>

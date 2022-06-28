@@ -1,6 +1,7 @@
 # GestiplatformFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+Probando cambios en Git 28/06/2022 11:01 , Subo línea Gerardo a las 11:04
 
 ## Development server
 
