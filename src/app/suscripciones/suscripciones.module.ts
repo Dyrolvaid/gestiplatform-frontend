@@ -6,6 +6,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import {PrimengModule} from "../primeng/primeng.module";
 import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
 import {MomentModule} from "angular2-moment";
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -18,6 +19,7 @@ import {MomentModule} from "angular2-moment";
   imports: [
     CommonModule,
     SuscripcionesRoutingModule,
+    SharedModule,
     PrimengModule,
     MomentModule
   ]

@@ -9,6 +9,7 @@ import {RippleModule} from "primeng/ripple";
 import {MenubarModule} from "primeng/menubar";
 import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
+import {ProgressBarModule} from "primeng/progressbar";
 
 @NgModule({
   declarations: [],
@@ -21,6 +22,7 @@ import {DialogModule} from "primeng/dialog";
     MessageModule,
     MessagesModule,
     PasswordModule,
+    ProgressBarModule,
     RippleModule,
     ToastModule
   ]

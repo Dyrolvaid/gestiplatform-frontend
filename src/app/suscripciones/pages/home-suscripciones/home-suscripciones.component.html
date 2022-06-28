@@ -1,5 +1,7 @@
 <app-menu></app-menu>
 
+<app-barra-progreso></app-barra-progreso>
+
 <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
   <ng-container *ngFor="let suscripcion of this._suscripcionesService.suscripciones; let indiceSuscripcion = index">
     <app-tarjeta class="m-2" [indiceSuscripcion]="indiceSuscripcion"></app-tarjeta>
