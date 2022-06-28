@@ -1,6 +1,57 @@
-<h4>Regístrate</h4>
+<div class="wrapper fadeInDown">
+  <div  id="formContent" class="row">
+    <div class="fadeIn first">
+      <img src="assets/img/logo.png" id="icon" alt="User Icon"/>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-10">
+      <h4 class="mb-4 mt-1">Regístrate</h4>
+      <form [formGroup]="form" (ngSubmit)="registrarse()" autocomplete="off">
+        <label for="form-control" class="form-label">Correo Electrónico</label>
+        <input pInputText id="form-control" class="form-control fadeIn second" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" >
+        <div *ngIf="personaCorreo!.invalid && personaCorreo!.touched" class="p-error">
+          <span>Debe ser una dirección de correo válida</span>
+        </div>
+        <label for="form-control2"  class="form-label mt-2">Nombre</label>
+        <input id="form-control2" pInputText class="form-control fadeIn second" formControlName="persona_nombre" type="text" placeholder="Nombre" >
+        <div *ngIf="personaNombre!.invalid && personaNombre!.touched" class="p-error">
+          <div *ngIf="personaNombre!.errors?.['required']">
+            <span>Debe introducir un nombre</span>
+          </div>
+          <div *ngIf="personaNombre!.errors?.['minlength']">
+            <span>Debe tener un mínimo de 5 caracteres</span>
+          </div>
+        </div>
+        <label for="form-control3" class="form-label mt-2">Contraseña</label>
+        <input pPassword [feedback]="false" id="form-control3" class="form-control fadeIn third" formControlName="persona_clave" type="password" placeholder="Contraseña" >
+        <div *ngIf="personaClave!.invalid && personaClave!.touched" class="p-error">
+            <span>Debe tener un mínimo de 5 caracteres</span>
+        </div>
+        <label for="form-control4" class="form-label mt-2">Teléfono</label>
+        <input pInputText id="form-control4" class="form-control fadeIn third" formControlName="persona_telefono" type="text" placeholder="Teléfono" >
+        <div *ngIf="personaTelefono!.invalid && personaTelefono!.touched" class="p-error">
+          <span>Debe tener un mínimo de 9 dígitos</span>
+        </div>
+
+        <button pButton pRipple type="submit" class="p-button-raised fadeIn fourth mt-3" [disabled]="form.invalid">Registrarse</button>
+
+
+
+      </form>
+      <a [routerLink]="['/auth/login']" class="underlineHover my-3">O inicia sesión</a>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
+
+
+
+
+<!-- Registro a pelo -->
+
+<!--<h4>Regístrate</h4>
 <form [formGroup]="form" (ngSubmit)="registrarse()">
-  <input class="form-control" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" required>
+  <input class="form-control1" formControlName="persona_correo" type="email" placeholder="Correo Electrónico" required>
   <div *ngIf="personaCorreo!.invalid && (personaCorreo!.dirty || personaCorreo!.touched)" class="alert alert-danger">
     <div *ngIf="personaCorreo!.errors?.['required']">
       El campo "Correo electrónico" es obligatorio.
@@ -36,6 +87,10 @@
       El campo "Correo electrónico" debe tener un mínimo de 9 caracteres.
     </div>
   </div>
+
+
+
+
   <button type="submit" [disabled]="form.invalid">Registrarse</button>
 </form>
-<a [routerLink]="['/auth/login']">O inicia sesión.</a>
+<a [routerLink]="['/auth/login']">O inicia sesión.</a>-->
