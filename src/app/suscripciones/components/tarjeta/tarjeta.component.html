@@ -39,9 +39,9 @@
   [maximizable]="true"
 >
   <ng-template pTemplate="header">
-    <img class="mx-auto d-block  mb-3 "  alt="Card"  [src]="this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.logo" [style]="{width: '10rem'}">
   </ng-template>
   <ng-template pTemplate="content">
+    <img class="mx-auto d-block  mb-3 "  alt="Card"  [src]="this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.logo" [style]="{width: '10rem'}">
     <p>Nombre: {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}</p>
     <p>Descripción: {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.descripcion}}</p>
     <p>Límite de perfiles</p>
