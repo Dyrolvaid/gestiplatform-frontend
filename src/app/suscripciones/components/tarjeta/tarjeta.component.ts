@@ -39,7 +39,9 @@ export class TarjetaComponent implements OnInit {
       header: 'Detalles',
       width: '70%',
       modal: true,
-      data: this.indiceSuscripcion
+      data: {
+        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+      }
     });
   }
 
@@ -48,7 +50,9 @@ export class TarjetaComponent implements OnInit {
       header: 'Personas',
       width: '70%',
       modal: true,
-      data: this.indiceSuscripcion
+      data: {
+        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+      }
     });
   }
 
@@ -57,7 +61,9 @@ export class TarjetaComponent implements OnInit {
       header: 'Recibos',
       width: '70%',
       modal: true,
-      data: this.indiceSuscripcion
+      data: {
+        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+      }
     });
   }
 
