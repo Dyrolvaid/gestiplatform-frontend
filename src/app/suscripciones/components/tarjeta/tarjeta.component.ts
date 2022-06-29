@@ -38,7 +38,8 @@ export class TarjetaComponent implements OnInit {
     const ventana = this.dialogService.open(TarjetaDetallesComponent, {
       header: 'Detalles',
       width: '70%',
-      modal: true
+      modal: true,
+      data: this.indiceSuscripcion
     });
   }
 
@@ -46,7 +47,8 @@ export class TarjetaComponent implements OnInit {
     const ventana = this.dialogService.open(TarjetaPersonasComponent, {
       header: 'Personas',
       width: '70%',
-      modal: true
+      modal: true,
+      data: this.indiceSuscripcion
     });
   }
 
@@ -54,7 +56,8 @@ export class TarjetaComponent implements OnInit {
     const ventana = this.dialogService.open(TarjetaRecibosComponent, {
       header: 'Recibos',
       width: '70%',
-      modal: true
+      modal: true,
+      data: this.indiceSuscripcion
     });
   }
 
