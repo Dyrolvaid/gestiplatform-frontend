@@ -1,2 +1,5 @@
 <!--Progress Bar Indeterminate -->
-<p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+<p-progressBar mode="indeterminate"
+               [style]="{'height': '6px'}"
+               [hidden]="!_suscripcionesService.estadoCargandoSuscripciones" >
+</p-progressBar>
