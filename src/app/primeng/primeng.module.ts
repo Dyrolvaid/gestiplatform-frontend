@@ -11,6 +11,7 @@ import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
 import {ProgressBarModule} from "primeng/progressbar";
 import {DynamicDialogModule} from "primeng/dynamicdialog";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,8 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
     PasswordModule,
     ProgressBarModule,
     RippleModule,
-    ToastModule
+    ToastModule,
+    TableModule,
   ]
 })
 export class PrimengModule { }
