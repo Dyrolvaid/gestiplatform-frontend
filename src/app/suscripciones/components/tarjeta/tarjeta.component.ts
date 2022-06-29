@@ -2,35 +2,60 @@ import {Component, Input, OnInit} from '@angular/core';
 import {SuscripcionesService} from "../../../shared/services/suscripciones.service";
 import localeES from '@angular/common/locales/es';
 import {registerLocaleData} from "@angular/common";
+import {DialogService} from "primeng/dynamicdialog";
+import {TarjetaDetallesComponent} from "../tarjeta-detalles/tarjeta-detalles.component";
+import {TarjetaPersonasComponent} from "../tarjeta-personas/tarjeta-personas.component";
+import {TarjetaRecibosComponent} from "../tarjeta-recibos/tarjeta-recibos.component";
 
 @Component({
   selector: 'app-tarjeta',
   templateUrl: './tarjeta.component.html',
-  styleUrls: ['./tarjeta.component.css']
+  styleUrls: ['./tarjeta.component.css'],
+  providers: [DialogService],
+  entryComponents: [
+    TarjetaDetallesComponent,
+    TarjetaPersonasComponent,
+    TarjetaRecibosComponent
+  ]
 })
 export class TarjetaComponent implements OnInit {
 
   @Input() indiceSuscripcion: number;
 
-  // Cuadro de diálogo de editar suscripción
-  public mostrar: boolean;
 
-
-  constructor(public _suscripcionesService: SuscripcionesService) {
+  constructor(
+    public dialogService: DialogService,
+    public _suscripcionesService: SuscripcionesService
+  ) {
     this.indiceSuscripcion = 0;
-    this.mostrar = false;
   }
 
   ngOnInit(): void {
     registerLocaleData(localeES);
   }
 
-  public mostrarDialogoEditarSuscripcion() {
-    this.mostrar = true;
+  public mostrarDetalles() {
+    const ventana = this.dialogService.open(TarjetaDetallesComponent, {
+      header: 'Detalles',
+      width: '70%',
+      modal: true
+    });
   }
 
-  public cerrarDialogoEditarSuscripcion() {
-    this.mostrar = false;
+  public mostrarPersonas() {
+    const ventana = this.dialogService.open(TarjetaPersonasComponent, {
+      header: 'Personas',
+      width: '70%',
+      modal: true
+    });
+  }
+
+  public mostrarRecibos(){
+    const ventana = this.dialogService.open(TarjetaRecibosComponent, {
+      header: 'Recibos',
+      width: '70%',
+      modal: true
+    });
   }
 
 

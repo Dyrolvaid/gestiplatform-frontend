@@ -10,11 +10,13 @@ import {MenubarModule} from "primeng/menubar";
 import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
 import {ProgressBarModule} from "primeng/progressbar";
+import {DynamicDialogModule} from "primeng/dynamicdialog";
 
 @NgModule({
   declarations: [],
   exports: [
     DialogModule,
+    DynamicDialogModule,
     ButtonModule,
     CardModule,
     InputTextModule,

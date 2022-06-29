@@ -28,10 +28,15 @@
     </ul>
   </ng-template>
   <ng-template pTemplate="footer">
-    <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-pencil" (click)="mostrarDialogoEditarSuscripcion()" ></p-button>
+    <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-pencil" (click)="mostrarDetalles()" ></p-button>
+    <p-button styleClass="p-button-sm" label="Personas" icon="pi pi-users" (click)="mostrarPersonas()" ></p-button>
+    <p-button styleClass="p-button-sm" label="Recibos" icon="pi pi-euro" (click)="mostrarRecibos()" ></p-button>
   </ng-template>
 </p-card>
 
+
+
+<!--
 <p-dialog
   [(visible)]="mostrar"
   [modal]="true"
@@ -54,3 +59,4 @@
   </ng-template>
 
 </p-dialog>
+-->

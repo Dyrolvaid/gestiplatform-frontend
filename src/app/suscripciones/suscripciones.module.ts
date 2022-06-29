@@ -7,6 +7,9 @@ import {PrimengModule} from "../primeng/primeng.module";
 import { TarjetaComponent } from './components/tarjeta/tarjeta.component';
 import {MomentModule} from "angular2-moment";
 import {SharedModule} from "../shared/shared.module";
+import { TarjetaDetallesComponent } from './components/tarjeta-detalles/tarjeta-detalles.component';
+import { TarjetaPersonasComponent } from './components/tarjeta-personas/tarjeta-personas.component';
+import { TarjetaRecibosComponent } from './components/tarjeta-recibos/tarjeta-recibos.component';
 
 
 
@@ -14,7 +17,10 @@ import {SharedModule} from "../shared/shared.module";
   declarations: [
     HomeSuscripcionesComponent,
     MenuComponent,
-    TarjetaComponent
+    TarjetaComponent,
+    TarjetaDetallesComponent,
+    TarjetaPersonasComponent,
+    TarjetaRecibosComponent
   ],
   imports: [
     CommonModule,
