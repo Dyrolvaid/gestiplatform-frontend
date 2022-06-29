@@ -1,1 +1,6 @@
-<p>tarjeta-recibos works!</p>
+<ng-container *ngIf="recibos && suscripcion">
+  <div class="card">
+    <h5>{{this.suscripcion.plataforma.nombre}}</h5>
+    <p>{{this.suscripcion.descripcion}}</p>
+  </div>
+</ng-container>
