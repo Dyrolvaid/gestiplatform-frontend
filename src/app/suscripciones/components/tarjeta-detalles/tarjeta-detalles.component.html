@@ -3,58 +3,62 @@
   <ul class="list-group">
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <span>Plataforma</span>
-      <span class="badge bg-secondary rounded-pill">
+      <span class="fw-bold">Plataforma</span>
+      <span class="badge bg-warning">
          {{this.grupo.suscripcion.plataforma.nombre}}
     </span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Límite perfiles</span>
-      <span class="badge bg-secondary rounded-pill">
+      <span class="badge bg-info rounded-pill">
          {{this.grupo.suscripcion.plataforma.limitePerfiles}}
     </span>
+      <p-knob [(ngModel)]="limitePerfiles" [min]="1" [max]="this.grupo.suscripcion.plataforma.limitePerfiles" [size]="50"></p-knob>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Límite reproducciones</span>
-      <span class="badge bg-secondary rounded-pill">
+      <span class="badge bg-info rounded-pill">
           {{this.grupo.suscripcion.plataforma.limiteReproducciones}}
     </span>
+
+        <p-knob [(ngModel)]="limiteReproduciones" [min]="1" [max]="this.grupo.suscripcion.plataforma.limiteReproducciones" [size]="50"></p-knob>
+
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Fecha de alta</span>
-      <span class="badge bg-secondary rounded-pill">
-          {{this.grupo.suscripcion.fechaAlta | date:'dd/MM/yyyy'}}
+      <span class="badge bg-info rounded-pill">
+          {{this.grupo.suscripcion.fechaAlta | date:'dd-MM-yyyy'}}
     </span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Precio</span>
-      <span class="badge bg-secondary rounded-pill">
+      <span class="badge bg-info rounded-pill">
          {{this.grupo.suscripcion.precio | currency:'EUR':true}}
     </span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Periodicidad</span>
-      <span class="badge bg-secondary rounded-pill">
+      <span class="badge bg-info rounded-pill">
           {{this.grupo.suscripcion.periodicidad.tipo}}
   </span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Vencimiento</span>
-      <span class="badge bg-secondary rounded-pill">
-          {{this.grupo.suscripcion.fechaProximoCobro | date:'dd/MM/yyyy'}}
+      <span class="badge bg-info rounded-pill">
+          {{this.grupo.suscripcion.fechaProximoCobro | date:'dd-MM-yyyy'}}
     </span>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Pagado</span>
-      <span class="badge bg-secondary rounded-pill">
-         Si
+      <span class="badge bg-danger rounded-pill">
+         NO
     </span>
 
     </li>

@@ -36,7 +36,7 @@ export class TarjetaComponent implements OnInit {
   public mostrarDetalles() {
     const ventana = this.dialogService.open(TarjetaDetallesComponent, {
       header: 'Detalles',
-      width: '70%',
+      width: '30%',
       modal: true,
       data: {
         grupo: this.grupo
