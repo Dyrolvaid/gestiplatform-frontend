@@ -10,6 +10,7 @@ import {SharedModule} from "../shared/shared.module";
 import { TarjetaDetallesComponent } from './components/tarjeta-detalles/tarjeta-detalles.component';
 import { TarjetaPersonasComponent } from './components/tarjeta-personas/tarjeta-personas.component';
 import { TarjetaRecibosComponent } from './components/tarjeta-recibos/tarjeta-recibos.component';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -27,7 +28,8 @@ import { TarjetaRecibosComponent } from './components/tarjeta-recibos/tarjeta-re
     SuscripcionesRoutingModule,
     SharedModule,
     PrimengModule,
-    MomentModule
+    MomentModule,
+    FormsModule
   ]
 })
 export class SuscripcionesModule { }
