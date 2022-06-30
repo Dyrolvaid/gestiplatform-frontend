@@ -1,16 +1,18 @@
-<p-card header="{{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.nombre}}"
-        subheader="Precio {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.precio | currency:'EUR' }} anual"
+<p-card
+        *ngIf="this.grupo"
+        header="{{this.grupo.suscripcion.plataforma.nombre}}"
+        subheader="Precio {{this.grupo.suscripcion.precio | currency:'EUR' }} anual"
         [style]="{width: '17rem'}" >
   <ng-template pTemplate="header">
     <!--TODO: Enlazar el enlace de la imagen de la plataforma con desde la base de datos (previos cambios necesarios)-->
-    <img class="mx-auto d-block " alt="Card" [src]="this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.plataforma.logo"  [style]="{width: '10rem'}">
+    <img class="mx-auto d-block " alt="Card" [src]="this.grupo.suscripcion.plataforma.logo" [style]="{width: '10rem'}">
   </ng-template>
   <ng-template pTemplate="content">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         Periodicidad
         <span class="badge bg-secondary rounded-pill">
-          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.periodicidad.tipo}}
+          {{this.grupo.suscripcion.periodicidad.tipo}}
         </span>
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -21,8 +23,8 @@
       </li>
       <li class="list-group-item d-flex justify-content-between align-items-center">
         Vencimiento
-        <span class="badge bg-secondary rounded-pill">
-          {{this._suscripcionesService.suscripciones![indiceSuscripcion].suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}
+        <span class="badge bg-secondary rounded-pill" *ngIf="grupo">
+          {{this.grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}
         </span>
       </li>
     </ul>

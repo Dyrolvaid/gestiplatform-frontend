@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SuscripcionesService} from "../../services/suscripciones.service";
+import {GruposService} from "../../services/grupos.service";
 
 @Component({
   selector: 'app-barra-progreso',
@@ -7,6 +7,6 @@ import {SuscripcionesService} from "../../services/suscripciones.service";
   styleUrls: ['./barra-progreso.component.css'],
 })
 export class BarraProgresoComponent {
-  constructor(public _suscripcionesService: SuscripcionesService ) {
+  constructor(public _suscripcionesService: GruposService ) {
   }
 }

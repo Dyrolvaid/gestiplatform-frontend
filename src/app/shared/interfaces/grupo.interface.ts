@@ -1,6 +1,6 @@
 import {Persona} from "./persona.interface";
 
-export interface SuscripcionesPorPersona {
+export interface Grupo {
   id:          number;
   persona:     Persona;
   suscripcion: Suscripcion;

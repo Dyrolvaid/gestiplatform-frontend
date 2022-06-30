@@ -1,9 +1,9 @@
 <app-menu></app-menu>
 
-<app-barra-progreso></app-barra-progreso>
+<app-barra-progreso *ngIf="this.gruposService.estadoCargando"></app-barra-progreso>
 
 <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
-  <ng-container *ngFor="let suscripcion of this._suscripcionesService.suscripciones; let indiceSuscripcion = index">
-    <app-tarjeta class="m-2" [indiceSuscripcion]="indiceSuscripcion"></app-tarjeta>
+  <ng-container *ngFor="let grupo of this.gruposService.grupos">
+    <app-tarjeta class="m-2" [grupo]="grupo"></app-tarjeta>
   </ng-container>
 </div>

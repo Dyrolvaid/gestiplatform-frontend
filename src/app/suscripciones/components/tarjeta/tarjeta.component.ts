@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SuscripcionesService} from "../../../shared/services/suscripciones.service";
+import {GruposService} from "../../../shared/services/grupos.service";
 import localeES from '@angular/common/locales/es';
 import {registerLocaleData} from "@angular/common";
 import {DialogService} from "primeng/dynamicdialog";
 import {TarjetaDetallesComponent} from "../tarjeta-detalles/tarjeta-detalles.component";
 import {TarjetaPersonasComponent} from "../tarjeta-personas/tarjeta-personas.component";
 import {TarjetaRecibosComponent} from "../tarjeta-recibos/tarjeta-recibos.component";
+import {Grupo} from "../../../shared/interfaces/grupo.interface";
 
 @Component({
   selector: 'app-tarjeta',
@@ -20,15 +21,13 @@ import {TarjetaRecibosComponent} from "../tarjeta-recibos/tarjeta-recibos.compon
 })
 export class TarjetaComponent implements OnInit {
 
-  @Input() indiceSuscripcion: number;
+  @Input() grupo?: Grupo;
 
 
   constructor(
     public dialogService: DialogService,
-    public _suscripcionesService: SuscripcionesService
-  ) {
-    this.indiceSuscripcion = 0;
-  }
+    public gruposService: GruposService
+  ) {}
 
   ngOnInit(): void {
     registerLocaleData(localeES);
@@ -40,7 +39,7 @@ export class TarjetaComponent implements OnInit {
       width: '70%',
       modal: true,
       data: {
-        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+        grupo: this.grupo
       }
     });
   }
@@ -51,7 +50,7 @@ export class TarjetaComponent implements OnInit {
       width: '70%',
       modal: true,
       data: {
-        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+        grupo: this.grupo
       }
     });
   }
@@ -62,7 +61,7 @@ export class TarjetaComponent implements OnInit {
       width: '70%',
       modal: true,
       data: {
-        suscripcion: this._suscripcionesService.suscripciones![this.indiceSuscripcion]
+        grupo: this.grupo
       }
     });
   }

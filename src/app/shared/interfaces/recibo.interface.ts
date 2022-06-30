@@ -1,8 +1,8 @@
-import {SuscripcionesPorPersona} from "./suscripciones-por-persona.interface";
+import {Grupo} from "./grupo.interface";
 
 export interface Recibo {
   id:             number;
-  grupo:          SuscripcionesPorPersona;
+  grupo:          Grupo;
   fechaEmision:   string;
   fechaCobro:     string;
   vigenciaInicio: string;

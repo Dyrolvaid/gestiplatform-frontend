@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SuscripcionesService} from "../../../shared/services/suscripciones.service";
+import {GruposService} from "../../../shared/services/grupos.service";
 
 @Component({
   selector: 'app-home-suscripciones',
@@ -8,8 +8,8 @@ import {SuscripcionesService} from "../../../shared/services/suscripciones.servi
 })
 export class HomeSuscripcionesComponent implements OnInit {
 
-  constructor(public _suscripcionesService: SuscripcionesService) {
-    this._suscripcionesService.cargarConjuntoSuscripciones();
+  constructor(public gruposService: GruposService) {
+    this.gruposService.cargarConjuntoGrupos();
   }
 
   ngOnInit(): void {

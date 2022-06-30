@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
-import {Suscripcion} from "../../../shared/interfaces/suscripciones-por-persona.interface";
+import {Grupo} from "../../../shared/interfaces/grupo.interface";
 
 @Component({
   selector: 'app-tarjeta-detalles',
@@ -9,12 +9,12 @@ import {Suscripcion} from "../../../shared/interfaces/suscripciones-por-persona.
 })
 export class TarjetaDetallesComponent implements OnInit {
 
-  public suscripcion?: Suscripcion;
+  public grupo?: Grupo;
 
   constructor(private _dynamicDialogConfig: DynamicDialogConfig) {}
 
   ngOnInit(): void {
-    this.suscripcion = this._dynamicDialogConfig.data.suscripcion;
+    this.grupo = this._dynamicDialogConfig.data.grupo;
   }
 
 }

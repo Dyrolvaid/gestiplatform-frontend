@@ -1,3 +1,9 @@
-<p>tarjeta-detalles works!</p>
-<p>Indice {{this.suscripcion | json }}</p>
+<ng-container *ngIf="grupo"  >
 
+  <h3>{{grupo.suscripcion.plataforma.nombre}}</h3>
+  <h4>{{grupo.suscripcion.descripcion}}</h4>
+
+  <hr>
+  <code>Indice {{this.grupo | json }}</code>
+
+</ng-container>
