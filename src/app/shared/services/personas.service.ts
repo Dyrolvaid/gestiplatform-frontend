@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Persona} from "../interfaces/persona.interface";
 import {map, Observable, of, tap} from "rxjs";
+import {Grupo} from "../interfaces/grupo.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,15 @@ export class PersonasService {
 
   private _personaActiva?: Persona;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) {
+  }
 
   get personaActiva(): Persona {
     return {...this._personaActiva!};
   }
 
   public verificarAlmacenamiento(): Observable<boolean> {
-    if (!localStorage.getItem("token")){
+    if (!localStorage.getItem("token")) {
       return of(false);
     }
     const idPersonaActiva = localStorage.getItem("token");
@@ -47,8 +49,15 @@ export class PersonasService {
     localStorage.removeItem("token");
   }
 
-  public crearPersona(persona:Persona): Observable<Persona> {
+  public crearPersona(persona: Persona): Observable<Persona> {
     const url = `/api/v2/personas`;
     return this._http.post<Persona>(url, persona);
+  }
+
+  //export class PersonasService {
+  //constructor(private _http : HttpClient){}
+  public getPersonasByIdSuscripcion(id:number): Observable<Grupo[]> {
+    const url= `/api/v1/grupos/suscripcion/${id}/`;
+    return this._http.get<Grupo[]>(url);
   }
 }

@@ -12,6 +12,7 @@ import {DialogModule} from "primeng/dialog";
 import {ProgressBarModule} from "primeng/progressbar";
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {TableModule} from "primeng/table";
+import {KnobModule} from 'primeng/knob';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import {TableModule} from "primeng/table";
     RippleModule,
     ToastModule,
     TableModule,
+    KnobModule
   ]
 })
 export class PrimengModule { }
