@@ -54,8 +54,6 @@ export class PersonasService {
     return this._http.post<Persona>(url, persona);
   }
 
-  //export class PersonasService {
-  //constructor(private _http : HttpClient){}
   public getPersonasByIdSuscripcion(id:number): Observable<Grupo[]> {
     const url= `/api/v1/grupos/suscripcion/${id}/`;
     return this._http.get<Grupo[]>(url);
