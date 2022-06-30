@@ -1,9 +1,63 @@
-<ng-container *ngIf="grupo"  >
 
-  <h3>{{grupo.suscripcion.plataforma.nombre}}</h3>
-  <h4>{{grupo.suscripcion.descripcion}}</h4>
+<ng-container *ngIf="this.grupo">
+  <ul class="list-group">
 
-  <hr>
-  <code>Indice {{this.grupo | json }}</code>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Plataforma</span>
+      <span class="badge bg-secondary rounded-pill">
+         {{this.grupo.suscripcion.plataforma.nombre}}
+    </span>
+    </li>
 
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Límite perfiles</span>
+      <span class="badge bg-secondary rounded-pill">
+         {{this.grupo.suscripcion.plataforma.limitePerfiles}}
+    </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Límite reproducciones</span>
+      <span class="badge bg-secondary rounded-pill">
+          {{this.grupo.suscripcion.plataforma.limiteReproducciones}}
+    </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Fecha de alta</span>
+      <span class="badge bg-secondary rounded-pill">
+          {{this.grupo.suscripcion.fechaAlta | date:'dd/MM/yyyy'}}
+    </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Precio</span>
+      <span class="badge bg-secondary rounded-pill">
+         {{this.grupo.suscripcion.precio | currency:'EUR':true}}
+    </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Periodicidad</span>
+      <span class="badge bg-secondary rounded-pill">
+          {{this.grupo.suscripcion.periodicidad.tipo}}
+  </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Vencimiento</span>
+      <span class="badge bg-secondary rounded-pill">
+          {{this.grupo.suscripcion.fechaProximoCobro | date:'dd/MM/yyyy'}}
+    </span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>Pagado</span>
+      <span class="badge bg-secondary rounded-pill">
+         Si
+    </span>
+
+    </li>
+
+  </ul>
 </ng-container>
