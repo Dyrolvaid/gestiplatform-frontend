@@ -13,6 +13,7 @@ import {ProgressBarModule} from "primeng/progressbar";
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {TableModule} from "primeng/table";
 import {KnobModule} from 'primeng/knob';
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
   declarations: [],
@@ -30,7 +31,8 @@ import {KnobModule} from 'primeng/knob';
     RippleModule,
     ToastModule,
     TableModule,
-    KnobModule
+    KnobModule,
+    CheckboxModule
   ]
 })
 export class PrimengModule { }

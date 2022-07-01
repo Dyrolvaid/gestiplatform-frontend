@@ -44,7 +44,7 @@
               <td>{{rowIndex + 1}}</td>
               <td>{{grupo.suscripcion.fechaProximoCobro.toString()}} ({{grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
               <td>{{recibo.importe | currency:'EUR'}}</td>
-              <td>{{recibo.cobrado}}</td>
+              <td><p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true"></p-checkbox></td>
             </tr>
           </ng-container>
         </ng-template>
