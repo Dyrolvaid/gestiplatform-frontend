@@ -1,53 +1,55 @@
-<app-barra-progreso></app-barra-progreso>
-<ng-container *ngIf="listaRecibos && grupo && listaGrupos && listaGruposFiltrada">
+<app-barra-progreso *ngIf="estadoCargando"></app-barra-progreso>
+
+<ng-container *ngIf="grupo && listaRecibosByGrupo && listaRecibosBySuscripcionId && listaGrupos">
   <div class="card">
-      <h1>Recibos para: {{this.grupo.suscripcion.plataforma.nombre}}</h1>
-      <p>Más en concreto: {{this.grupo.suscripcion.descripcion}}</p>
-      <ng-container *ngFor="let grupoIterado of this.listaGruposFiltrada">
-        <p-table [value]="this.listaRecibosFiltrada"
-                 [sortField]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
-                 sortMode="single"
-                 [dataKey]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
-                 rowGroupMode="subheader"
-                 [groupRowsBy]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
-                 responsiveLayout="scroll">
-          <ng-template pTemplate="header">
+    <h1>Recibos para: {{this.grupo.suscripcion.plataforma.nombre}}</h1>
+    <h4>Más en concreto: {{this.grupo.suscripcion.descripcion}}</h4>
+    <ng-container *ngFor="let grupo of this.listaGrupos; index as grupoIndice">
+      <p-table [value]="listaRecibosBySuscripcionId"
+               [sortField]="grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+               sortMode="single"
+               [dataKey]="grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+               rowGroupMode="subheader"
+               [groupRowsBy]="grupo.persona.nombre"
+               responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nombre</th>
+            <th>Fecha de Próximo Cobro</th>
+            <th>Importe</th>
+            <th>Cobrado</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-rowIndex="rowIndex" let-expanded="expanded">
+          <tr>
+            <td colspan="4">
+              <button type="button"
+                      pButton pRipple [pRowToggler]="grupo"
+                      class="p-button-text p-button-rounded p-button-plain mr-2"
+                      [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+              </button>
+              <span class="font-bold ml-2">{{grupo.persona.nombre}}</span>
+            </td>
+          </tr>
+        </ng-template>
+<!--        <ng-template pTemplate="groupfooter">-->
+<!--          <tr class="p-rowgroup-footer">-->
+<!--            <td colspan="4" style="text-align: right">Total de Recibos</td>-->
+<!--            <td>{{(this.listaRecibosBySuscripcionId.length).toString()}}</td>-->
+<!--          </tr>-->
+<!--        </ng-template>-->
+        <ng-template pTemplate="rowexpansion" let-recibo let-rowIndex="rowIndex">
+          <ng-container *ngIf="recibo.grupo.suscripcion.id === grupo.suscripcion.id && recibo.grupo.persona.id === grupo.persona.id">
             <tr>
-              <th>Nombre</th>
-              <th>Fecha de Próximo Cobro</th>
-              <th>Importe</th>
-              <th>Cobrado</th>
+              <td>{{rowIndex + 1}}</td>
+              <td>{{grupo.suscripcion.fechaProximoCobro.toString()}} ({{grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
+              <td>{{recibo.importe | currency:'EUR'}}</td>
+              <td>{{recibo.cobrado}}</td>
             </tr>
-          </ng-template>
-          <ng-template pTemplate="groupheader" let-recibo let-rowIndex="rowIndex" let-expanded="expanded">
-            <tr>
-              <td colspan="4">
-                <button type="button"
-                        pButton pRipple [pRowToggler]="recibo"
-                        class="p-button-text p-button-rounded p-button-plain mr-2"
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
-                </button>
-                <span class="font-bold ml-2">{{grupoIterado.persona.nombre}}</span>
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="groupfooter">
-            <tr class="p-rowgroup-footer">
-              <td colspan="4" style="text-align: right">Total de Recibos</td>
-              <td>{{this.listaRecibosFiltrada.length.toString()}}</td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="rowexpansion" let-recibo let-rowIndex="rowIndex">
-            <tr>
-              <td></td>
-              <td>{{grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}</td>
-              <ng-container *ngIf="recibo.grupo.persona.id === this.listaRecibosFiltrada[rowIndex].grupo.persona.id">
-                <td>{{this.listaRecibosFiltrada[rowIndex].importe | currency:'EUR'}}</td>
-                <td>{{this.listaRecibosFiltrada[rowIndex].cobrado}}</td>
-              </ng-container>
-            </tr>
-          </ng-template>
-        </p-table>
+          </ng-container>
+        </ng-template>
+      </p-table>
     </ng-container>
+    <h4 style="text-align: center">Total de recibos: {{(this.listaRecibosBySuscripcionId.length).toString()}}</h4>
   </div>
 </ng-container>

@@ -3,7 +3,6 @@ import {RecibosService} from "../../../shared/services/recibos.service";
 import {Recibo} from "../../../shared/interfaces/recibo.interface";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {Grupo} from "../../../shared/interfaces/grupo.interface";
-import {Persona} from "../../../shared/interfaces/persona.interface";
 
 @Component({
   selector: 'app-tarjeta-recibos',
@@ -13,23 +12,26 @@ import {Persona} from "../../../shared/interfaces/persona.interface";
 export class TarjetaRecibosComponent implements OnInit {
 
   public estadoCargando: boolean;
-  // public recibo: Recibo;
-  public listaRecibos: Recibo[];
-  public listaRecibosFiltrada: Recibo[];
+  public listaRecibosByGrupo: Recibo[];
+  public listaRecibosBySuscripcionId: Recibo[];
+  // public listaRecibosFiltrada: Recibo[];
   public grupo: Grupo;
   public listaGrupos: Grupo[];
-  public listaGruposFiltrada: Grupo[];
+  public contadorPersonas: number;
+  // public listaGruposFiltrada: Grupo[];
   // public listaPersonas: Persona[];
 
   constructor(private _recibosService: RecibosService,
               private _dynamicDialogConfig: DynamicDialogConfig) {
     this.estadoCargando = false;
     // this.recibo = <Recibo>{};
-    this.listaRecibos = [];
-    this.listaRecibosFiltrada = [];
+    this.listaRecibosByGrupo = [];
+    this.listaRecibosBySuscripcionId = [];
+    // this.listaRecibosFiltrada = [];
     this.grupo = <Grupo>{};
     this.listaGrupos = [];
-    this.listaGruposFiltrada = [];
+    // this.listaGruposFiltrada = [];
+    this.contadorPersonas = 0;
     // this.listaPersonas = [];
   }
 
@@ -37,62 +39,105 @@ export class TarjetaRecibosComponent implements OnInit {
     this.grupo = this._dynamicDialogConfig.data.grupo;
     this.estadoCargando = true;
     this.consultaGetRecibosByGrupo();
-    this.consultaGetGrupoByPersona();
+    this.consultaGetRecibosBySuscripcionId();
+    // this.consultaGetGrupoByPersona();
+    this.consultaGetGruposBySuscripcionId();
+    this.contarPersonasByGrupo();
+  }
+
+  public contarPersonasByGrupo(): void {
+    for (let i = 0; i < this.listaRecibosBySuscripcionId.length; i++){
+      if (this.listaGrupos[i].persona.id === this.listaRecibosBySuscripcionId[i].grupo.persona.id) {
+        this.contadorPersonas = this.contadorPersonas + 1;
+      }
+    }
   }
 
   public consultaGetRecibosByGrupo(): void {
     if (this.grupo.id) {
       this._recibosService.getRecibosByGrupo(this.grupo.id).subscribe({
         next: (resp: Recibo[]) => {
-          console.log('Recibos:', resp);
+          console.log('RecibosByGrupo:', resp);
           this.estadoCargando = false;
-          this.listaRecibos = resp;
+          this.listaRecibosByGrupo = resp;
         },
         error: (error) => {
-          console.error('Recibos:', error);
+          console.error('RecibosByGrupo:', error);
           this.estadoCargando = false;
         }
     });
     }
   }
 
-  public consultaGetGrupoByPersona(): void {
+  public consultaGetRecibosBySuscripcionId(): void {
     if (this.grupo.id) {
-      this._recibosService.getGrupoByPersona().subscribe({
-        next: (resp: Grupo[]) => {
-          console.log('Grupos:', resp);
+      this._recibosService.getRecibosBySuscripcionId(this.grupo.suscripcion.id).subscribe({
+        next: (resp: Recibo[]) => {
+          console.log('RecibosBySuscripcionId recibidos:', resp);
           this.estadoCargando = false;
-          this.listaGrupos = resp;
-          this.filtrarDefinitivo();
+          this.listaRecibosBySuscripcionId = resp;
         },
         error: (error) => {
-          console.error('Grupos:', error);
+          console.error('RecibosBySuscripcionId erróneos:', error);
           this.estadoCargando = false;
         }
       });
     }
   }
 
-  public filtrarGruposBySuscripcion(grupo: Grupo, listaGrupos: Grupo[]): Grupo[] {
-    let listaGruposFiltrada: Grupo[] = [];
-    for (let i = 0; i < listaGrupos.length; i++) {
-      if (grupo.suscripcion.id === listaGrupos[i].suscripcion.id) {
-        listaGruposFiltrada.push(listaGrupos[i]);
-      }
+  public consultaGetGruposBySuscripcionId(): void {
+    if(this.grupo.suscripcion.id){
+      this._recibosService.getGruposBySuscripcionId(this.grupo.suscripcion.id).subscribe({
+        next: (resp: Grupo[]) => {
+          console.log('GruposBySuscripcionId recibidos:', resp);
+          this.estadoCargando = false;
+          this.listaGrupos = resp;
+        },
+        error: (error) => {
+          console.error('GruposBySuscripcionId erróneos:', error);
+          this.estadoCargando = false;
+        }
+      });
     }
-    console.log("filtro",listaGruposFiltrada);
-    return listaGruposFiltrada;
   }
 
-  public filtrarRecibosByPersona(listaRecibos: Recibo[], persona: Persona): Recibo[] {
-    let listaRecibosFiltrada: Recibo[] = [];
-    for (let i = 0; i < listaRecibos.length; i++) {
-      if (listaRecibos[i].grupo.persona.id === persona.id) {
-        listaRecibosFiltrada.push(listaRecibos[i]);
-      }
-    }
-    return listaRecibosFiltrada;
-  }
+  // public consultaGetGrupoByPersona(): void {
+  //   if (this.grupo.id) {
+  //     this._recibosService.getGrupoByPersona().subscribe({
+  //       next: (resp: Grupo[]) => {
+  //         console.log('Grupos:', resp);
+  //         this.estadoCargando = false;
+  //         this.listaGrupos = resp;
+  //         // this.filtrarDefinitivo();
+  //       },
+  //       error: (error) => {
+  //         console.error('Grupos:', error);
+  //         this.estadoCargando = false;
+  //       }
+  //     });
+  //   }
+  // }
+
+  // public filtrarGruposBySuscripcion(grupo: Grupo, listaGrupos: Grupo[]): Grupo[] {
+  //   let listaGruposFiltrada: Grupo[] = [];
+  //   for (let i = 0; i < listaGrupos.length; i++) {
+  //     if (grupo.suscripcion.id === listaGrupos[i].suscripcion.id) {
+  //       listaGruposFiltrada.push(listaGrupos[i]);
+  //     }
+  //   }
+  //   console.log("filtro",listaGruposFiltrada);
+  //   return listaGruposFiltrada;
+  // }
+
+  // public filtrarRecibosByPersona(listaRecibosByGrupo: Recibo[], persona: Persona): Recibo[] {
+  //   let listaRecibosFiltrada: Recibo[] = [];
+  //   for (let i = 0; i < listaRecibosByGrupo.length; i++) {
+  //     if (listaRecibosByGrupo[i].grupo.persona.id === persona.id) {
+  //       listaRecibosFiltrada.push(listaRecibosByGrupo[i]);
+  //     }
+  //   }
+  //   return listaRecibosFiltrada;
+  // }
 
   // public filtrarListaGruposByGrupoPersona(listaGrupos: Grupo[], grupo: Grupo): Persona[] {
   //   let listaPersonas: Persona[] = [];
@@ -104,14 +149,20 @@ export class TarjetaRecibosComponent implements OnInit {
   //   return listaPersonas;
   // }
 
-  public filtrarDefinitivo(): void {
-    this.listaGruposFiltrada = this.filtrarGruposBySuscripcion(this.grupo, this.listaGrupos);
-    let persona: Persona = <Persona>{};
-    for(let i = 0; i < this.listaGruposFiltrada.length; i++) {
-      if (this.listaGruposFiltrada[i].persona.id === this.grupo.persona.id){
-        persona = this.listaGruposFiltrada[i].persona;
-        this.listaRecibosFiltrada = this.filtrarRecibosByPersona(this.listaRecibos, persona);
-      }
-    }
-  }
+  // public recibirPersonaFromListaPersonas(listaPersonas: Persona[], indice: number): Persona {
+  //   return listaPersonas[indice];
+  // }
+
+  // public filtrarDefinitivo(): void {
+  //   this.listaGruposFiltrada = this.filtrarGruposBySuscripcion(this.grupo, this.listaGrupos);
+  //   let persona: Persona = <Persona>{};
+  //   for(let i = 0; i < this.listaGruposFiltrada.length; i++) {
+  //     if (this.listaGruposFiltrada[i].persona.id === this.grupo.persona.id){
+  //       persona = this.listaGruposFiltrada[i].persona;
+  //       this.listaRecibosFiltrada = this.filtrarRecibosByPersona(this.listaRecibosByGrupo, persona);
+  //     }
+  //   }
+  // }
+
+
 }

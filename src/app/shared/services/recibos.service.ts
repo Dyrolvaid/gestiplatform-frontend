@@ -20,4 +20,14 @@ export class RecibosService {
     const url = `/api/v1/grupos`;
     return this._http.get<Grupo[]>(url);
   }
+
+  public getRecibosBySuscripcionId(idSuscripcion: number): Observable<Recibo[]> {
+    const url = `/api/v1/recibos/suscripcion/${idSuscripcion}`;
+    return this._http.get<Recibo[]>(url);
+  }
+
+  public getGruposBySuscripcionId(idSuscripcion: number): Observable<Grupo[]> {
+    const url = `/api/v1/grupos/suscripcion/${idSuscripcion}`;
+    return this._http.get<Grupo[]>(url);
+  }
 }
