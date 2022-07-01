@@ -11,19 +11,20 @@
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Límite perfiles</span>
-      <span class="badge bg-info rounded-pill">
+      <!-- <span class="badge bg-info rounded-pill"
          {{this.grupo.suscripcion.plataforma.limitePerfiles}}
-    </span>
+    </span></
+    !-->
       <p-knob [(ngModel)]="this.grupo.suscripcion.plataforma.limitePerfiles" [min]="1" [max]="this.grupo.suscripcion.plataforma.limitePerfiles" [size]="50"></p-knob>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Límite reproducciones</span>
       <span class="badge bg-info rounded-pill">
-          {{this.grupo.suscripcion.plataforma.limiteReproducciones}}
+        <!--  {{this.grupo.suscripcion.plataforma.limiteReproducciones}}-->
     </span>
 
-        <p-knob [(ngModel)]="limiteReproduciones" [min]="1" [max]="this.grupo.suscripcion.plataforma.limiteReproducciones" [size]="50"></p-knob>
+        <p-knob [(ngModel)]="this.grupo.suscripcion.plataforma.limiteReproducciones" [min]="1" [max]="this.grupo.suscripcion.plataforma.limiteReproducciones" [size]="50"></p-knob>
 
     </li>
 
@@ -57,9 +58,8 @@
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>Pagado</span>
-      <span class="badge bg-danger rounded-pill">
-         NO
-    </span>
+      <span *ngIf="this.deuda" class="badge bg-danger rounded-pill">No</span>
+      <span *ngIf="!this.deuda" class="badge bg-success rounded-pill">Si</span>
 
     </li>
 
