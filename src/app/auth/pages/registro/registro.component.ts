@@ -54,6 +54,6 @@ export class RegistroComponent implements OnInit {
         console.error("crearPersona fracasó con el error: ", error);
       }
     });
-    this._router.navigate(['/home/suscripciones']);
+    this._router.navigate(['/auth/login']);
   }
-}
+
