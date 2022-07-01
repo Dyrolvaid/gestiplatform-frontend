@@ -1,9 +1,10 @@
+<app-barra-progreso></app-barra-progreso>
 <ng-container *ngIf="listaRecibos && grupo && listaGrupos && listaGruposFiltrada">
   <div class="card">
       <h1>Recibos para: {{this.grupo.suscripcion.plataforma.nombre}}</h1>
       <p>Más en concreto: {{this.grupo.suscripcion.descripcion}}</p>
       <ng-container *ngFor="let grupoIterado of this.listaGruposFiltrada">
-        <p-table [value]="this.listaRecibos"
+        <p-table [value]="this.listaRecibosFiltrada"
                  [sortField]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
                  sortMode="single"
                  [dataKey]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
@@ -33,15 +34,17 @@
           <ng-template pTemplate="groupfooter">
             <tr class="p-rowgroup-footer">
               <td colspan="4" style="text-align: right">Total de Recibos</td>
-              <td>{{this.listaRecibos.length.toString()}}</td>
+              <td>{{this.listaRecibosFiltrada.length.toString()}}</td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="rowexpansion" let-recibo>
+          <ng-template pTemplate="rowexpansion" let-recibo let-rowIndex="rowIndex">
             <tr>
               <td></td>
               <td>{{grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}</td>
-              <td>{{recibo.importe | currency:'EUR'}}</td>
-              <td>{{recibo.cobrado}}</td>
+              <ng-container *ngIf="recibo.grupo.persona.id === this.listaRecibosFiltrada[rowIndex].grupo.persona.id">
+                <td>{{this.listaRecibosFiltrada[rowIndex].importe | currency:'EUR'}}</td>
+                <td>{{this.listaRecibosFiltrada[rowIndex].cobrado}}</td>
+              </ng-container>
             </tr>
           </ng-template>
         </p-table>

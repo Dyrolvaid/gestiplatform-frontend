@@ -7,6 +7,6 @@ import {GruposService} from "../../services/grupos.service";
   styleUrls: ['./barra-progreso.component.css'],
 })
 export class BarraProgresoComponent {
-  constructor(public _suscripcionesService: GruposService ) {
+  constructor(public _suscripcionesService: GruposService) {
   }
 }

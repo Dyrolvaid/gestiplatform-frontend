@@ -1,6 +1,6 @@
 <app-menu></app-menu>
- *ngIf="this.gruposService.estadoCargando"
-<app-barra-progreso> *ngIf="this.gruposService.estadoCargando"</app-barra-progreso>
+
+<app-barra-progreso *ngIf="this.gruposService.estadoCargando"></app-barra-progreso>
 
 <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
   <ng-container *ngFor="let grupo of this.gruposService.grupos">
