@@ -31,3 +31,16 @@ footer {
   padding-top: 2rem !important;
   color: #ccc;
 }
+/* Tarjetas sobre nosotros */
+.card-box {
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: #17a2b8;
+  box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.1);
+  transition: 0.5s all ease;
+  margin-bottom: 60px;
+}
+.card-box:hover {
+  box-shadow: 0 0 50px -15px #4d43c6;
+}
