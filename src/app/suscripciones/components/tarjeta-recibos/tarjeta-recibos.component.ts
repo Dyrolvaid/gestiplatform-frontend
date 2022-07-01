@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DynamicDialogConfig} from "primeng/dynamicdialog";
-import {Recibo} from "../../../shared/interfaces/recibo.interface";
 import {RecibosService} from "../../../shared/services/recibos.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {GruposService} from "../../../shared/services/grupos.service";
+import {Recibo} from "../../../shared/interfaces/recibo.interface";
+import {DynamicDialogConfig} from "primeng/dynamicdialog";
+import {Grupo} from "../../../shared/interfaces/grupo.interface";
 
 @Component({
   selector: 'app-tarjeta-recibos',
@@ -11,38 +10,70 @@ import {GruposService} from "../../../shared/services/grupos.service";
   styleUrls: ['./tarjeta-recibos.component.css']
 })
 export class TarjetaRecibosComponent implements OnInit {
-  ngOnInit() {
-  }
 
-  /*
+  public listaRecibos: Recibo[];
+  public grupo: Grupo;
+  public estadoCargando: boolean;
+  public listaGrupos: Grupo[];
+  public listaGruposFiltrada: Grupo[];
 
-  public suscripcion?: Suscripcion;
-  public estadoCargandoRecibos: boolean;
-  public recibos?: Recibo[];
-
-  constructor(private _dynamicDialogConfig: DynamicDialogConfig,
-              private _recibosService: RecibosService,
-              private _suscripcionesService: GruposService) {
-    this.estadoCargandoRecibos = false;
+  constructor(private _recibosService: RecibosService,
+              private _dynamicDialogConfig: DynamicDialogConfig) {
+    this.listaRecibos = [];
+    this.grupo = <Grupo>{};
+    this.estadoCargando = false;
+    this.listaGrupos = [];
+    this.listaGruposFiltrada = [];
   }
 
   ngOnInit(): void {
-    this.suscripcion = this._suscripcionesService.grupos![this._dynamicDialogConfig.data.suscripcion.id - 1].suscripcion;
-    this.estadoCargandoRecibos = true;
-    this._recibosService.getRecibosPorSuscripcion(this.suscripcion!.id).subscribe({
-      next: (resp) => {
-        this.estadoCargandoRecibos = false;
-        //console.log(JSON.stringify(resp));
-        this.recibos = resp;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.estadoCargandoRecibos = false;
-        console.error(error);
-      }
-    });
+    this.grupo = this._dynamicDialogConfig.data.grupo;
+    this.estadoCargando = true;
+    this.consultaGetRecibosByGrupo();
+    this.consultaGetGrupoByPersona();
   }
 
+  public consultaGetRecibosByGrupo(): void {
+    if (this.grupo.id) {
+      this._recibosService.getRecibosByGrupo(this.grupo.id).subscribe({
+        next: (resp: Recibo[]) => {
+          console.log('Recibos:', resp);
+          this.estadoCargando = false;
+          this.listaRecibos = resp;
+        },
+        error: (error) => {
+          console.error('Recibos:', error);
+          this.estadoCargando = false;
+        }
+    });
+    }
+  }
 
+  public consultaGetGrupoByPersona(): void {
+    if (this.grupo.id) {
+      this._recibosService.getGrupoByPersona().subscribe({
+        next: (resp: Grupo[]) => {
+          console.log('Grupos:', resp);
+          this.estadoCargando = false;
+          this.listaGrupos = resp;
+          this.listaGruposFiltrada = this.filtrarGruposBySuscripcion(this.grupo, this.listaGrupos);
+        },
+        error: (error) => {
+          console.error('Grupos:', error);
+          this.estadoCargando = false;
+        }
+      });
+    }
+  }
 
-   */
+  public filtrarGruposBySuscripcion(grupo: Grupo, listaGrupos: Grupo[]): Grupo[] {
+    let listaGruposFiltrada = [];
+    for (let i = 0; i < listaGrupos.length; i++) {
+      if (grupo.suscripcion.id === listaGrupos[i].suscripcion.id) {
+        listaGruposFiltrada.push(listaGrupos[i]);
+      }
+    }
+    console.log("filtro",listaGruposFiltrada);
+    return listaGruposFiltrada;
+  }
 }
