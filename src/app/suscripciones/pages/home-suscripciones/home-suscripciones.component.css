@@ -6,7 +6,7 @@ footer {
 
   color: #ccc;
 }
-.rrss-icon {
+.footer-icon {
   font-size: 20px;
   color: #ccc;
 
@@ -16,9 +16,10 @@ footer {
 }
 .copy-link {
   color: #ccc;
+
 }
 
-.rrss-icon:hover,
+.footer-icon:hover,
 .copy-link:hover {
   color: #17a2b8;
   text-decoration: none;
