@@ -56,4 +56,4 @@ export class RegistroComponent implements OnInit {
     });
     this._router.navigate(['/auth/login']);
   }
-
+}
