@@ -10,7 +10,7 @@ import {Grupo} from "../../../shared/interfaces/grupo.interface";
 export class TarjetaDetallesComponent implements OnInit {
 
   public grupo?: Grupo;
- public limitePerfiles: number = 0;
+  public limitePerfiles: number = 0;
   public limiteReproduciones: number = 0;
 
   constructor(private _dynamicDialogConfig: DynamicDialogConfig) {
@@ -19,6 +19,7 @@ export class TarjetaDetallesComponent implements OnInit {
 
   ngOnInit(): void {
     this.grupo = this._dynamicDialogConfig.data.grupo;
+    this.limitePerfiles = this._dynamicDialogConfig.data.grupo.limitePerfiles;
     console.log (this.grupo);
   }
 

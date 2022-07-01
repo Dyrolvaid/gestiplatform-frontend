@@ -14,7 +14,7 @@
       <span class="badge bg-info rounded-pill">
          {{this.grupo.suscripcion.plataforma.limitePerfiles}}
     </span>
-      <p-knob [(ngModel)]="limitePerfiles" [min]="1" [max]="this.grupo.suscripcion.plataforma.limitePerfiles" [size]="50"></p-knob>
+      <p-knob [(ngModel)]="this.grupo.suscripcion.plataforma.limitePerfiles" [min]="1" [max]="this.grupo.suscripcion.plataforma.limitePerfiles" [size]="50"></p-knob>
     </li>
 
     <li class="list-group-item d-flex justify-content-between align-items-center">
