@@ -11,7 +11,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class TarjetaPersonasComponent implements OnInit {
 
-  public grupo?: Grupo;
+  public grupo: Grupo;
   public cargando : boolean = false;
   public gruposConPersonasPorSuscripcion: Grupo[];
 
@@ -21,8 +21,12 @@ export class TarjetaPersonasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.consultaGetPersonasByIdSuscripcion();
+  }
+
+  public consultaGetPersonasByIdSuscripcion(): void {
     this.cargando = true;
-    this._personasService.getPersonasByIdSuscripcion(this.grupo!.suscripcion.id).subscribe(
+    this._personasService.getPersonasByIdSuscripcion(this.grupo.suscripcion.id).subscribe(
       {
         next: (resp) => {
           this.cargando = false;
