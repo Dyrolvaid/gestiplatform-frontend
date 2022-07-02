@@ -57,7 +57,6 @@ export class TarjetaComponent implements OnInit {
 
   public mostrarRecibos(){
     const ventana = this.dialogService.open(TarjetaRecibosComponent, {
-      header: 'Recibos',
       width: '70%',
       modal: true,
       data: {
