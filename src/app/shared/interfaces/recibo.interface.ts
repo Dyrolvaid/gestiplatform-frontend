@@ -9,4 +9,5 @@ export interface Recibo {
   vigenciaFin:    string;
   cobrado:        boolean;
   importe:        number;
+  reciboActivo:   boolean;
 }
