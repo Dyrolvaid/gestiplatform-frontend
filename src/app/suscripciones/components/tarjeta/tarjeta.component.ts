@@ -7,12 +7,16 @@ import {TarjetaDetallesComponent} from "../tarjeta-detalles/tarjeta-detalles.com
 import {TarjetaPersonasComponent} from "../tarjeta-personas/tarjeta-personas.component";
 import {TarjetaRecibosComponent} from "../tarjeta-recibos/tarjeta-recibos.component";
 import {Grupo} from "../../../shared/interfaces/grupo.interface";
+import {MenuItem, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-tarjeta',
   templateUrl: './tarjeta.component.html',
   styleUrls: ['./tarjeta.component.css'],
-  providers: [DialogService],
+  providers: [
+    DialogService,
+    MessageService
+  ],
   entryComponents: [
     TarjetaDetallesComponent,
     TarjetaPersonasComponent,
@@ -22,15 +26,33 @@ import {Grupo} from "../../../shared/interfaces/grupo.interface";
 export class TarjetaComponent implements OnInit {
 
   @Input() grupo?: Grupo;
+  public items: MenuItem[];
 
 
   constructor(
     public dialogService: DialogService,
-    public gruposService: GruposService
-  ) {}
+    public gruposService: GruposService,
+    private _messageService: MessageService
+  ) {
+    this.items = [];
+  }
 
   ngOnInit(): void {
     registerLocaleData(localeES);
+    this.items = [
+      {
+        icon: 'pi pi-money-bill',
+        command: (event) => {this.mostrarRecibos();}
+      },
+      {
+        icon: 'pi pi-user-edit',
+        command: (event) => {this.mostrarPersonas();}
+      },
+      {
+        icon: 'pi pi-eye',
+        command: (event) => {this.mostrarDetalles();}
+      }
+    ];
   }
 
   public mostrarDetalles() {

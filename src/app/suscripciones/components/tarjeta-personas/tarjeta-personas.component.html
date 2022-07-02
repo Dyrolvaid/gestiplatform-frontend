@@ -1,6 +1,6 @@
+<app-barra-progreso *ngIf="this.cargando"></app-barra-progreso>
 <div class="card fondo-variado rounded">
   <!--<ng-container>-->
-  <app-barra-progreso *ngIf="this.cargando"></app-barra-progreso>
   <!--  <ul class="list-group" *ngFor="let grupo of gruposConPersonasPorSuscripcion; index as indiceDeGrupo" >-->
   <!--    <li class="list-group-item">{{indiceDeGrupo+1}}.   {{grupo.persona.nombre}}</li>-->
   <!--  </ul>-->
@@ -16,7 +16,7 @@
         [style]="{width: '17rem', height: '26rem'}" class="m-2">
         <ng-template pTemplate="header">
           <div class="contenedor-imagen">
-            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src="https://picsum.photos/200/300?random={{indiceGrupo}}">
+            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src="https://picsum.photos/300/200?random={{indiceGrupo}}">
           </div>
         </ng-template>
         <ng-template pTemplate="content">

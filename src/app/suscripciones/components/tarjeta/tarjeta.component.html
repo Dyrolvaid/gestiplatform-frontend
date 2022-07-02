@@ -2,7 +2,7 @@
         *ngIf="this.grupo"
         header="{{this.grupo.suscripcion.plataforma.nombre}}"
         subheader="Precio {{this.grupo.suscripcion.precio * 12 | currency:'EUR' }} anual"
-        [style]="{width: '17rem', height: '35rem'}">
+        [style]="{width: '17rem', height: '33rem'}">
   <ng-template pTemplate="header">
     <div class="contenedor-imagen">
       <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" [src]="this.grupo.suscripcion.plataforma.logo">
@@ -31,9 +31,10 @@
     </ul>
   </ng-template>
   <ng-template pTemplate="footer">
-      <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-pencil" (click)="mostrarDetalles()" ></p-button>
-      <p-button styleClass="p-button-sm" label="Personas" icon="pi pi-users" (click)="mostrarPersonas()" ></p-button>
-      <p-button styleClass="p-button-sm" label="Recibos" icon="pi pi-euro" (click)="mostrarRecibos()" ></p-button>
+<!--      <p-button styleClass="p-button-sm" label="Editar" icon="pi pi-pencil" (click)="mostrarDetalles()" ></p-button>-->
+<!--      <p-button styleClass="p-button-sm" label="Personas" icon="pi pi-users" (click)="mostrarPersonas()" ></p-button>-->
+<!--      <p-button styleClass="p-button-sm" label="Recibos" icon="pi pi-euro" (click)="mostrarRecibos()" ></p-button>-->
+    <p-speedDial [model]="items" direction="left"></p-speedDial>
   </ng-template>
 </p-card>
 

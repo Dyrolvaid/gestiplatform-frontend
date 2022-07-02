@@ -15,6 +15,7 @@ import {TableModule} from "primeng/table";
 import {KnobModule} from 'primeng/knob';
 import {CheckboxModule} from "primeng/checkbox";
 import {TabViewModule} from "primeng/tabview";
+import {SpeedDialModule} from "primeng/speeddial";
 
 @NgModule({
   declarations: [],
@@ -34,7 +35,8 @@ import {TabViewModule} from "primeng/tabview";
     TableModule,
     KnobModule,
     CheckboxModule,
-    TabViewModule
+    TabViewModule,
+    SpeedDialModule
   ]
 })
 export class PrimengModule { }
