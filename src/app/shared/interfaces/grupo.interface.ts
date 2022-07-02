@@ -4,6 +4,7 @@ export interface Grupo {
   id:          number;
   persona:     Persona;
   suscripcion: Suscripcion;
+  grupoActivo: boolean;
 }
 
 export interface Suscripcion {
@@ -17,6 +18,7 @@ export interface Suscripcion {
   precio:             number;
   credencialesCorreo: string;
   credencialesClave:  string;
+  suscripcionActiva: boolean;
 }
 
 export interface FormaDePago {
