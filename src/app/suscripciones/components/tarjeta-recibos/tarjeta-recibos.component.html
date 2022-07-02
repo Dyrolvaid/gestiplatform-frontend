@@ -42,7 +42,7 @@
           <ng-container *ngIf="recibo.grupo.suscripcion.id === grupo.suscripcion.id && recibo.grupo.persona.id === grupo.persona.id">
             <tr>
               <td>{{rowIndex + 1}}</td>
-              <td>{{grupo.suscripcion.fechaProximoCobro.toString()}} ({{grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
+              <td>{{recibo.fechaCobro.toString()}} ({{recibo.fechaCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
               <td>{{recibo.importe | currency:'EUR'}}</td>
               <td><p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true"></p-checkbox></td>
             </tr>
