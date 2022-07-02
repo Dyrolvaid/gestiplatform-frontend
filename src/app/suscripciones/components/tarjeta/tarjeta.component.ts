@@ -46,8 +46,8 @@ export class TarjetaComponent implements OnInit {
 
   public mostrarPersonas() {
     const ventana = this.dialogService.open(TarjetaPersonasComponent, {
-      header: 'Personas',
-      width: '70%',
+      header: 'Suscriptores',
+      width: '20%',
       modal: true,
       data: {
         grupo: this.grupo

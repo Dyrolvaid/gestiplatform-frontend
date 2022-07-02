@@ -14,6 +14,7 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {TableModule} from "primeng/table";
 import {KnobModule} from 'primeng/knob';
 import {CheckboxModule} from "primeng/checkbox";
+import {TabViewModule} from "primeng/tabview";
 
 @NgModule({
   declarations: [],
@@ -32,7 +33,8 @@ import {CheckboxModule} from "primeng/checkbox";
     ToastModule,
     TableModule,
     KnobModule,
-    CheckboxModule
+    CheckboxModule,
+    TabViewModule
   ]
 })
 export class PrimengModule { }

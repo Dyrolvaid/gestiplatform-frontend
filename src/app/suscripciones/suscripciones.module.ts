@@ -11,6 +11,7 @@ import { TarjetaDetallesComponent } from './components/tarjeta-detalles/tarjeta-
 import { TarjetaPersonasComponent } from './components/tarjeta-personas/tarjeta-personas.component';
 import { TarjetaRecibosComponent } from './components/tarjeta-recibos/tarjeta-recibos.component';
 import {FormsModule} from "@angular/forms";
+import {TabViewModule} from "primeng/tabview";
 
 
 
@@ -29,7 +30,8 @@ import {FormsModule} from "@angular/forms";
     SharedModule,
     PrimengModule,
     MomentModule,
-    FormsModule
+    FormsModule,
+    TabViewModule
   ]
 })
 export class SuscripcionesModule { }
