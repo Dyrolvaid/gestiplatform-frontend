@@ -1,6 +1,12 @@
 .logo {
   width:8rem;
 }
+/* Movil */
+.movil{
+  width: 18rem;
+}
+
+
 
 footer {
 
@@ -28,9 +34,11 @@ footer {
 .bg-footer{
 
   background: #4d43c6;
-  padding-top: 2rem !important;
+  padding-top: 0.5rem !important;
   color: #ccc;
 }
+/* Sobre Nosotros  */
+
 /* Tarjetas sobre nosotros */
 .card-box {
   border-radius: 5px;
@@ -42,5 +50,6 @@ footer {
   margin-bottom: 60px;
 }
 .card-box:hover {
-  box-shadow: 0 0 50px -15px #4d43c6;
+  transition: 0.5s all ease;
+  box-shadow: 37px 45px 54px -7px rgba(0,0,0,0.43);
 }
