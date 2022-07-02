@@ -1,0 +1,15 @@
+.contenedor-imagen {
+  position:relative;
+  padding-bottom:56.25%;
+}
+
+.mantener-proporcion-imagen {
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;top:0;
+}
+
+.acolchar-imagen {
+  padding: 0.5rem;
+}
