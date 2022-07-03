@@ -16,6 +16,10 @@ import {KnobModule} from 'primeng/knob';
 import {CheckboxModule} from "primeng/checkbox";
 import {TabViewModule} from "primeng/tabview";
 import {SpeedDialModule} from "primeng/speeddial";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {DropdownModule} from "primeng/dropdown";
+
+
 
 @NgModule({
   declarations: [],
@@ -36,7 +40,11 @@ import {SpeedDialModule} from "primeng/speeddial";
     KnobModule,
     CheckboxModule,
     TabViewModule,
-    SpeedDialModule
+    SpeedDialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule
+
   ]
 })
 export class PrimengModule { }
