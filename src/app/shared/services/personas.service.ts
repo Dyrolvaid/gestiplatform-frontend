@@ -58,4 +58,14 @@ export class PersonasService {
     const url= `/api/v1/grupos/suscripcion/${id}/`;
     return this._http.get<Grupo[]>(url);
   }
+
+  public getPersonaByCorreo(correo: string): Observable<Persona> {
+    const url = `/api/v1/personas/correo/${correo}`;
+    return this._http.get<Persona>(url);
+  }
+
+  public getAllPersonas() {
+    const url = `/api/v1/personas`;
+    return this._http.get<Persona[]>(url);
+  }
 }

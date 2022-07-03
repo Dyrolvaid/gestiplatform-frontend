@@ -18,8 +18,7 @@ import {TabViewModule} from "primeng/tabview";
 import {SpeedDialModule} from "primeng/speeddial";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
-
-
+import {AutoCompleteModule} from "primeng/autocomplete";
 
 @NgModule({
   declarations: [],
@@ -43,8 +42,8 @@ import {DropdownModule} from "primeng/dropdown";
     SpeedDialModule,
     FormsModule,
     ReactiveFormsModule,
-    DropdownModule
-
+    DropdownModule,
+    AutoCompleteModule
   ]
 })
 export class PrimengModule { }
