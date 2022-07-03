@@ -1,9 +1,7 @@
 .titulo{
 
 }
-.pepe{
-  margin-top: 5rem;
-}
+
 .logo {
   width:8rem;
 }
@@ -11,25 +9,26 @@
 .movil{
   width: 18rem;
   margin-left: 8rem;
-;
+
 }
 
 /* leyendaGaleria */
 
 .tituloGaleria{
-  padding: 2rem;
+  padding: 3rem;
 }
 .leyendaGaleria{
-  padding-left: 2rem;
+  padding-left: 3rem;
   text-justify: auto;
 }
 .titulodescarga{
-   padding: 2rem;
+   padding: 3rem;
  }
 .leyendadescarga{
-  padding-left: 2rem;
+  padding-left: 3rem;
   text-justify: auto;
 }
+
 
 footer {
 

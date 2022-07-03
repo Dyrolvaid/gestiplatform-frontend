@@ -19,15 +19,17 @@
       <h3 >Estas a un sólo click de añadir una nueva suscripción</h3>
       <p-button class="mb-3" label="Nueva Suscripción" (onClick)="this.abrirNuevaSuscripcion()"></p-button>
     </div>
-    <code>{{ this._personaActiva | json }}</code>
+
+   <!-- <code>{{ this._personaActiva | json }}</code> -->
+
     <!-- fin añadir suscripcion-->
 
     <!-- Galería -->
-
-      <div class="row">
-        <div class="col">
-          <div  id="carouselExampleControls" class="carousel slide " data-bs-ride="carousel ">
-      <div class="col-md-5 d-none d-md-block carousel-inner">
+    <div class="galeriadescarga">
+     <div class="row">
+        <div class="col-12 col-md-6">
+          <div  id="carouse lExampleControls" class="carousel slide " data-bs-ride="carousel ">
+      <div class=" carousel-inner">
         <div class="carousel-item active">
           <img src="assets/img/plataformasImg/movistar.png" class="d-block w-100" alt="...">
         </div>
@@ -58,7 +60,7 @@
         </button>
       </div>
         </div>
-        <div class="col ">
+        <div class="col-12 col-md-4">
           <h3 class="tituloGaleria">Plataformas Recomendadas </h3>
           <p class="leyendaGaleria">Estas son las plataformas recomendadas, en caso de que necesite una plataforma que no se encuentre entre nuestras plataformas preferidas no dude en contactar con nosotros indicandonos la plataforma a añadir.</p>
         </div>
@@ -68,23 +70,24 @@
 
     <!--Descargar aplicación-->
     <div class="row mt-5">
-      <div class="col">
-        <div class="col-md-5 mt-5 d-none d-md-block movil-box">
-          <img class="movil " src="assets/img/telefono-movil.png" alt="Foto un teléfono" >
+      <div class="col-12 col-md-4">
+        <div class="col"></div>
+        <div class=" col-md-5 mt-5 d-none d-md-block movil-box">
+          <img class="movil  " src="assets/img/telefono-movil.png" alt="Foto un teléfono" >
         </div>
       </div>
-      <div class="col mt-5">
-
+      <div class="col-2"></div>
+      <div class="col-12 col-md-4 ">
         <h3 class="titulodescarga">Lorem ipsum dolor sit amet</h3>
-        <p class="leyendadescarga me-3">Lorem ipsum dolor sit amet
+        <p class="leyendadescarga ">Lorem ipsum dolor sit amet
           consectetur adipisicing elit. Ipsa, illum a molestiasdsfsdfsdfsdfsdfsdfdsfdsfdsfds
           ipsum ea nobis nostrum beatae odit iure quas officiis. Eos laudantium esse eligendi!</p>
         <button class="btn btn-info ms-4 mt-3">Descargar</button>
-
       </div>
+
     </div>
     <!--Fin descargar aplicación -->
-
+  </div>
     <!--Sobre nosotros -->
     <div class="row fondoAzul">
       <div class="col-12">
@@ -102,6 +105,7 @@
 
     <!--Tarjeta Miembros -->'
     <div class="row mb-5">
+
     <div class="col-12 col-md-4">
       <div class="card card-box">
         <img src="#" class="card-img-top" alt="card-img-top">
@@ -147,8 +151,6 @@
       <!--Fin Tarjeta Miembros -->
   </div>
 
-
-
     <!-- Footer-->
     <div class="bg-footer">
     <div class="row mt-5" >
@@ -157,7 +159,7 @@
           <!-- selección formulario -->
           <section class="subscribe-area" id="contacto">
             <form action="">
-              <!--Grid row-->
+              <!--Rejilla row-->
               <div class="row d-flex justify-content-center">
                 <!--Rejilla columna-->
                 <div class="col-auto">
@@ -175,7 +177,7 @@
                 </div>
                 <!--Rejilla columna-->
                 <div class="col-auto">
-                  <!-- Submit button -->
+                  <!-- Submit boton -->
                   <button type="submit" class="btn btn-outline-light mb-4">
                     Suscríbete
                   </button>
