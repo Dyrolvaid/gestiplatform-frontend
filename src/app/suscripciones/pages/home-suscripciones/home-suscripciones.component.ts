@@ -22,13 +22,14 @@ export class HomeSuscripcionesComponent implements OnInit {
   })
 
   dropPlataformas=[
-    {label: 'Netflix', value:1},
-    {label: 'HBO', value:2},
-    {label: 'Disney+', value:3},
-    {label: 'Spotify', value:4},
-    {label: 'Movistar', value:5},
-    {label: 'Fubo Tv', value:6},
-    {label: 'Prime Video', value:7}
+    {label: '-- selecciona la plataforma --', value:1},
+    {label: 'Netflix', value:2},
+    {label: 'HBO', value:3},
+    {label: 'Disney+', value:4},
+    {label: 'Spotify', value:5},
+    {label: 'Movistar', value:6},
+    {label: 'Fubo Tv', value:7},
+    {label: 'Prime Video', value:8}
 
 
   ]

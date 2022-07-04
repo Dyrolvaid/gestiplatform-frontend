@@ -194,7 +194,7 @@
                 <!--Rejilla columna-->
                 <div class="col-auto">
                   <p class="pt-2">
-                    <strong>Suscríbete para más información</strong>
+                    <strong>Contactar</strong>
                   </p>
                 </div>
                 <!--Rejilla columna-->
@@ -202,14 +202,14 @@
                   <!-- Email  -->
                   <div class="form-outline form-white mb-1">
                     <input type="email" id="form5Example29" class="form-control" />
-                    <label class="form-label" for="form5Example29">Email </label>
+                    <label class="form-label" for="form5Example29"></label>
                   </div>
                 </div>
                 <!--Rejilla columna-->
                 <div class="col-auto">
                   <!-- Submit boton -->
                   <button type="submit" class="btn btn-outline-light mb-4">
-                    Suscríbete
+                    Enviar
                   </button>
                 </div>
                 <!--Rejilla columna-->
@@ -223,8 +223,7 @@
             <a href="#" class="footer-icon m-3"><i class="bi bi-linkedin"></i></a>
             <a href="#" class="footer-icon m-3"><i class="bi bi-instagram"></i></a>
             <a href="#" class="footer-icon m-3"><i class="bi bi-github"></i></a>
-
-
+            <!-- Copyright -->
           </div>
           <p class="copy">
             Copyright &copy; 2022
@@ -243,7 +242,7 @@
        <form [formGroup]="formSuscripcion" (ngSubmit)="formularioSuscripcionEnviada()">
         <div class="p-fluid p-formgrid grid">
           <div class="field col-12 md:col-4">
-            <label htmlFor="plataforma">plataforma</label>
+            <label class="fw-bold" htmlFor="plataforma">Plataforma</label>
            <p-dropdown [options]="dropPlataformas" forControlName="plataforma"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
