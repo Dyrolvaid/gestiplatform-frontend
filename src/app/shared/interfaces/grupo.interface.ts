@@ -5,6 +5,7 @@ export interface Grupo {
   persona:     Persona;
   suscripcion: Suscripcion;
   grupoActivo: boolean;
+  admin:    boolean;
 }
 
 export interface Suscripcion {

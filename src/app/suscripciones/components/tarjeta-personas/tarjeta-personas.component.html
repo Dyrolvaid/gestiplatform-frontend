@@ -1,38 +1,22 @@
 <!--<ng-container>-->
-<!--  <ul class="list-group" *ngFor="let grupo of gruposConPersonasPorSuscripcion; index as indiceDeGrupo" >-->
-<!--    <li class="list-group-item">{{indiceDeGrupo+1}}.   {{grupo.persona.nombre}}</li>-->
+<!--  <ul class="list-group" *ngFor="let grupoIterado of gruposConPersonasPorSuscripcion; index as indiceDeGrupo" >-->
+<!--    <li class="list-group-item">{{indiceDeGrupo+1}}.   {{grupoIterado.persona.nombre}}</li>-->
 <!--  </ul>-->
 <!--</ng-container>-->
 <app-barra-progreso *ngIf="this.cargando"></app-barra-progreso>
 <div class="card fondo-variado rounded">
-  <h1>Personas para: {{this.grupo.suscripcion.plataforma.nombre}}</h1>
-  <h4>Más en concreto: {{this.grupo.suscripcion.descripcion}}</h4>
+  <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
+  <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
   <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
-    <p-card
-      *ngIf="this.grupo"
-      [header]="this.persona.nombre? this.persona.nombre : 'Nueva Persona'"
-      [style]="{width: '17rem', height: '26rem'}" class="m-2">
-      <ng-template pTemplate="header">
-        <div class="contenedor-imagen">
-          <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Nueva Persona" src="https://picsum.photos/300/200?random=0">
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <p-autoComplete [(ngModel)]="this.correo" [showEmptyMessage]="true" [suggestions]="this.listaCorreos" (completeMethod)="filtrarListaCorreos()"></p-autoComplete>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <p-button styleClass="p-button-sm" label="Añadir" icon="pi pi-plus"></p-button>
-      </ng-template>
-    </p-card>
-    <ng-container *ngFor="let grupo of this.gruposConPersonasPorSuscripcion; index as indiceGrupo">
+    <ng-container *ngFor="let grupoIterado of this.gruposConPersonasPorSuscripcion; index as indiceGrupo">
       <p-card
         *ngIf="this.grupo"
-        header="{{this.grupo.persona.nombre}}"
+        header="{{grupoIterado.persona.nombre}}"
         subheader="Persona: {{indiceGrupo + 1}}"
         [style]="{width: '17rem', height: '26rem'}" class="m-2">
         <ng-template pTemplate="header">
           <div class="contenedor-imagen">
-            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src="https://picsum.photos/300/200?random={{indiceGrupo + 1}}">
+            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src='https://avatars.dicebear.com/api/avataaars/{{this.grupoIterado.persona.nombre.toString()}}.svg'>
           </div>
         </ng-template>
         <ng-template pTemplate="content">
@@ -51,11 +35,29 @@
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Rol
-              <span class="badge bg-secondary rounded-pill" *ngIf="grupo">
-              {{this.grupo.persona.admin? 'Administrador': 'Miembro'}}
+              <span class="badge bg-secondary rounded-pill">
+              {{grupoIterado.admin? 'Administrador': 'Miembro'}}
               </span>
             </li>
           </ul>
+        </ng-template>
+      </p-card>
+    </ng-container>
+    <ng-container *ngIf="this.grupo.admin">
+      <p-card
+        *ngIf="this.grupo"
+        [header]="this.persona.nombre? this.persona.nombre : 'Nueva Persona'"
+        [style]="{width: '17rem', height: '26rem'}" class="m-2">
+        <ng-template pTemplate="header">
+          <div class="contenedor-imagen">
+            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Nueva Persona" src='https://avatars.dicebear.com/api/avataaars/0.svg'>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <p-autoComplete [(ngModel)]="this.correo" [showEmptyMessage]="true" [suggestions]="this.listaCorreos" (completeMethod)="filtrarListaCorreos()"></p-autoComplete>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <p-button styleClass="p-button-sm" label="Añadir" icon="pi pi-plus"></p-button>
         </ng-template>
       </p-card>
     </ng-container>

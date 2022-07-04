@@ -102,7 +102,7 @@ export class TarjetaRecibosComponent implements OnInit {
   }
 
   // public consultaGetGrupoByPersona(): void {
-  //   if (this.grupo.id) {
+  //   if (this.grupoIterado.id) {
   //     this._recibosService.getGrupoByPersona().subscribe({
   //       next: (resp: Grupo[]) => {
   //         console.log('Grupos:', resp);
@@ -118,10 +118,10 @@ export class TarjetaRecibosComponent implements OnInit {
   //   }
   // }
 
-  // public filtrarGruposBySuscripcion(grupo: Grupo, listaGrupos: Grupo[]): Grupo[] {
+  // public filtrarGruposBySuscripcion(grupoIterado: Grupo, listaGrupos: Grupo[]): Grupo[] {
   //   let listaGruposFiltrada: Grupo[] = [];
   //   for (let i = 0; i < listaGrupos.length; i++) {
-  //     if (grupo.suscripcion.id === listaGrupos[i].suscripcion.id) {
+  //     if (grupoIterado.suscripcion.id === listaGrupos[i].suscripcion.id) {
   //       listaGruposFiltrada.push(listaGrupos[i]);
   //     }
   //   }
@@ -132,17 +132,17 @@ export class TarjetaRecibosComponent implements OnInit {
   // public filtrarRecibosByPersona(listaRecibosByGrupo: Recibo[], persona: Persona): Recibo[] {
   //   let listaRecibosFiltrada: Recibo[] = [];
   //   for (let i = 0; i < listaRecibosByGrupo.length; i++) {
-  //     if (listaRecibosByGrupo[i].grupo.persona.id === persona.id) {
+  //     if (listaRecibosByGrupo[i].grupoIterado.persona.id === persona.id) {
   //       listaRecibosFiltrada.push(listaRecibosByGrupo[i]);
   //     }
   //   }
   //   return listaRecibosFiltrada;
   // }
 
-  // public filtrarListaGruposByGrupoPersona(listaGrupos: Grupo[], grupo: Grupo): Persona[] {
+  // public filtrarListaGruposByGrupoPersona(listaGrupos: Grupo[], grupoIterado: Grupo): Persona[] {
   //   let listaPersonas: Persona[] = [];
   //   for (let i = 0; i < listaGrupos.length; i++) {
-  //     if (listaGrupos[i].persona.id === grupo.persona.id) {
+  //     if (listaGrupos[i].persona.id === grupoIterado.persona.id) {
   //       listaPersonas.push(listaGrupos[i].persona);
   //     }
   //   }
@@ -154,10 +154,10 @@ export class TarjetaRecibosComponent implements OnInit {
   // }
 
   // public filtrarDefinitivo(): void {
-  //   this.listaGruposFiltrada = this.filtrarGruposBySuscripcion(this.grupo, this.listaGrupos);
+  //   this.listaGruposFiltrada = this.filtrarGruposBySuscripcion(this.grupoIterado, this.listaGrupos);
   //   let persona: Persona = <Persona>{};
   //   for(let i = 0; i < this.listaGruposFiltrada.length; i++) {
-  //     if (this.listaGruposFiltrada[i].persona.id === this.grupo.persona.id){
+  //     if (this.listaGruposFiltrada[i].persona.id === this.grupoIterado.persona.id){
   //       persona = this.listaGruposFiltrada[i].persona;
   //       this.listaRecibosFiltrada = this.filtrarRecibosByPersona(this.listaRecibosByGrupo, persona);
   //     }

@@ -4,5 +4,4 @@ export interface Persona {
   nombre:   string;
   clave:    string;
   telefono: string;
-  admin:    boolean;
 }

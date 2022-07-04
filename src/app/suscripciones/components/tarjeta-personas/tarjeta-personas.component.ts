@@ -51,8 +51,8 @@ export class TarjetaPersonasComponent implements OnInit {
           this.cargando = false;
           console.log('Respuesta listaPersonas:', resp);
           this.gruposConPersonasPorSuscripcion = resp;
-          // for (let grupo of this.gruposConPersonasPorSuscripcion) {
-          //   this.listaPersonas.push(grupo.persona);
+          // for (let grupoIterado of this.gruposConPersonasPorSuscripcion) {
+          //   this.listaPersonas.push(grupoIterado.persona);
           // }
         },
         error: (error : HttpErrorResponse) => {
