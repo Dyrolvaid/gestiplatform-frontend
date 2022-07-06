@@ -19,6 +19,8 @@ import {SpeedDialModule} from "primeng/speeddial";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {AutoCompleteModule} from "primeng/autocomplete";
+import {ScrollTopModule} from 'primeng/scrolltop';
+
 
 @NgModule({
   declarations: [],
@@ -43,7 +45,9 @@ import {AutoCompleteModule} from "primeng/autocomplete";
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ScrollTopModule,
+
   ]
 })
 export class PrimengModule { }
