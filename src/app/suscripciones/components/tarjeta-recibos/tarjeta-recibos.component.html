@@ -2,8 +2,8 @@
 
 <ng-container *ngIf="grupo && listaRecibosByGrupo && listaRecibosBySuscripcionId && listaGrupos">
   <div class="card">
-    <h1>Recibos para: {{this.grupo.suscripcion.plataforma.nombre}}</h1>
-    <h4>Más en concreto: {{this.grupo.suscripcion.descripcion}}</h4>
+    <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
+    <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
     <ng-container *ngFor="let grupo of this.listaGrupos; index as grupoIndice">
       <p-table [value]="listaRecibosBySuscripcionId"
                [sortField]="grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"

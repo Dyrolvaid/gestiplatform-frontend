@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Persona} from "../interfaces/persona.interface";
 import {Grupo} from "../interfaces/grupo.interface";
-import {Observable} from "rxjs";
+import { Observable} from "rxjs";
 import {PersonasService} from "./personas.service";
 
 @Injectable({
@@ -10,7 +10,7 @@ import {PersonasService} from "./personas.service";
 })
 export class GruposService {
 
-  private _grupos?: Grupo[];
+  private _grupos: Grupo[];
   private _estadoCargando : boolean;
 
   constructor(
@@ -37,7 +37,6 @@ export class GruposService {
     this._estadoCargando = true;
     this.getGrupoByPersona(this._personasService.personaActiva).subscribe({
       next: (resp) => {
-        console.log('Datos obtenidos:', resp);
         this._estadoCargando = false;
         this._grupos = resp;
       },
@@ -46,5 +45,16 @@ export class GruposService {
         console.error(error);
       }
     });
+  }
+
+  public postGrupo(grupo: Grupo): Observable<Grupo> {
+    const url = `/api/v1/grupos`;
+    //const jsonFile = new File([JSON.stringify(grupo)], "file.json", {type: "application/json"});
+    let headers = new HttpHeaders({'Content-Type': 'application/json',});
+    let options = { headers: headers };
+    return this._http.post<Grupo>(url, grupo, options)
+      // .pipe(
+      // finalize(() => console.log('postGrupo Completado')),
+      // tap(respuesta => console.log(respuesta)));
   }
 }

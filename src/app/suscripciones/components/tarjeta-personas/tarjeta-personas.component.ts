@@ -4,7 +4,8 @@ import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {Grupo} from "../../../shared/interfaces/grupo.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Persona} from "../../../shared/interfaces/persona.interface";
-import {tap} from "rxjs";
+import {finalize, tap} from "rxjs";
+import {GruposService} from "../../../shared/services/grupos.service";
 
 @Component({
   selector: 'app-tarjeta-listaPersonas',
@@ -17,22 +18,26 @@ export class TarjetaPersonasComponent implements OnInit {
   public cargando : boolean = false;
   public gruposConPersonasPorSuscripcion: Grupo[];
   public persona : Persona;
+  public personaACrear : Persona;
   public listaPersonas: Persona[];
   public listaPersonasEnSuscripcion: Persona [];
   // public resultadosBuscar: string[];
-  public correo: string;
+  public correo : string;
   public listaCorreos: string[];
 
-  constructor(private _personasService: PersonasService, private _dynamicDialogConfig : DynamicDialogConfig) {
+  constructor(private _personasService: PersonasService,
+              private _dynamicDialogConfig : DynamicDialogConfig,
+              private _gruposService: GruposService) {
     this.grupo = this._dynamicDialogConfig.data.grupo;
     this.gruposConPersonasPorSuscripcion = [];
     this.persona = <Persona>{};
+    this.personaACrear = <Persona>{};
     this.listaPersonas = [];
-    this
     // this.resultadosBuscar = [];
     this.correo = "";
     this.listaCorreos = [];
     this.listaPersonasEnSuscripcion = [];
+
   }
 
   ngOnInit(): void {
@@ -40,7 +45,7 @@ export class TarjetaPersonasComponent implements OnInit {
     this.sacarPersonasDeGrupos();
     this._personasService.getAllPersonas()
       .pipe(tap(listaPersonas => this.listaPersonas = listaPersonas))
-      .subscribe(x => console.log(x));
+      .subscribe();
   }
 
   public consultaGetPersonasByIdSuscripcion(): void {
@@ -49,7 +54,6 @@ export class TarjetaPersonasComponent implements OnInit {
       {
         next: (resp) => {
           this.cargando = false;
-          console.log('Respuesta listaPersonas:', resp);
           this.gruposConPersonasPorSuscripcion = resp;
           // for (let grupoIterado of this.gruposConPersonasPorSuscripcion) {
           //   this.listaPersonas.push(grupoIterado.persona);
@@ -82,19 +86,53 @@ export class TarjetaPersonasComponent implements OnInit {
     this.listaPersonasEnSuscripcion = listaPersonaEnSuscripcion;
   }
 
-  // public consultaGetPersonaByCorreo(): void {
-  //   this.cargando = true;
-  //   this._personasService.getPersonaByCorreo(this.correo).subscribe({
-  //     next: (resp:Persona) => {
-  //     this.cargando = false;
-  //     this.persona = resp;
-  //     },
-  //     error: (error : HttpErrorResponse) => {
-  //     this.cargando = false;
-  //     console.error("Error al consultar GetPersonaByCorreo:", error);
-  //     },
-  //   });
-  // }
+  public consultaGetPersonaByCorreo(): void {
+   this.cargando = true;
+   if (this.correo) {
+     this._personasService.getPersonaByCorreo(this.correo)
+       .pipe(finalize(() => this.crearNuevoGrupoByPersona()))
+       .subscribe({
+       next: (resp:Persona) => {
+       this.cargando = false;
+       this.personaACrear = resp;
+       },
+       error: (error : HttpErrorResponse) => {
+       this.cargando = false;
+       console.error("Error al consultar GetPersonaByCorreo:", error);
+       },
+     });
+   }
+  }
+
+  public crearNuevoGrupoByPersona() : void {
+      this.cargando = true;
+      if(this.personaACrear){
+        let grupoNuevo: Grupo = {
+          persona: this.personaACrear,
+          suscripcion: this.grupo.suscripcion,
+          admin: false,
+          grupoActivo: true
+        };
+        // grupoNuevo.persona = this.personaACrear;
+        // grupoNuevo.suscripcion = this.grupo.suscripcion;
+        // grupoNuevo.admin = false;
+        // grupoNuevo.grupoActivo = true;
+        if (grupoNuevo.grupoActivo){
+          this._gruposService.postGrupo(grupoNuevo).subscribe({
+            next: () => {
+              this.consultaGetPersonasByIdSuscripcion();
+              this.cargando = false;
+            },
+            error: (error: HttpErrorResponse) => {
+              console.log("Error al añadir persona a la suscripción:", error);
+              this.cargando = false;
+            }
+          });
+        }
+      }
+  }
+
+
 
   // public consultaGetAllPersonas(): void {
   //   this.cargando = true;
@@ -125,4 +163,5 @@ export class TarjetaPersonasComponent implements OnInit {
   //     }
   //   }
   // }
+
 }

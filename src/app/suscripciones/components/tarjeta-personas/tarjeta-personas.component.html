@@ -16,7 +16,7 @@
         [style]="{width: '17rem', height: '26rem'}" class="m-2">
         <ng-template pTemplate="header">
           <div class="contenedor-imagen">
-            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src='https://avatars.dicebear.com/api/avataaars/{{this.grupoIterado.persona.nombre.toString()}}.svg'>
+            <img class="mx-auto d-block mantener-proporcion-imagen acolchar-imagen" alt="Card" src='https://avatars.dicebear.com/api/avataaars/{{this.grupoIterado.persona.id}}.svg'>
           </div>
         </ng-template>
         <ng-template pTemplate="content">
@@ -45,8 +45,7 @@
     </ng-container>
     <ng-container *ngIf="this.grupo.admin">
       <p-card
-        *ngIf="this.grupo"
-        [header]="this.persona.nombre? this.persona.nombre : 'Nueva Persona'"
+        header="Nueva Persona"
         [style]="{width: '17rem', height: '26rem'}" class="m-2">
         <ng-template pTemplate="header">
           <div class="contenedor-imagen">
@@ -57,7 +56,7 @@
           <p-autoComplete [(ngModel)]="this.correo" [showEmptyMessage]="true" [suggestions]="this.listaCorreos" (completeMethod)="filtrarListaCorreos()"></p-autoComplete>
         </ng-template>
         <ng-template pTemplate="footer">
-          <p-button styleClass="p-button-sm" label="Añadir" icon="pi pi-plus"></p-button>
+          <p-button styleClass="p-button-sm" label="Añadir" icon="pi pi-plus" (click)="this.consultaGetPersonaByCorreo()"></p-button>
         </ng-template>
       </p-card>
     </ng-container>

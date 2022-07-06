@@ -57,7 +57,6 @@ export class TarjetaRecibosComponent implements OnInit {
     if (this.grupo.id) {
       this._recibosService.getRecibosByGrupo(this.grupo.id).subscribe({
         next: (resp: Recibo[]) => {
-          console.log('RecibosByGrupo:', resp);
           this.estadoCargando = false;
           this.listaRecibosByGrupo = resp;
         },
@@ -73,7 +72,6 @@ export class TarjetaRecibosComponent implements OnInit {
     if (this.grupo.id) {
       this._recibosService.getRecibosBySuscripcionId(this.grupo.suscripcion.id).subscribe({
         next: (resp: Recibo[]) => {
-          console.log('RecibosBySuscripcionId recibidos:', resp);
           this.estadoCargando = false;
           this.listaRecibosBySuscripcionId = resp;
         },
@@ -89,7 +87,6 @@ export class TarjetaRecibosComponent implements OnInit {
     if(this.grupo.suscripcion.id){
       this._recibosService.getGruposBySuscripcionId(this.grupo.suscripcion.id).subscribe({
         next: (resp: Grupo[]) => {
-          console.log('GruposBySuscripcionId recibidos:', resp);
           this.estadoCargando = false;
           this.listaGrupos = resp;
         },
