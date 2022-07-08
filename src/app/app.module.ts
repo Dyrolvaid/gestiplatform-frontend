@@ -8,6 +8,7 @@ import {SharedModule} from "./shared/shared.module";
 import {PersonasModule} from "./personas/personas.module";
 import {SuscripcionesModule} from "./suscripciones/suscripciones.module";
 import {AuthModule} from "./auth/auth.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {AuthModule} from "./auth/auth.module";
     PersonasModule,
     SuscripcionesModule,
     AuthModule,
+    HttpClientModule
   ],
   providers: [
     {

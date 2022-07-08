@@ -14,6 +14,11 @@
   padding: 0.5rem;
 }
 
+.agrandar-imagen {
+  width: 30rem;
+}
+
 .fondo-variado {
   background-color: var(--surface-c);
 }
+

@@ -8,8 +8,8 @@ export interface Suscripcion {
   periodicidad:       Periodicidad;
   formaDePago:        FormaDePago;
   descripcion:        string;
-  fechaAlta:          string;
-  fechaProximoCobro:  string;
+  fechaAlta:          Date;
+  fechaProximoCobro:  Date;
   precio:             number;
   credencialesCorreo: string;
   credencialesClave:  string;

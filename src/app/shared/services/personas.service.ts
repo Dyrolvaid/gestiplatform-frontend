@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Persona} from "../interfaces/persona.interface";
 import {map, Observable, of, tap} from "rxjs";
 import {Grupo} from "../interfaces/grupo.interface";
@@ -24,7 +24,9 @@ export class PersonasService {
     }
     const idPersonaActiva = localStorage.getItem("token");
     const url = `/api/v1/personas/${idPersonaActiva}`;
-    return this._http.get<Persona>(url)
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.get<Persona>(url, options)
       .pipe(
         map((persona) => {
           this._personaActiva = persona;
@@ -35,7 +37,9 @@ export class PersonasService {
 
   public autorizar(correo: string, clave: string): Observable<Persona> {
     const url = `/api/v1/personas/findByCorreoAndClave/${correo}/${clave}`;
-    return this._http.get<Persona>(url)
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.get<Persona>(url, options)
       .pipe(
         tap((resp) => {
           this._personaActiva = resp;
@@ -51,21 +55,29 @@ export class PersonasService {
 
   public crearPersona(persona: Persona): Observable<Persona> {
     const url = `/api/v2/personas`;
-    return this._http.post<Persona>(url, persona);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.post<Persona>(url, persona, options);
   }
 
   public getPersonasByIdSuscripcion(id:number): Observable<Grupo[]> {
     const url= `/api/v1/grupos/suscripcion/${id}/`;
-    return this._http.get<Grupo[]>(url);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.get<Grupo[]>(url, options);
   }
 
   public getPersonaByCorreo(correo: string): Observable<Persona> {
     const url = `/api/v1/personas/correo/${correo}`;
-    return this._http.get<Persona>(url);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.get<Persona>(url, options);
   }
 
-  public getAllPersonas() {
+  public getAllPersonas(): Observable<Persona[]> {
     const url = `/api/v1/personas`;
-    return this._http.get<Persona[]>(url);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let options = { headers: headers };
+    return this._http.get<Persona[]>(url, options);
   }
 }
