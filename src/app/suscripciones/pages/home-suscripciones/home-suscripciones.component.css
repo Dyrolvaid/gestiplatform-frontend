@@ -1,19 +1,13 @@
-.titulo{
 
-}
 
 .logo {
   width:8rem;
 }
 /* Movil */
 .movil{
-  width: 18rem;
-  margin-left: 8rem;
-
+  width: 30rem;
 }
-
-/* leyendaGaleria */
-
+/* leyenda Galeria */
 .tituloGaleria{
   padding: 3rem;
 }
@@ -21,8 +15,10 @@
   padding-left: 3rem;
   text-justify: auto;
 }
+/* leyenda Descarga */
 .titulodescarga{
-   padding: 3rem;
+  padding-left: 3rem;
+   padding-top: 13rem;
  }
 .leyendadescarga{
   padding-left: 3rem;
@@ -32,38 +28,6 @@
   margin-left: 3rem;
 }
 
-
-footer {
-
-  color: #ccc;
-}
-
-.footer-icon {
-  font-size: 20px;
-  color: #ccc;
-
-}
-.copy {
-  font-size: 10px;
-}
-.copy-link {
-  color: #ccc;
-
-}
-
-.footer-icon:hover,
-.copy-link:hover {
-  color: #17a2b8;
-  text-decoration: none;
-  transition: 0.5s all ease;
-}
-.bg-footer{
-
-  background: #4d43c6;
-  padding-top: 0.5rem !important;
-  color: #ccc;
-}
-/* Sobre Nosotros  */
 
 /* Tarjetas sobre nosotros */
 .card-box {
@@ -79,3 +43,93 @@ footer {
   transition: 0.5s all ease;
   box-shadow: 37px 45px 54px -7px rgba(0,0,0,0.43);
 }
+
+/* footer */
+footer {
+  color: #ccc;
+}
+.footer-icon {
+  font-size: 20px;
+  color: #ccc;
+}
+.copy {
+  font-size: 10px;
+}
+.copy-link {
+  color: #ccc;
+}
+.footer-icon:hover,
+.copy-link:hover {
+  color: #17a2b8;
+  text-decoration: none;
+  transition: 0.5s all ease;
+}
+.bg-footer{
+  background: #4d43c6;
+  padding-top: 0.5rem !important;
+  color: #ccc;
+}
+/* Boton tema oscuro */
+
+
+
+/* Estilo a los botones */
+.container-btn-mode{
+  position: absolute;
+  top:20px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 2;
+  font-size:0;
+}
+.btn-mode{
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  border:2px solid black;
+  transition: background-color .5s;
+}
+.btn-mode i {
+  display: block;
+  font-size: 17px;
+  text-align: center;
+  line-height: 30px;
+}
+.btn-mode.sun{
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-right: 1px solid transparent;
+}
+.btn-mode.moon{
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.activar{
+  background-color:black;
+  color:#ffcd5c !important;
+}
+
+/* Estilo modo oscuros para la web */
+.dark-mode{
+  background-color: #0e0e0e;
+  transition:background-color .5s;
+}
+
+
+/*
+.dark-mode .card{
+  background-color: #1A1C1E;
+}
+.dark-mode h1, .dark-mode h2, .dark-mode .btn-contact{
+  color:white;
+}
+.dark-mode .btn-mode{
+  background-color:#1A1C1E;
+  border:1px solid white;
+  color:white;
+}
+
+ */
+
+
+

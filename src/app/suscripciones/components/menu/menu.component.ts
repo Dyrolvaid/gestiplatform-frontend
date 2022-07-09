@@ -17,8 +17,8 @@ export class MenuComponent implements OnInit {
               private _router:Router) {
     this.items = [
       {
-        label: 'Suscripciones',
-        icon: PrimeIcons.PLAY,
+        label: 'Gestiplatform',
+
         routerLink: '/home/suscripciones'
       },
       {
@@ -26,11 +26,7 @@ export class MenuComponent implements OnInit {
         icon: PrimeIcons.USERS,
         //routerLink: '/etc'
       },
-      {
-        label: 'Recibos',
-        icon: PrimeIcons.EURO,
-        //routerLink: '/etc'
-      },
+
       {
         label: this.personaActiva.nombre,
         icon: PrimeIcons.USER,

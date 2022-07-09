@@ -1,17 +1,17 @@
-<app-menu></app-menu>
+  <app-menu></app-menu>
 
-<app-barra-progreso *ngIf="this.gruposService.estadoCargando"></app-barra-progreso>
+  <app-barra-progreso *ngIf="this.gruposService.estadoCargando"></app-barra-progreso>
   <!-- Titulo  -->
   <div class="titulo">
     <h1 class="text-center text-dark mt-3 display-1">Suscripciones Actuales</h1>
   </div>
   <!--Fin del titulo -->
 
-<div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5 mb-5">
-  <ng-container *ngFor="let grupo of this.gruposService.grupos">
-    <app-tarjeta class="m-2" [grupo]="grupo"></app-tarjeta>
-  </ng-container>
-</div>
+    <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5 mb-5">
+      <ng-container *ngFor="let grupo of this.gruposService.grupos">
+        <app-tarjeta class="m-2" [grupo]="grupo"></app-tarjeta>
+      </ng-container>
+    </div>
   <div class="container">
 
     <!-- caja vacía -->
@@ -31,50 +31,46 @@
           Automáticamente rellenará tus datos
         </li>
         <li>
-          pulsa el botón de guardar y listo
+          Pulsa el botón de guardar y listo
         </li>
       </ul>
       <p-button class="mb-3" label="Nueva Suscripción" (onClick)="this.abrirNuevaSuscripcion()"></p-button>
     </div>
-    <!-- caja vacía -->
-    <div class="row m-5"></div>
+
 
    <!-- <code>{{ this._personaActiva | json }}</code> -->
 
     <!-- fin añadir suscripcion-->
 
     <!-- Galería -->
-    <div class="galeriadescarga bg-body">
+    <div class=" mt-5 galeriadescarga">
      <div class="row">
         <div class="col-12 col-md-6 ">
           <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="assets/img/disney.png" class="d-block w-100" alt="logo de disney plus">
+                <img src="assets/img/plataformasImg/disney.png" class="d-block w-100" alt="logo de disney plus">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/spotify.png" class="d-block w-100" alt="logo de spotify">
+                <img src="assets/img/plataformasImg/spoty.png" class="d-block w-100" alt="logo de spotify">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/prime.png" class="d-block w-100" alt="logo de prime">
+                <img src="assets/img/plataformasImg/prime.png" class="d-block w-100" alt="logo de prime">
               </div>
 
               <div class="carousel-item">
                 <img src="assets/img/plataformasImg/mplus.png" class="d-block w-100" alt="logo de movistar plus">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/netflix.png" class="d-block w-100" alt="logo de netflix">
+                <img src="assets/img/plataformasImg/netflix.png" class="d-block w-100" alt="logo de netflix">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/plataformasImg/fuboTv.png" class="d-block w-100" alt="logo de fubo television">
+                <img src="assets/img/plataformasImg/fubotvst.png" class="d-block w-100" alt="logo de fubo television">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/hbo.png" class="d-block w-100" alt="logo de hbo">
+                <img src="assets/img/plataformasImg/hbo.png" class="d-block w-100" alt="logo de hbo">
               </div>
-
             </div>
-
-
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
@@ -92,19 +88,17 @@
       </div>
     </div>
     <!-- Fin de galería -->
-    <!-- caja vacía -->
-    <div class="row m-5"></div>
 
     <!--Descargar aplicación-->
-    <div class="row mt-xxl-1 bg-body">
+    <div class="row ">
       <div class="col-12 col-md-4">
         <div class="col"></div>
-        <div class=" col-md-5 mt-5 mb-5 pt-5 d-none d-md-block movil-box">
+        <div class=" col-md-5 pt-5 d-none d-md-block movil-box">
           <img class="movil" src="assets/img/telefonoDescarga.png" alt="Foto ejemplo de la APP para versión móvil" >
         </div>
       </div>
       <div class="col-2"></div>
-      <div class="col-12 col-md-4 mt-5">
+      <div class="col-12 col-md-6 mt-5 ">
         <h3 class="titulodescarga">Descarga la APP...</h3>
         <p class="leyendadescarga ">Ahora puedes descargar la APP Gestiplatform, accede de forma inmediata a toda tu información!.</p>
         <button pButton type="button" class="p-button-raised botonDescarga">Descargar</button>
@@ -114,19 +108,19 @@
 
     </div>
     <!--Sobre nosotros -->
-    <div class="row mt-5 mb-5 bg-body">
-      <div class="w-50 p-3 container-fluid">
+    <div class="row mt-5 mb-5">
+      <div class="w-70 p-3 container-fluid">
       <div class="col-12">
         <div class="text-center">
           <img src="assets/img/logoGamarilla.png" class="logo" alt="foto">
           <h3 class="text-muted mt-2 mb-4 " data-wow-delay="1s">Sobre Nosotros</h3>
           <h5 class="text-muted mb-5 " data-wow-delay="1s">Con la mirada puesta en el pasado, presente y futuro, el equipo Gestiplatform pone de manifiesto sus valores. </h5>
-            <p class="text-xxl-start font-weigh-bold"> 1. Misión.</p> <p class="text-dark">"Ofrecer al mundo el poder de organizarse para construir un mundo mejor abordado desde cuatro ejes fundamentales: personas, procesos, tecnología y medio ambiente".</p>
-            <p class="text-xl-center font-weigh-bold">2. Visión.</p><p class="text-dark"> "Que a lo largo de nuestra vida podamos siempre hacer de nuestro hobby nuestra
-            profesión, disfrutando de nuestro trabajo en un entorno estimulante y socialmente accesible, desarrollando la capacidad profesional, superando nuestros retos y
+            <p class="text-xl-center text-muted">1. Misión. "Ofrecer al mundo el poder de organizarse para construir un mundo mejor".</p>
+            <p class="text-xl-center text-muted">2. Visión. "Que a lo largo de nuestra vida podamos siempre hacer de nuestro hobby nuestra
+            profesión, disfrutando de nuestro trabajo en un entorno estimulante, desarrollando la capacidad profesional, superando nuestros retos y
             realizándonos; y gracias a ello, que nos permita vivir de lo que nos provoca pasión. Hacer realidad ideas propias que tengan éxito y nos
             permitan disfrutar de ellas"</p>
-            <p class="text-xl-center fotn-wigh-bold">3. Valores. </p><p class="text-dark">"La amistad, el equipo, la utilidad y la sostenibilidad social y ambiental."</p>
+            <p class="text-xl-center text-muted">3. Valores. "La amistad, el equipo, la utilidad y la sostenibilidad ambiental."</p>
         </div>
       </div>
       </div>
@@ -137,11 +131,11 @@
     <div class="row mb-5">
 
     <div class="col-12 col-md-4">
-      <div class="card card-box">
-        <img src="assets/img/fotosEquipo/david.png" class="card-img-top" alt="Foto de David Colina Irazu">
+      <div class="card card-box contenedor-imagen">
+        <img src="assets/img/fotosEquipo/david.png" class="card-img-top mantener-proporcion-imagen" alt="Foto de David Colina Irazu">
         <div class="card-body">
-          <h5 class="card-title text-muted">David Colina Irazu</h5>
-          <p class="card-text p-text-secondary">Chief Executive Officer. Programador</p>
+          <h5 class="card-title">David Colina Irazu</h5>
+          <p class="card-text">Chief Executive Officer.</p>
           <p>
             <a href="#" class="footer-icon m-3"><i class="bi bi-file-play-fill"></i></a>
             <a href="#" class="footer-icon m-3"><i class="bi bi-linkedin"></i></a>
@@ -154,8 +148,8 @@
       <div class="card card-box">
         <img src="assets/img/fotosEquipo/gerardo.png" class="card-img-top" alt="Foto de  Gerardo Pérez Arena">
         <div class="card-body">
-          <h5 class="card-title text-muted">Gerardo Pérez Arenas</h5>
-          <p class="card-text p-text-secondary">Chief Information Officer. Programador</p>
+          <h5 class="card-title">Gerardo Pérez Arenas</h5>
+          <p class="card-text">Chief Information Officer.</p>
           <p>
             <a href="#" class="footer-icon m-3"><i class="bi bi-file-play-fill"></i></a>
             <a href="#" class="footer-icon m-3"><i class="bi bi-linkedin"></i></a>
@@ -168,8 +162,8 @@
       <div class="card card-box">
         <img src="assets/img/fotosEquipo/nuria.png" class="card-img-top" alt="foto de Nuria Margullón Caballero">
         <div class="card-body">
-          <h5 class="card-title text-muted">Nuria Margullón Caballero</h5>
-          <p class="card-text p-text-secondary">Chief Data Officer. Programadora. .</p>
+          <h5 class="card-title">Nuria Margullón</h5>
+          <p class="card-text">Chief Data Officer.</p>
          <p>
            <a href="#" class="footer-icon m-3"><i class="bi bi-file-play-fill"></i></a>
            <a href="#" class="footer-icon m-3"><i class="bi bi-linkedin"></i></a>
@@ -194,7 +188,7 @@
                 <!--Rejilla columna-->
                 <div class="col-auto">
                   <p class="pt-2">
-                    <strong>Contactar</strong>
+                    <strong>Contactanos</strong>
                   </p>
                 </div>
                 <!--Rejilla columna-->
@@ -202,7 +196,7 @@
                   <!-- Email  -->
                   <div class="form-outline form-white mb-1">
                     <input type="email" id="form5Example29" class="form-control" />
-                    <label class="form-label" for="form5Example29"></label>
+                    <label class="form-label" for="form5Example29">Email</label>
                   </div>
                 </div>
                 <!--Rejilla columna-->
@@ -237,39 +231,50 @@
 
     <!-- Ventana de dialogo nueva suscripcion-->
     <p-dialog header="Title" [(visible)]="mostrar" [modal]="true">
-  <ng-template pTemplate="header"><span class="tituloVentana">Nueva suscripción</span></ng-template>
-  <div id="formRecibo">
-       <form [formGroup]="formSuscripcion" (ngSubmit)="formularioSuscripcionEnviada()">
-        <div class="p-fluid p-formgrid grid">
-          <div class="field col-12 md:col-4">
-            <label class="fw-bold" htmlFor="plataforma">Plataforma</label>
-           <p-dropdown [options]="dropPlataformas" forControlName="plataforma"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="correo">correo</label>
-          <input readonly="readonly" pInputText type="text" formControlName="correo">
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="clave">clave</label>
-          <input readonly="readonly"  pInputText type="text" formControlName="clave">
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="nombre">Nombre</label>
-          <input readonly="readonly"  pInputText type="text" formControlName="nombre">
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="telefono">telefono</label>
-          <input readonly="readonly"  pInputText type="text" formControlName="telefono">
-        </div>
-
+      <ng-template pTemplate="header"><span class="tituloVentana fs-3 fw-bolder">Nueva suscripción</span></ng-template>
+      <div id="formRecibo">
+         <form [formGroup]="formSuscripcion" (ngSubmit)="formularioSuscripcionEnviada()">
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-12 md:col-4">
+                <label htmlFor="nombre" class="fs-5 fw-bolder ">Nombre</label>
+                <input class="mt-2 mb-2" readonly="readonly"  pInputText type="text" formControlName="nombre">
+              </div>
+              <div class="field col-12 md:col-4">
+                <label class="fw-bold" htmlFor="plataforma" class="fs-5 fw-bolder mb-2">Plataforma</label>
+               <p-dropdown [options]="dropPlataformas" forControlName="plataforma"></p-dropdown>
+              </div>
+              <div hidden class="field col-12 md:col-4">
+                <label htmlFor="correo">Correo</label>
+                <input readonly="readonly" pInputText type="text" formControlName="correo">
+              </div>
+              <div hidden class="field col-12 md:col-4">
+                <label hidden htmlFor="clave">Clave</label>
+                <input readonly="readonly"  pInputText type="text" formControlName="clave">
+              </div>
+              <div hidden class="field col-12 md:col-4">
+                <label htmlFor="telefono">Teléfono</label>
+                <input readonly="readonly"  pInputText type="text" formControlName="telefono">
+              </div>
+            </div>
+              <div class=" mt-3 field col-12">
+                <p-button (click)="guardarNuevaSuscripcion()" type="submit" label="Guardar" icon="pi pi-wallet"></p-button>
+              </div>
+         </form>
       </div>
-      <div class="field col-12">
-        <p-button type="submit" label="Guardar" icon="pi pi-wallet"></p-button>
-      </div>
-   </form>
-  </div>
-</p-dialog>
+    </p-dialog>
     <!-- Fin ventana de dialogo nueva suscripcion-->
 
-  <!-- flecha desplazamiento hacia arriba -->
-<p-scrollTop [threshold]="50"></p-scrollTop>
+    <!-- flecha desplazamiento hacia arriba -->
+    <p-scrollTop [threshold]="50"></p-scrollTop>
+
+    <!-- Boton tema claro y oscuro-->
+  <div class="container-btn-mode">
+     <button id="id-sun" label="sun" class="btn-mode sun activar">
+        <i class="bi bi-brightness-high"></i>
+     </button>
+      <button id="id-moon" label="moon" class="btn-mode moon">
+        <i class="bi bi-moon-fill"></i>
+      </button>
+    </div>
+
+
