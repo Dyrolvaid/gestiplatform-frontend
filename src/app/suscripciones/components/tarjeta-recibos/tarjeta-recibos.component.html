@@ -32,12 +32,12 @@
             </td>
           </tr>
         </ng-template>
-<!--        <ng-template pTemplate="groupfooter">-->
-<!--          <tr class="p-rowgroup-footer">-->
-<!--            <td colspan="4" style="text-align: right">Total de Recibos</td>-->
-<!--            <td>{{(this.listaRecibosBySuscripcionId.length).toString()}}</td>-->
-<!--          </tr>-->
-<!--        </ng-template>-->
+        <!--<ng-template pTemplate="groupfooter">-->
+        <!--<tr class="p-rowgroup-footer">-->
+        <!--<td colspan="4" style="text-align: right">Total de Recibos</td>-->
+        <!--<td>{{(this.listaRecibosBySuscripcionId.length).toString()}}</td>-->
+        <!--</tr>-->
+        <!--</ng-template>-->
         <ng-template pTemplate="rowexpansion" let-recibo let-rowIndex="rowIndex">
           <ng-container *ngIf="recibo.grupo.suscripcion.id === grupo.suscripcion.id && recibo.grupo.persona.id === grupo.persona.id">
             <tr>

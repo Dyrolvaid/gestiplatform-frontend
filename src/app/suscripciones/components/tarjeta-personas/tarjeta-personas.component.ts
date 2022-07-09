@@ -182,15 +182,15 @@ export class TarjetaPersonasComponent implements OnInit {
           grupoNuevo.admin = false;
           grupoNuevo.suscripcion = this.grupo.suscripcion;
           grupoNuevo.persona = this.personaACrear;
-          console.log("Grupo Nuevo antes de posteo: ", JSON.stringify(grupoNuevo));
+          // console.log("Grupo Nuevo antes de posteo: ", JSON.stringify(grupoNuevo));
         // }
       // }
         if (grupoNuevo.persona) {
           this._gruposService.postGrupo(grupoNuevo)
             .pipe(finalize(()=>{this.consultaGetPersonasByIdSuscripcion(); this.cargando = false}))
             .subscribe({
-              next: (resp) => {
-                console.log(resp);
+              next: (/*resp*/) => {
+                // console.log(resp);
               },
               error: (error) => {
                 console.error("Crear Grupo fracasó con el error: ", error);
@@ -220,7 +220,7 @@ export class TarjetaPersonasComponent implements OnInit {
         }))
         .subscribe({
           next: (resp) => {
-            console.log("Se ha obtenido la siguiente lista de recibos por persona: ", resp);
+            // console.log("Se ha obtenido la siguiente lista de recibos por persona: ", resp);
             this.listaRecibosPorPersona = resp;
           },
           error: (error) => {
@@ -238,8 +238,8 @@ export class TarjetaPersonasComponent implements OnInit {
             this.cargando = false;
           }))
           .subscribe({
-            next: (resp) => {
-              console.log("El siguiente recibo ha sido eliminado: ", resp);
+            next: (/*resp*/) => {
+              // console.log("El siguiente recibo ha sido eliminado: ", resp);
             },
             error: (error) => {
               console.log("No se ha podido eliminar este recibo por el error: ", error);
@@ -260,8 +260,8 @@ export class TarjetaPersonasComponent implements OnInit {
           this.cargando = false;
         }))
         .subscribe({
-          next: (resp) => {
-            console.log("El siguiente grupo ha sido eliminado de esta suscripción: ", resp);
+          next: (/*resp*/) => {
+            // console.log("El siguiente grupo ha sido eliminado de esta suscripción: ", resp);
           },
           error: (error) => {
             console.log("No se ha podido eliminar este grupo por el error: ", error);
