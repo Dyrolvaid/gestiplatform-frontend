@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RecibosService} from "../../../shared/services/recibos.service";
 import {Recibo} from "../../../shared/interfaces/recibo.interface";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {Grupo} from "../../../shared/interfaces/grupo.interface";
+import {finalize} from "rxjs";
+import {PersonasService} from "../../../shared/services/personas.service";
+import {Persona} from "../../../shared/interfaces/persona.interface";
 
 @Component({
   selector: 'app-tarjeta-recibos',
@@ -20,9 +23,13 @@ export class TarjetaRecibosComponent implements OnInit {
   public contadorPersonas: number;
   // public listaGruposFiltrada: Grupo[];
   // public listaPersonas: Persona[];
+  public reciboAModificar: Recibo;
+  public personaActiva: Persona;
 
   constructor(private _recibosService: RecibosService,
-              private _dynamicDialogConfig: DynamicDialogConfig) {
+              private _dynamicDialogConfig: DynamicDialogConfig,
+              private _changeDetectorRef: ChangeDetectorRef,
+              private _personasService: PersonasService) {
     this.estadoCargando = false;
     // this.recibo = <Recibo>{};
     this.listaRecibosByGrupo = [];
@@ -33,16 +40,26 @@ export class TarjetaRecibosComponent implements OnInit {
     // this.listaGruposFiltrada = [];
     this.contadorPersonas = 0;
     // this.listaPersonas = [];
+    this.reciboAModificar = {} as Recibo;
+    this.personaActiva = this._personasService.personaActiva;
   }
 
   ngOnInit(): void {
     this.grupo = this._dynamicDialogConfig.data.grupo;
+    this.crearOActualizarRecibos();
+  }
+
+  public crearOActualizarRecibos() {
     this.estadoCargando = true;
     this.consultaGetRecibosByGrupo();
     this.consultaGetRecibosBySuscripcionId();
     // this.consultaGetGrupoByPersona();
     this.consultaGetGruposBySuscripcionId();
     this.contarPersonasByGrupo();
+  }
+
+  ngAfterContentChecked() {
+    this._changeDetectorRef.detectChanges();
   }
 
   public contarPersonasByGrupo(): void {
@@ -96,6 +113,22 @@ export class TarjetaRecibosComponent implements OnInit {
         }
       });
     }
+  }
+
+  //Parchear el booleano de "cobrado" del Recibo con PATCH
+  public marcarReciboComoCobrado(recibo: Recibo) {
+    this.reciboAModificar = recibo;
+    recibo.cobrado = true;
+    this._recibosService.marcarReciboComoPagadoPorId(this.reciboAModificar)
+      .pipe(finalize(()=> {}))
+      .subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
   }
 
   // public consultaGetGrupoByPersona(): void {

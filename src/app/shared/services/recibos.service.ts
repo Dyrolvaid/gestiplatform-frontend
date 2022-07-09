@@ -47,4 +47,9 @@ export class RecibosService {
     return this._http.get<Recibo[]>(url, options);
   }
 
+  public marcarReciboComoPagadoPorId(reciboACambiar: Recibo): Observable<Recibo> {
+    const url = `/api/v1/recibos`;
+    return this._http.patch<Recibo>(url, reciboACambiar);
+  }
+
 }

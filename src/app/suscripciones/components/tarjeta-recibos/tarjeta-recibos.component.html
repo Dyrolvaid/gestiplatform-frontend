@@ -44,7 +44,9 @@
               <td>{{rowIndex + 1}}</td>
               <td>{{recibo.fechaCobro.toString()}} ({{recibo.fechaCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
               <td>{{recibo.importe | currency:'EUR'}}</td>
-              <td><p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true"></p-checkbox></td>
+              <td>
+                <p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true" [disabled]="recibo.cobrado || (grupo.persona.id === this.personaActiva.id && !grupo.admin)"  (onChange)="this.marcarReciboComoCobrado(recibo)"></p-checkbox>
+              </td>
             </tr>
           </ng-container>
         </ng-template>
