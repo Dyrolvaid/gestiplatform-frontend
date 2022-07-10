@@ -1,16 +1,19 @@
 <app-barra-progreso *ngIf="estadoCargando"></app-barra-progreso>
 
-<ng-container *ngIf="grupo && listaRecibosByGrupo && listaRecibosBySuscripcionId && listaGrupos">
+<ng-container *ngIf="this.grupo && this.listaRecibosByGrupo && this.listaRecibosBySuscripcionId && this.listaGrupos">
   <div class="card">
     <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
     <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
-    <ng-container *ngFor="let grupo of this.listaGrupos; index as grupoIndice">
-      <p-table [value]="listaRecibosBySuscripcionId"
-               [sortField]="grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+    <ng-container *ngIf="this.grupo.admin">
+      <p-button icon="pi pi-plus" iconPos="right" class="text-center" label="Añadir Recibos" (click)="this.nuevoReciboSegunPeriodicidad()"></p-button>
+    </ng-container>
+    <ng-container *ngFor="let grupoIterado of this.listaGrupos; index as grupoIndice">
+      <p-table [value]="this.listaRecibosBySuscripcionId"
+               [sortField]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
                sortMode="single"
-               [dataKey]="grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+               [dataKey]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
                rowGroupMode="subheader"
-               [groupRowsBy]="grupo.persona.nombre"
+               [groupRowsBy]="grupoIterado.persona.nombre"
                responsiveLayout="scroll">
         <ng-template pTemplate="header">
           <tr>
@@ -24,11 +27,11 @@
           <tr>
             <td colspan="4">
               <button type="button"
-                      pButton pRipple [pRowToggler]="grupo"
+                      pButton pRipple [pRowToggler]="grupoIterado"
                       class="p-button-text p-button-rounded p-button-plain mr-2"
                       [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
               </button>
-              <span class="font-bold ml-2">{{grupo.persona.nombre}}</span>
+              <span class="font-bold ml-2">{{grupoIterado.persona.nombre}}</span>
             </td>
           </tr>
         </ng-template>
@@ -39,19 +42,19 @@
         <!--</tr>-->
         <!--</ng-template>-->
         <ng-template pTemplate="rowexpansion" let-recibo let-rowIndex="rowIndex">
-          <ng-container *ngIf="recibo.grupo.suscripcion.id === grupo.suscripcion.id && recibo.grupo.persona.id === grupo.persona.id">
+          <ng-container *ngIf="recibo.grupo.suscripcion.id === grupoIterado.suscripcion.id && recibo.grupo.persona.id === grupoIterado.persona.id">
             <tr>
               <td>{{rowIndex + 1}}</td>
-              <td>{{recibo.fechaCobro.toString()}} ({{recibo.fechaCobro.toString() | amLocale: 'es' | amTimeAgo}})</td>
+              <td>{{this._datePipe.transform(recibo.fechaCobro, 'yyyy-MM-dd')}} {{this._datePipe.transform(recibo.fechaCobro, 'yyyy-MM-dd')}}</td>
               <td>{{recibo.importe | currency:'EUR'}}</td>
               <td>
-                <p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true" [disabled]="recibo.cobrado || (grupo.persona.id === this.personaActiva.id && !grupo.admin)"  (onChange)="this.marcarReciboComoCobrado(recibo)"></p-checkbox>
+                <p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true" [disabled]="recibo.cobrado || (this.personaActiva.id !== grupoIterado.persona.id && !this.grupo.admin) || !this.grupo.admin"  (onChange)="this.marcarReciboComoCobrado(recibo)"></p-checkbox>
               </td>
             </tr>
           </ng-container>
         </ng-template>
       </p-table>
     </ng-container>
-    <h4 style="text-align: center">Total de recibos: {{(this.listaRecibosBySuscripcionId.length).toString()}}</h4>
+    <h4 style="text-align: center">Total de recibos: {{this.listaRecibosBySuscripcionId.length.toString()}}</h4>
   </div>
 </ng-container>

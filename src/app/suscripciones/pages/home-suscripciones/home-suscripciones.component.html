@@ -233,31 +233,39 @@
     <p-dialog header="Title" [(visible)]="mostrar" [modal]="true">
       <ng-template pTemplate="header"><span class="tituloVentana fs-3 fw-bolder">Nueva suscripción</span></ng-template>
       <div id="formRecibo">
-         <form [formGroup]="formSuscripcion" (ngSubmit)="formularioSuscripcionEnviada()">
+         <form [formGroup]="this.formSuscripcion" (ngSubmit)="this.consultaPostearSuscripcionNueva()">
             <div class="p-fluid p-formgrid grid">
               <div class="field col-12 md:col-4">
-                <label htmlFor="nombre" class="fs-5 fw-bolder ">Nombre</label>
-                <input class="mt-2 mb-2" readonly="readonly"  pInputText type="text" formControlName="nombre">
+                <label for="plataforma-suscripcion" class="fs-5 fw-bolder mb-2">Plataforma:</label>
+                <p-dropdown id="plataforma-suscripcion" [options]="this.dropdownPlataformas" formControlName="plataforma"></p-dropdown>
               </div>
               <div class="field col-12 md:col-4">
-                <label class="fw-bold" htmlFor="plataforma" class="fs-5 fw-bolder mb-2">Plataforma</label>
-               <p-dropdown [options]="dropPlataformas" forControlName="plataforma"></p-dropdown>
+                <label for="correo-suscripcion" class="fs-5 fw-bolder">Correo en la plataforma:</label>
+                <input id="correo-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesCorreo">
               </div>
-              <div hidden class="field col-12 md:col-4">
-                <label htmlFor="correo">Correo</label>
-                <input readonly="readonly" pInputText type="text" formControlName="correo">
+              <div class="field col-12 md:col-4">
+                <label for="clave-suscripcion" class="fs-5 fw-bolder">Clave en la plataforma:</label>
+                <input id="clave-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesClave">
               </div>
-              <div hidden class="field col-12 md:col-4">
-                <label hidden htmlFor="clave">Clave</label>
-                <input readonly="readonly"  pInputText type="text" formControlName="clave">
+              <div class="field col-12 md:col-4">
+                <label for="descripcion-suscripcion" class="fs-5 fw-bolder">Descripción:</label>
+                <input id="descripcion-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="descripcion">
               </div>
-              <div hidden class="field col-12 md:col-4">
-                <label htmlFor="telefono">Teléfono</label>
-                <input readonly="readonly"  pInputText type="text" formControlName="telefono">
+              <div class="field col-12 md:col-4">
+                <label for="precio-suscripcion" class="fs-5 fw-bolder">Precio por cuota:</label>
+                <input id="precio-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="precio">
+              </div>
+              <div class="field col-12 md:col-4">
+                <label for="forma-de-pago-suscripcion" class="fs-5 fw-bolder">Forma de Pago</label>
+                <p-dropdown id="forma-de-pago-suscripcion" [options]="this.dropdownFormasDePago" class="mt-2 mb-2" formControlName="formaDePago"></p-dropdown>
+              </div>
+              <div class="field col-12 md:col-4">
+                <label for="periodicidad-suscripcion" class="fs-5 fw-bolder">Periodicidad de las Cuotas</label>
+                <p-dropdown id="periodicidad-suscripcion" [options]="this.dropdownPeriodicidades" class="mt-2 mb-2" formControlName="periodicidad"></p-dropdown>
               </div>
             </div>
-              <div class=" mt-3 field col-12">
-                <p-button (click)="guardarNuevaSuscripcion()" type="submit" label="Guardar" icon="pi pi-wallet"></p-button>
+              <div class="mt-3 field col-12">
+                <p-button type="submit" label="Guardar" icon="pi pi-wallet"></p-button>
               </div>
          </form>
       </div>

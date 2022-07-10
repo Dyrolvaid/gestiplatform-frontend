@@ -9,6 +9,7 @@ import {PersonasModule} from "./personas/personas.module";
 import {SuscripcionesModule} from "./suscripciones/suscripciones.module";
 import {AuthModule} from "./auth/auth.module";
 import {HttpClientModule} from "@angular/common/http";
+import {DatePipe} from "@angular/common";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
     {
       provide: LOCALE_ID,
       useValue: 'es'
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

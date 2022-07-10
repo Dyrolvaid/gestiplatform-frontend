@@ -50,7 +50,7 @@ export class GruposService {
   public postGrupo(grupo: Grupo): Observable<Grupo> {
     const url = `/api/v1/grupos`;
     //const jsonFile = new File([JSON.stringify(grupo)], "file.json", {type: "application/json"});
-    let headers = new HttpHeaders({'Content-Type': 'application/json',});
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
     let options = { headers: headers };
     return this._http.post<Grupo>(url, grupo, options)
       // .pipe(

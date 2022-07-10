@@ -6,13 +6,15 @@ import {Grupo} from "../../../shared/interfaces/grupo.interface";
 import {finalize} from "rxjs";
 import {PersonasService} from "../../../shared/services/personas.service";
 import {Persona} from "../../../shared/interfaces/persona.interface";
+import {Periodicidad} from "../../../shared/interfaces/periodicidad.interface";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-tarjeta-recibos',
   templateUrl: './tarjeta-recibos.component.html',
   styleUrls: ['./tarjeta-recibos.component.css']
 })
-export class TarjetaRecibosComponent implements OnInit {
+export class TarjetaRecibosComponent implements OnInit{
 
   public estadoCargando: boolean;
   public listaRecibosByGrupo: Recibo[];
@@ -29,7 +31,8 @@ export class TarjetaRecibosComponent implements OnInit {
   constructor(private _recibosService: RecibosService,
               private _dynamicDialogConfig: DynamicDialogConfig,
               private _changeDetectorRef: ChangeDetectorRef,
-              private _personasService: PersonasService) {
+              private _personasService: PersonasService,
+              public _datePipe: DatePipe) {
     this.estadoCargando = false;
     // this.recibo = <Recibo>{};
     this.listaRecibosByGrupo = [];
@@ -118,7 +121,9 @@ export class TarjetaRecibosComponent implements OnInit {
   //Parchear el booleano de "cobrado" del Recibo con PATCH
   public marcarReciboComoCobrado(recibo: Recibo) {
     this.reciboAModificar = recibo;
+    let fechaActual = Date.now;
     recibo.cobrado = true;
+    recibo.fechaCobro = new Date(fechaActual());
     this._recibosService.marcarReciboComoPagadoPorId(this.reciboAModificar)
       .pipe(finalize(()=> {}))
       .subscribe({
@@ -130,6 +135,79 @@ export class TarjetaRecibosComponent implements OnInit {
         }
       });
   }
+
+  // TODO: Si no hay ningún recibo, permitir seleccionar una periodicidad existente y establecer la primera fecha.
+  public nuevoReciboSegunSeleccionUsuario(fechaInicio: Date, periodicidadSeleccionada: Periodicidad, precioPeriodicoTotal: number) {
+    for (let grupo of this.listaGrupos) {
+      let plantillaReciboNuevo: Recibo = {} as Recibo;
+      let fechaActual = new Date();
+      plantillaReciboNuevo.grupo = grupo;
+      plantillaReciboNuevo.cobrado = false;
+      plantillaReciboNuevo.reciboActivo = true;
+      plantillaReciboNuevo.grupo.suscripcion.precio = precioPeriodicoTotal;
+      plantillaReciboNuevo.importe = plantillaReciboNuevo.grupo.suscripcion.precio / this.listaGrupos.length;
+      plantillaReciboNuevo.fechaCobro = fechaInicio;
+      plantillaReciboNuevo.vigenciaInicio = fechaInicio;
+      if (periodicidadSeleccionada.id === 1) {
+        let fechaMasMes = fechaActual.setDate(fechaActual.getDate() + 28);
+        plantillaReciboNuevo.vigenciaFin = new Date(fechaMasMes);
+        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasMes);
+        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
+      } else if (periodicidadSeleccionada.id === 2) {
+        let fechaMasYear = fechaActual.setDate(fechaActual.getDate() + 365);
+        plantillaReciboNuevo.vigenciaFin = new Date(fechaMasYear);
+        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasYear);
+        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
+      }
+      plantillaReciboNuevo.fechaEmision = fechaInicio;
+      this._recibosService.crearReciboNuevoPorGrupo(plantillaReciboNuevo)
+        .pipe(finalize(() => {console.log("Intento de 'nuevoReciboSegunSeleccionUsuario ha finalizado'")}))
+        .subscribe({
+          next: (resp) => {
+            console.log("'nuevoReciboSegunSeleccionUsuario' ha devuelto: ", resp);
+          },
+          error: (error) => {
+            console.log("'nuevoReciboSegunSeleccionUsuario' ha devuelto: ", error);
+          }
+        });
+    }
+  }
+  // TODO: Añadir automáticamente un recibo nuevo por grupo si para la siguiente fecha de cobro faltan menos días que los resultantes de sumarle la periodicidad a la fecha actual.
+  public nuevoReciboSegunPeriodicidad() {
+    for (let grupo of this.listaGrupos) {
+      let plantillaReciboNuevo: Recibo = {} as Recibo;
+      let fechaActual = new Date();
+      plantillaReciboNuevo = this.listaRecibosByGrupo[this.listaRecibosByGrupo.length - 1];
+      plantillaReciboNuevo.grupo = grupo;
+      plantillaReciboNuevo.cobrado = false;
+      plantillaReciboNuevo.reciboActivo = true;
+      plantillaReciboNuevo.importe = plantillaReciboNuevo.grupo.suscripcion.precio / this.listaGrupos.length;
+      if (grupo.suscripcion.periodicidad.id === 1) {
+        let fechaMasMes = fechaActual.setDate(fechaActual.getDate() + 28);
+        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasMes);
+        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
+      } else if (grupo.suscripcion.periodicidad.id === 2) {
+        let fechaMasYear = fechaActual.setDate(fechaActual.getDate() + 365);
+        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasYear);
+        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
+      }
+      plantillaReciboNuevo.vigenciaInicio = this.listaRecibosByGrupo[this.listaRecibosByGrupo.length - 1].vigenciaInicio;
+      plantillaReciboNuevo.fechaEmision = new Date(fechaActual);
+      this._recibosService.crearReciboNuevoPorGrupo(plantillaReciboNuevo)
+        .pipe(finalize(() => {console.log("Intento de 'nuevoReciboSegunPeriodicidad ha finalizado'")}))
+        .subscribe({
+          next: (/*resp*/) => {
+            // console.log("'nuevoReciboSegunPeriodicidad' ha devuelto: ", resp);
+          },
+          error: (error) => {
+            console.log("'nuevoReciboSegunPeriodicidad' ha devuelto: ", error);
+          }
+        });
+    }
+  }
+
+
+
 
   // public consultaGetGrupoByPersona(): void {
   //   if (this.grupoIterado.id) {

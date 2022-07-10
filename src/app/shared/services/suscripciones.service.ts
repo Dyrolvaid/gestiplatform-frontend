@@ -18,9 +18,9 @@ export class SuscripcionesService {
   }
   public crearSuscripcionNueva(suscripcionRecibida: Suscripcion): Observable<Suscripcion> {
     const url = `/api/v1/suscripciones`;
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    let options = { headers: headers };
-    return this._http.post<Suscripcion>(url, suscripcionRecibida, options);
+    // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // let options = { headers: headers };
+    return this._http.post<Suscripcion>(url, suscripcionRecibida);
   }
 
 }

@@ -52,4 +52,8 @@ export class RecibosService {
     return this._http.patch<Recibo>(url, reciboACambiar);
   }
 
+  public crearReciboNuevoPorGrupo(plantillaReciboNuevo: Recibo) {
+    const url = '/api/v1/recibos';
+    return this._http.post(url, plantillaReciboNuevo);
+  }
 }
