@@ -71,4 +71,11 @@ export class GruposService {
     let options = { headers: headers };
     return this._http.get<Grupo[]>(url, options);
   }
+
+  // public obtenerTodosLosGruposPorSuscripcion(idSuscripcion: number): Observable<Grupo[]> {
+  //   const url = `/api/v1/grupos/${idSuscripcion}`;
+  //   // let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   // let options = { headers: headers };
+  //   return this._http.get<Grupo[]>(url);
+  // }
 }

@@ -5,71 +5,73 @@
 <!--</ng-container>-->
 <app-barra-progreso *ngIf="this.cargando"></app-barra-progreso>
 <div class="card fondo-variado rounded">
-  <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
-  <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
-  <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
-    <ng-container *ngFor="let grupoIterado of this.gruposConPersonasPorSuscripcion">
-      <p-card
-        *ngIf="this.grupo" [style]="{width: '17rem', height: '26rem'}" class="m-2">
-        <!--header="{{grupoIterado.persona.nombre}}"-->
-        <!--subheader="Persona: {{indiceGrupo + 1}}"-->
-        <ng-template pTemplate="header">
-          <div class="position-relative">
-            <div class="position-absolute top-0 start-50 translate-middle-x p-2">
-              <h2 >{{grupoIterado.persona.nombre}}</h2>
+  <ng-container *ngIf="this.grupo.suscripcion.id">
+    <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
+    <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
+    <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5">
+      <ng-container *ngFor="let grupoIterado of this.gruposConPersonasPorSuscripcion">
+        <p-card
+          *ngIf="grupoIterado.persona.id" [style]="{width: '17rem', height: '26rem'}" class="m-2">
+          <!--header="{{grupoIterado.persona.nombre}}"-->
+          <!--subheader="Persona: {{indiceGrupo + 1}}"-->
+          <ng-template pTemplate="header">
+            <div class="position-relative">
+              <div class="position-absolute top-0 start-50 translate-middle-x p-2">
+                <h2 >{{grupoIterado.persona.nombre}}</h2>
+              </div>
+                <!--Algoritmo para determinar si tienes derecho o no a eliminar a otro miembro de un grupo en el que ya estés-->
+                <ng-container *ngIf="(!grupoIterado.admin) && (!grupoIterado.admin && grupoIterado.persona.id !== this.personaActiva.id && this.grupo.admin)">
+                  <div class="position-absolute top-0 end-0">
+                    <p-button (click)="consultaDeleteGrupoById(grupoIterado)" styleClass="p-button-sm p-button-raised p-button-rounded p-button-danger" icon="pi pi-trash"></p-button>
+                  </div>
+                </ng-container>
             </div>
-              <!--Algoritmo para determinar si tienes derecho o no a eliminar a otro miembro de un grupo en el que ya estés-->
-              <ng-container *ngIf="(!grupoIterado.admin) && (!grupoIterado.admin && grupoIterado.persona.id !== this.personaActiva.id && this.grupo.admin)">
-                <div class="position-absolute top-0 end-0">
-                  <p-button (click)="consultaDeleteGrupoById(grupoIterado)" styleClass="p-button-sm p-button-raised p-button-rounded p-button-danger" icon="pi pi-trash"></p-button>
-                </div>
-              </ng-container>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="content">
-          <img class="rounded mx-auto d-block w-75 mt-3" alt="Card" src='https://avatars.dicebear.com/api/avataaars/{{this.grupoIterado.persona.id}}.svg'>
-          <ul class="list-group mt-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Correo
-              <span class="badge bg-secondary rounded-pill">
-              {{grupoIterado.persona.correo}}
-              </span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Teléfono
-              <span class="badge bg-secondary rounded-pill">
-              {{grupoIterado.persona.telefono}}
-              </span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Rol
-              <span class="badge bg-secondary rounded-pill">
-              {{grupoIterado.admin? 'Administrador': 'Miembro'}}
-              </span>
-            </li>
-          </ul>
-        </ng-template>
-      </p-card>
-    </ng-container>
-    <ng-container *ngIf="this.grupo.admin">
-      <p-card [style]="{width: '17rem', height: '26rem'}" class="m-2">
-        <ng-template pTemplate="header">
-          <div class="position-relative">
-            <div class="position-absolute top-0 start-50 translate-middle-x p-2">
-              <h2 class="text-center text-nowrap">Nueva Persona</h2>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <img class="rounded mx-auto d-block w-75 mt-3" alt="Card" src='https://avatars.dicebear.com/api/avataaars/{{this.grupoIterado.persona.id}}.svg'>
+            <ul class="list-group mt-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Correo
+                <span class="badge bg-secondary rounded-pill">
+                {{grupoIterado.persona.correo}}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Teléfono
+                <span class="badge bg-secondary rounded-pill">
+                {{grupoIterado.persona.telefono}}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Rol
+                <span class="badge bg-secondary rounded-pill">
+                {{grupoIterado.admin? 'Administrador': 'Miembro'}}
+                </span>
+              </li>
+            </ul>
+          </ng-template>
+        </p-card>
+      </ng-container>
+      <ng-container *ngIf="this.grupo.admin">
+        <p-card [style]="{width: '17rem', height: '26rem'}" class="m-2">
+          <ng-template pTemplate="header">
+            <div class="position-relative">
+              <div class="position-absolute top-0 start-50 translate-middle-x p-2">
+                <h2 class="text-center text-nowrap">Nueva Persona</h2>
+              </div>
             </div>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="content">
-          <img class="rounded mx-auto d-block w-75 mt-3" alt="Nueva Persona" src='https://avatars.dicebear.com/api/avataaars/0.svg'>
-          <div class="text-center mt-3">
-            <p-autoComplete [name]="this.correo" [(ngModel)]="this.correo" [showEmptyMessage]="true" [suggestions]="this.listaCorreos" (click)="this.crearPersonaByCorreo()" (completeMethod)="filtrarListaCorreos()"></p-autoComplete>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <p-button [style]="{'width':'100%', 'height': '100%'}" styleClass="p-button-raised p-button-success p-button-lg" icon="pi pi-plus" (click)="this.crearNuevoGrupo()"></p-button>
-        </ng-template>
-      </p-card>
-    </ng-container>
-  </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <img class="rounded mx-auto d-block w-75 mt-3" alt="Nueva Persona" src='https://avatars.dicebear.com/api/avataaars/0.svg'>
+            <div class="text-center mt-3">
+              <p-autoComplete [name]="this.correo" [(ngModel)]="this.correo" [showEmptyMessage]="true" [suggestions]="this.listaCorreos" (click)="this.crearPersonaByCorreo()" (completeMethod)="filtrarListaCorreos()"></p-autoComplete>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="footer">
+              <p-button [style]="{'width':'100%', 'height': '100%'}" styleClass="p-button-raised p-button-success p-button-lg" icon="pi pi-plus" (click)="this.crearNuevoGrupo()"></p-button>
+          </ng-template>
+        </p-card>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>

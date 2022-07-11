@@ -1,6 +1,6 @@
   <app-menu></app-menu>
 
-  <app-barra-progreso *ngIf="this.gruposService.estadoCargando"></app-barra-progreso>
+  <app-barra-progreso *ngIf="this.estadoCargando"></app-barra-progreso>
   <!-- Titulo  -->
   <div class="titulo">
     <h1 class="text-center text-dark mt-3 display-1">Suscripciones Actuales</h1>
@@ -9,7 +9,7 @@
 
     <div class="d-flex align-content-stretch flex-wrap justify-content-center mt-5 mb-5">
       <ng-container *ngFor="let grupo of this.gruposService.grupos">
-        <app-tarjeta class="m-2" [grupo]="grupo"></app-tarjeta>
+        <app-tarjeta class="m-2" [grupoParaSuscripcionNueva]="this.grupoNuevoRaw" [grupo]="grupo"></app-tarjeta>
       </ng-container>
     </div>
   <div class="container">
@@ -100,7 +100,7 @@
       <div class="col-2"></div>
       <div class="col-12 col-md-6 mt-5 ">
         <h3 class="titulodescarga">Ayúdanos a mejorar en Accesibilidad</h3>
-        <p class="leyendadescarga">En Gestiplatform comprometidos con la acceisibilida necesitamos que nos ayudes a descubrir cómo podemos mejorar el acceso a la información. Ponte en contacto con el departamento de sostenibilidad en inclusión social y acceso a la información. </p>
+        <p class="leyendadescarga">En Gestiplatform comprometidos con la acceisibilidad necesitamos que nos ayudes a descubrir cómo podemos mejorar el acceso a la información. Ponte en contacto con el departamento de sostenibilidad en inclusión social y acceso a la información. </p>
       </div>
     </div>
     <!--Fin descargar aplicación -->
@@ -229,7 +229,7 @@
     <!-- Fin footer -->
 
     <!-- Ventana de dialogo nueva suscripcion-->
-    <p-dialog header="Title" [(visible)]="mostrar" [modal]="true">
+    <p-dialog header="Title" [maximizable]="true" [(visible)]="mostrar" [modal]="true">
       <ng-template pTemplate="header"><span class="tituloVentana fs-3 fw-bolder">Nueva suscripción</span></ng-template>
       <div id="formRecibo">
          <form [formGroup]="this.formSuscripcion" (ngSubmit)="this.consultaPostearSuscripcionNueva()">
@@ -239,12 +239,12 @@
                 <p-dropdown id="plataforma-suscripcion" [options]="this.dropdownPlataformas" formControlName="plataforma"></p-dropdown>
               </div>
               <div class="field col-12 md:col-4">
-                <label for="correo-suscripcion" class="fs-5 fw-bolder">Correo en la plataforma:</label>
-                <input id="correo-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesCorreo">
+                <label hidden for="correo-suscripcion" class="fs-5 fw-bolder">Correo en la plataforma:</label>
+                <input hidden id="correo-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesCorreo">
               </div>
               <div class="field col-12 md:col-4">
-                <label for="clave-suscripcion" class="fs-5 fw-bolder">Clave en la plataforma:</label>
-                <input id="clave-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesClave">
+                <label hidden for="clave-suscripcion" class="fs-5 fw-bolder">Clave en la plataforma:</label>
+                <input hidden id="clave-suscripcion" class="mt-2 mb-2" pInputText type="text" formControlName="credencialesClave">
               </div>
               <div class="field col-12 md:col-4">
                 <label for="descripcion-suscripcion" class="fs-5 fw-bolder">Descripción:</label>
@@ -275,13 +275,13 @@
     <p-scrollTop [threshold]="50"></p-scrollTop>
 
     <!-- Boton tema claro y oscuro-->
-  <div class="container-btn-mode">
-     <button id="id-sun" label="sun" class="btn-mode sun activar">
-        <i class="bi bi-brightness-high"></i>
-     </button>
-      <button id="id-moon" label="moon" class="btn-mode moon">
-        <i class="bi bi-moon-fill"></i>
-      </button>
-    </div>
+<!--  <div class="container-btn-mode">-->
+<!--     <button id="id-sun" label="sun" class="btn-mode sun activar">-->
+<!--        <i class="bi bi-brightness-high"></i>-->
+<!--     </button>-->
+<!--      <button id="id-moon" label="moon" class="btn-mode moon">-->
+<!--        <i class="bi bi-moon-fill"></i>-->
+<!--      </button>-->
+<!--    </div>-->
 
 

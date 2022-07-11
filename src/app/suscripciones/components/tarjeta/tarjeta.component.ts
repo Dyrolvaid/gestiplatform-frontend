@@ -26,8 +26,9 @@ import {MenuItem, MessageService} from "primeng/api";
 export class TarjetaComponent implements OnInit {
 
   @Input() grupo?: Grupo;
+  @Input() grupoParaSuscripcionNueva?: Grupo;
   public items: MenuItem[];
-
+  // @Input() suscripcion?: Suscripcion;
 
   constructor(
     public dialogService: DialogService,
@@ -72,7 +73,8 @@ export class TarjetaComponent implements OnInit {
       width: '70%',
       modal: true,
       data: {
-        grupo: this.grupo
+        grupo: this.grupo,
+        grupoParaSuscripcionNueva: this.grupoParaSuscripcionNueva
       }
     });
   }

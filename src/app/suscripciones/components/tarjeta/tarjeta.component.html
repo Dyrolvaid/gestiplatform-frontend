@@ -25,7 +25,7 @@
       <li class="list-group-item d-flex justify-content-between align-items-center">
         Vencimiento
         <span class="badge bg-secondary rounded-pill" *ngIf="grupo">
-          {{this.grupo.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo}}
+          {{this.grupo.suscripcion.fechaProximoCobro | dateAsAgo}}
         </span>
       </li>
     </ul>

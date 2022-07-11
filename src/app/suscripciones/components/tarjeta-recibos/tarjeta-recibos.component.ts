@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RecibosService} from "../../../shared/services/recibos.service";
 import {Recibo} from "../../../shared/interfaces/recibo.interface";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
@@ -8,6 +8,7 @@ import {PersonasService} from "../../../shared/services/personas.service";
 import {Persona} from "../../../shared/interfaces/persona.interface";
 import {Periodicidad} from "../../../shared/interfaces/periodicidad.interface";
 import {DatePipe} from "@angular/common";
+import {GruposService} from "../../../shared/services/grupos.service";
 
 @Component({
   selector: 'app-tarjeta-recibos',
@@ -32,7 +33,8 @@ export class TarjetaRecibosComponent implements OnInit{
               private _dynamicDialogConfig: DynamicDialogConfig,
               private _changeDetectorRef: ChangeDetectorRef,
               private _personasService: PersonasService,
-              public _datePipe: DatePipe) {
+              public _datePipe: DatePipe,
+              public _gruposService: GruposService) {
     this.estadoCargando = false;
     // this.recibo = <Recibo>{};
     this.listaRecibosByGrupo = [];
@@ -49,16 +51,10 @@ export class TarjetaRecibosComponent implements OnInit{
 
   ngOnInit(): void {
     this.grupo = this._dynamicDialogConfig.data.grupo;
-    this.crearOActualizarRecibos();
-  }
-
-  public crearOActualizarRecibos() {
     this.estadoCargando = true;
     this.consultaGetRecibosByGrupo();
-    this.consultaGetRecibosBySuscripcionId();
-    // this.consultaGetGrupoByPersona();
+    this._gruposService.cargarConjuntoGrupos();
     this.consultaGetGruposBySuscripcionId();
-    this.contarPersonasByGrupo();
   }
 
   ngAfterContentChecked() {
@@ -75,7 +71,9 @@ export class TarjetaRecibosComponent implements OnInit{
 
   public consultaGetRecibosByGrupo(): void {
     if (this.grupo.id) {
-      this._recibosService.getRecibosByGrupo(this.grupo.id).subscribe({
+      this._recibosService.getRecibosByGrupo(this.grupo.id)
+        .pipe(finalize(() => {this.consultaGetRecibosBySuscripcionId();}))
+        .subscribe({
         next: (resp: Recibo[]) => {
           this.estadoCargando = false;
           this.listaRecibosByGrupo = resp;
@@ -89,8 +87,10 @@ export class TarjetaRecibosComponent implements OnInit{
   }
 
   public consultaGetRecibosBySuscripcionId(): void {
-    if (this.grupo.id) {
-      this._recibosService.getRecibosBySuscripcionId(this.grupo.suscripcion.id).subscribe({
+    if (this.grupo.suscripcion.id) {
+      this._recibosService.getRecibosBySuscripcionId(this.grupo.suscripcion.id)
+        .pipe(finalize(() => {this.contarPersonasByGrupo();}))
+        .subscribe({
         next: (resp: Recibo[]) => {
           this.estadoCargando = false;
           this.listaRecibosBySuscripcionId = resp;
@@ -108,6 +108,7 @@ export class TarjetaRecibosComponent implements OnInit{
       this._recibosService.getGruposBySuscripcionId(this.grupo.suscripcion.id).subscribe({
         next: (resp: Grupo[]) => {
           this.estadoCargando = false;
+          console.log(resp);
           this.listaGrupos = resp;
         },
         error: (error) => {
@@ -121,9 +122,8 @@ export class TarjetaRecibosComponent implements OnInit{
   //Parchear el booleano de "cobrado" del Recibo con PATCH
   public marcarReciboComoCobrado(recibo: Recibo) {
     this.reciboAModificar = recibo;
-    let fechaActual = Date.now;
+    // let fechaActual = Date.now;
     recibo.cobrado = true;
-    recibo.fechaCobro = new Date(fechaActual());
     this._recibosService.marcarReciboComoPagadoPorId(this.reciboAModificar)
       .pipe(finalize(()=> {}))
       .subscribe({
@@ -131,7 +131,7 @@ export class TarjetaRecibosComponent implements OnInit{
           console.log(resp);
         },
         error: (error) => {
-          console.log(error);
+          console.log("Al marcarReciboComoCobrado: ", error);
         }
       });
   }
@@ -161,10 +161,9 @@ export class TarjetaRecibosComponent implements OnInit{
       }
       plantillaReciboNuevo.fechaEmision = fechaInicio;
       this._recibosService.crearReciboNuevoPorGrupo(plantillaReciboNuevo)
-        .pipe(finalize(() => {console.log("Intento de 'nuevoReciboSegunSeleccionUsuario ha finalizado'")}))
+        .pipe(finalize(() => {}))
         .subscribe({
-          next: (resp) => {
-            console.log("'nuevoReciboSegunSeleccionUsuario' ha devuelto: ", resp);
+          next: (/*resp*/) => {
           },
           error: (error) => {
             console.log("'nuevoReciboSegunSeleccionUsuario' ha devuelto: ", error);
@@ -172,32 +171,62 @@ export class TarjetaRecibosComponent implements OnInit{
         });
     }
   }
+
+  public sumarDias(fecha: Date, dias: number) {
+    let resultado = new Date(fecha);
+    resultado.setDate(resultado.getDate() + dias);
+    return resultado;
+  }
+
   // TODO: Añadir automáticamente un recibo nuevo por grupo si para la siguiente fecha de cobro faltan menos días que los resultantes de sumarle la periodicidad a la fecha actual.
   public nuevoReciboSegunPeriodicidad() {
+    // this.grupo = this._dynamicDialogConfig.data.grupo;
+    // this.crearOActualizarRecibos();
     for (let grupo of this.listaGrupos) {
       let plantillaReciboNuevo: Recibo = {} as Recibo;
-      let fechaActual = new Date();
-      plantillaReciboNuevo = this.listaRecibosByGrupo[this.listaRecibosByGrupo.length - 1];
+      let fechaUltimoRecibo;
+      if (this.listaRecibosBySuscripcionId.length > 0){
+        fechaUltimoRecibo = new Date(this.listaRecibosBySuscripcionId[this.listaRecibosBySuscripcionId.length - 1].fechaCobro.valueOf());
+      } else {
+        fechaUltimoRecibo = new Date();
+      }
+      console.log("fechaUltimoRecibo",fechaUltimoRecibo);
       plantillaReciboNuevo.grupo = grupo;
+      console.log(grupo);
       plantillaReciboNuevo.cobrado = false;
       plantillaReciboNuevo.reciboActivo = true;
       plantillaReciboNuevo.importe = plantillaReciboNuevo.grupo.suscripcion.precio / this.listaGrupos.length;
-      if (grupo.suscripcion.periodicidad.id === 1) {
-        let fechaMasMes = fechaActual.setDate(fechaActual.getDate() + 28);
-        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasMes);
-        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
-      } else if (grupo.suscripcion.periodicidad.id === 2) {
-        let fechaMasYear = fechaActual.setDate(fechaActual.getDate() + 365);
-        grupo.suscripcion.fechaProximoCobro = new Date(fechaMasYear);
-        plantillaReciboNuevo.fechaCobro = plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro;
+      if (plantillaReciboNuevo.grupo.suscripcion.periodicidad.id === 1) {
+        fechaUltimoRecibo = new Date(fechaUltimoRecibo.valueOf());
+        console.log(fechaUltimoRecibo);
+        // plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro = new Date(fechaUltimoRecibo);
+        // console.log(plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro);
+        plantillaReciboNuevo.fechaCobro = new Date(this.sumarDias(fechaUltimoRecibo, 30));
+        console.log(plantillaReciboNuevo.fechaCobro);
+      } else if (plantillaReciboNuevo.grupo.suscripcion.periodicidad.id === 2) {
+        fechaUltimoRecibo = new Date(fechaUltimoRecibo.valueOf());
+        console.log(fechaUltimoRecibo);
+        // console.log(plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro);
+        // plantillaReciboNuevo.grupo.suscripcion.fechaProximoCobro = new Date(fechaUltimoRecibo);
+        console.log(plantillaReciboNuevo.fechaCobro);
+        plantillaReciboNuevo.fechaCobro = new Date(this.sumarDias(fechaUltimoRecibo, 365));
       }
-      plantillaReciboNuevo.vigenciaInicio = this.listaRecibosByGrupo[this.listaRecibosByGrupo.length - 1].vigenciaInicio;
-      plantillaReciboNuevo.fechaEmision = new Date(fechaActual);
+
+      if (this.listaRecibosByGrupo.length > 0){
+        plantillaReciboNuevo.vigenciaInicio = new Date(this.listaRecibosByGrupo[this.listaRecibosByGrupo.length - 1].vigenciaInicio.valueOf());
+      } else {
+        plantillaReciboNuevo.vigenciaInicio = new Date();
+      }
+      plantillaReciboNuevo.fechaEmision = new Date(fechaUltimoRecibo);
+      console.log(plantillaReciboNuevo);
       this._recibosService.crearReciboNuevoPorGrupo(plantillaReciboNuevo)
-        .pipe(finalize(() => {console.log("Intento de 'nuevoReciboSegunPeriodicidad ha finalizado'")}))
+        .pipe(finalize(() => {
+          console.log("Intento de 'nuevoReciboSegunPeriodicidad ha finalizado'");
+          this.ngOnInit();
+        }))
         .subscribe({
-          next: (/*resp*/) => {
-            // console.log("'nuevoReciboSegunPeriodicidad' ha devuelto: ", resp);
+          next: (resp) => {
+            console.log("'nuevoReciboSegunPeriodicidad' ha devuelto: ", resp);
           },
           error: (error) => {
             console.log("'nuevoReciboSegunPeriodicidad' ha devuelto: ", error);

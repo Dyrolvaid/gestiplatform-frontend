@@ -18,6 +18,8 @@ import {SuscripcionesService} from "../../../shared/services/suscripciones.servi
 })
 export class TarjetaPersonasComponent implements OnInit {
 
+
+  public grupoParaSuscripcionNueva?: Grupo;
   public grupo: Grupo;
   public cargando: boolean = false;
   public gruposConPersonasPorSuscripcion: Grupo[];
@@ -53,6 +55,7 @@ export class TarjetaPersonasComponent implements OnInit {
     this.listaSuscripciones = [];
     this.listaTodosLosGrupos = [];
     this.otroGrupo = {} as Grupo;
+    this.grupoParaSuscripcionNueva = this._dynamicDialogConfig.data.grupoParaSuscripcionNueva;
   }
 
   // ngOnChanges(changes: SimpleChanges): void {
@@ -62,7 +65,9 @@ export class TarjetaPersonasComponent implements OnInit {
   //   }
 
   ngOnInit(): void {
-    this.consultaGetPersonasByIdSuscripcion();
+    // if (this.grupo.suscripcion.id) {
+      this.consultaGetPersonasByIdSuscripcion();
+    // }
     this.sacarPersonasDeGrupos();
     this.consultaObtenerTodasLasPersonas();
   }
@@ -103,14 +108,24 @@ export class TarjetaPersonasComponent implements OnInit {
 
   public consultaGetPersonasByIdSuscripcion(): void {
     this.cargando = true;
+    // if (this.grupoParaSuscripcionNueva?.id && !this.grupo.suscripcion.id){
+    //   this.grupo.suscripcion = this.grupoParaSuscripcionNueva?.suscripcion;
+    // }
+    console.log(this.grupo.suscripcion.id);
+    console.log(this.grupoParaSuscripcionNueva?.suscripcion.id);
     this._personasService.getPersonasByIdSuscripcion(this.grupo.suscripcion.id).subscribe(
       {
         next: (resp) => {
           this.cargando = false;
+          console.log("consultaGetPersonasByIdSuscripcion ha devuelto: ", resp);
           this.gruposConPersonasPorSuscripcion = resp;
           // for (let grupoIterado of this.gruposConPersonasPorSuscripcion) {
           //   this.listaPersonas.push(grupoIterado.persona);
           // }
+          console.log("grupoParaSuscripcionNueva es: ", this.grupoParaSuscripcionNueva)
+          if (this.grupoParaSuscripcionNueva?.id) {
+            this.gruposConPersonasPorSuscripcion.push(this.grupoParaSuscripcionNueva);
+          }
         },
         error: (error: HttpErrorResponse) => {
           this.cargando = false;
@@ -187,7 +202,13 @@ export class TarjetaPersonasComponent implements OnInit {
       // }
         if (grupoNuevo.persona) {
           this._gruposService.postGrupo(grupoNuevo)
-            .pipe(finalize(()=>{this.consultaGetPersonasByIdSuscripcion(); this.cargando = false}))
+            .pipe(finalize(()=>{
+              if (this.grupo.suscripcion.id) {
+                this.consultaGetPersonasByIdSuscripcion();
+              } else {
+                  this.gruposConPersonasPorSuscripcion.push(this.grupo);
+              }
+              this.cargando = false}))
             .subscribe({
               next: (/*resp*/) => {
                 // console.log(resp);

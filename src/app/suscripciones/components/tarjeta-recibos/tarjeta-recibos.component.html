@@ -1,17 +1,17 @@
-<app-barra-progreso *ngIf="estadoCargando"></app-barra-progreso>
+<app-barra-progreso *ngIf="this.estadoCargando"></app-barra-progreso>
 
-<ng-container *ngIf="this.grupo && this.listaRecibosByGrupo && this.listaRecibosBySuscripcionId && this.listaGrupos">
+<ng-container *ngIf="this.grupo.id">
   <div class="card">
     <h1 class="text-center">{{this.grupo.suscripcion.plataforma.nombre}}</h1>
     <h4 class="text-center">{{this.grupo.suscripcion.descripcion}}</h4>
-    <ng-container *ngIf="this.grupo.admin">
+    <ng-container *ngIf="this.grupo.admin || this.listaRecibosBySuscripcionId.length">
       <p-button icon="pi pi-plus" iconPos="right" class="text-center" label="Añadir Recibos" (click)="this.nuevoReciboSegunPeriodicidad()"></p-button>
     </ng-container>
     <ng-container *ngFor="let grupoIterado of this.listaGrupos; index as grupoIndice">
       <p-table [value]="this.listaRecibosBySuscripcionId"
-               [sortField]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+               [sortField]="grupoIterado.suscripcion.fechaProximoCobro.toString()"
                sortMode="single"
-               [dataKey]="grupoIterado.suscripcion.fechaProximoCobro.toString() | amLocale: 'es' | amTimeAgo"
+               [dataKey]="grupoIterado.suscripcion.fechaProximoCobro.toString()"
                rowGroupMode="subheader"
                [groupRowsBy]="grupoIterado.persona.nombre"
                responsiveLayout="scroll">
@@ -45,7 +45,7 @@
           <ng-container *ngIf="recibo.grupo.suscripcion.id === grupoIterado.suscripcion.id && recibo.grupo.persona.id === grupoIterado.persona.id">
             <tr>
               <td>{{rowIndex + 1}}</td>
-              <td>{{this._datePipe.transform(recibo.fechaCobro, 'yyyy-MM-dd')}} {{this._datePipe.transform(recibo.fechaCobro, 'yyyy-MM-dd')}}</td>
+              <td>{{recibo.fechaCobro.toString() | date: 'mediumDate': 'ES'}} ({{recibo.fechaCobro.toString() | dateAsAgo}})</td>
               <td>{{recibo.importe | currency:'EUR'}}</td>
               <td>
                 <p-checkbox [(ngModel)]="recibo.cobrado" [binary]="true" [disabled]="recibo.cobrado || (this.personaActiva.id !== grupoIterado.persona.id && !this.grupo.admin) || !this.grupo.admin"  (onChange)="this.marcarReciboComoCobrado(recibo)"></p-checkbox>

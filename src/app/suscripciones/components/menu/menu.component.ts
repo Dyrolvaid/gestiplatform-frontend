@@ -21,11 +21,11 @@ export class MenuComponent implements OnInit {
 
         routerLink: '/home/suscripciones'
       },
-      {
-        label: 'Personas',
-        icon: PrimeIcons.USERS,
-        //routerLink: '/etc'
-      },
+      // {
+      //   label: 'Personas',
+      //   icon: PrimeIcons.USERS,
+      //   //routerLink: '/etc'
+      // },
 
       {
         label: this.personaActiva.nombre,
@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
         items: [
           {
             label: 'Gestionar cuenta',
-            icon: PrimeIcons.COG
+            icon: PrimeIcons.COG,
           },
           {
             label: 'Cerrar Sesión',

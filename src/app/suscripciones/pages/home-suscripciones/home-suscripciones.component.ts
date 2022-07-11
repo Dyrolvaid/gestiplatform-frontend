@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {GruposService} from "../../../shared/services/grupos.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Persona} from "../../../shared/interfaces/persona.interface";
@@ -41,7 +41,12 @@ export class HomeSuscripcionesComponent implements OnInit {
   public dropdownFormasDePago: SelectItem[];
   public formaDePagoSeleccionada: Plataforma;
   public grupoNuevoRaw: any;
-
+  public listaTodasLasSuscripciones: Suscripcion[];
+  public listaGruposPorPersonaActiva: Grupo[];
+  public estaSuscripcion: Suscripcion;
+  public esteGrupo: Grupo;
+  public estadoCargando : boolean;
+  // public mostrar = false;
 
   // darkMode: boolean = false;
 
@@ -66,10 +71,12 @@ export class HomeSuscripcionesComponent implements OnInit {
               private _gruposService: GruposService,
               private _suscripcionesService: SuscripcionesService,
               private _periodicidadesService: PeriodicidadesService,
-              private _formasDePagoService: FormasDePagoService) {
+              private _formasDePagoService: FormasDePagoService,
+              private _changeDetectorRef: ChangeDetectorRef) {
+
     this.gruposService.cargarConjuntoGrupos();
     this.mostrar = false;
-
+    this.estadoCargando = false;
     this.plataformaNueva = <Plataforma>{};
     this.suscripcionNueva = <Suscripcion>{};
     // this.grupoNuevo = {
@@ -123,16 +130,16 @@ export class HomeSuscripcionesComponent implements OnInit {
     this.dropdownFormasDePago = [];
     this.formaDePagoSeleccionada = {} as Plataforma;
     this.grupoNuevo = {} as Grupo;
-
-
+    this.listaTodasLasSuscripciones = [];
+    this.listaGruposPorPersonaActiva = [];
+    this.estaSuscripcion = {} as Suscripcion;
+    this.esteGrupo = {} as Grupo;
   }
 
   /* dark mode*/
 
   ngOnInit(): void {
     this.consultaObtenerTodasLasPlataformas();
-    this.consultaObtenerTodasLasPeriodicidades();
-    this.consultaObtenerTodasLasFormasDePago();
     // for(let i = 0; i < this.listaTodasLasPlataformas.length; i++) {
     //   this.dropdownPlataformas.push({
     //     label: this.listaTodasLasPlataformas[i].nombre,
@@ -140,10 +147,41 @@ export class HomeSuscripcionesComponent implements OnInit {
     // }
   }
 
+  // public consultaGetGruposByPersona() {
+  //   this._gruposService.getGrupoByPersona(this._personasService.personaActiva)
+  //     .pipe(finalize(() => {
+  //       console.log("Bien o mal, GetGruposByPersona completada.");
+  //       this.descubrirGrupoPorSuscripcionConEstaPersona();
+  //     }))
+  //     .subscribe({
+  //       next: (resp) => {
+  //         this.listaGruposPorPersonaActiva = resp;
+  //       },
+  //       error: (error) => {
+  //         console.log("GetGruposByPersona: ", error);
+  //       }
+  //     });
+  // }
+
+  // public descubrirGrupoPorSuscripcionConEstaPersona() {
+  //   for(let grupo of this.listaGruposPorPersonaActiva) {
+  //     for (let suscripcion of this.listaTodasLasSuscripciones) {
+  //       if (grupo.suscripcion.id === suscripcion.id) {
+  //         this.estaSuscripcion = suscripcion;
+  //         this.esteGrupo = grupo;
+  //       }
+  //     }
+  //   }
+  // }
+
+
   public consultaObtenerTodasLasPlataformas(): void {
+    this.estadoCargando = true;
     this._plataformaService.obtenerTodasLasPlataformas()
       .pipe(finalize(() => {
         console.log("Bien o mal, ObtenerTodasLasPlataformas completada.");
+        this.consultaObtenerTodasLasPeriodicidades();
+        this.estadoCargando = false;
         for (let i = 0; i < this.listaTodasLasPlataformas.length; i++) {
           this.dropdownPlataformas.push({
             label: this.listaTodasLasPlataformas[i].nombre,
@@ -164,9 +202,12 @@ export class HomeSuscripcionesComponent implements OnInit {
   }
 
   public consultaObtenerTodasLasPeriodicidades(): void {
+    this.estadoCargando = true;
     this._periodicidadesService.obtenerTodasLasPeriodicidades()
       .pipe(finalize(() => {
         console.log("Bien o mal, ObtenerTodasLasPeriodicidades completada.");
+        this.consultaObtenerTodasLasFormasDePago();
+        this.estadoCargando = false;
         for (let i = 0; i < this.listaTodasLasPeriodicidades.length; i++) {
           this.dropdownPeriodicidades.push({
             label: this.listaTodasLasPeriodicidades[i].tipo,
@@ -235,6 +276,7 @@ export class HomeSuscripcionesComponent implements OnInit {
   // }
 
   public consultaPostearSuscripcionNueva() {
+    this.estadoCargando = true;
     // this.suscripcionNueva.plataforma = this.formSuscripcion.value.plataforma;
     // this.suscripcionNueva.periodicidad = this.formSuscripcion.value.periodicidad;
     // this.suscripcionNueva.formaDePago = this.formSuscripcion.value.formaDePago;
@@ -248,7 +290,6 @@ export class HomeSuscripcionesComponent implements OnInit {
       this.formSuscripcion.value.fechaProximoCobro = new Date(this.formSuscripcion.value.fechaAlta.setDate(this.formSuscripcion.value.fechaAlta.getDate() + 365));
       // this.suscripcionNueva.fechaProximoCobro = this.formSuscripcion.value.fechaProximoCobro;
     }
-    //TODO: añadir más condiciones para otras periodicidades si hay tiempo
 
     // this.suscripcionNueva.precio = this.formSuscripcion.value.precio;
     // this.suscripcionNueva.credencialesCorreo = this.formSuscripcion.value.correo;
@@ -261,7 +302,9 @@ export class HomeSuscripcionesComponent implements OnInit {
       this._suscripcionesService.crearSuscripcionNueva(this.formSuscripcion.value)
         .pipe(finalize(() => {
           console.log('Se ha completado el intento del post suscripcion');
+          this.mostrar = false;
           this.crearNuevoGrupo();
+          this.estadoCargando = false;
         }))
         .subscribe({
           next: (resp) => {
@@ -275,11 +318,35 @@ export class HomeSuscripcionesComponent implements OnInit {
     }
   }
 
+  public consultaObtenerTodasLasSuscripciones() {
+    this.estadoCargando = true;
+    this._suscripcionesService.obtenerTodasLasSuscripciones()
+      .pipe(finalize(() => {
+        console.log('Se ha completado el intento del post suscripcion');
+        // this.consultaGetGruposByPersona();
+        // this.gruposService.grupos.push(this.grupoNuevoRaw);
+        this.gruposService.cargarConjuntoGrupos();
+        this.estadoCargando = false;
+        // this.ngOnInit();
+      }))
+      .subscribe({
+        next: (resp) => {
+          this.listaTodasLasSuscripciones = resp;
+          console.log('Post suscripcion nueva', JSON.stringify(resp));
+        },
+        error: (error) => {
+          console.log('Error al post suscripcion', error);
+
+        }
+      });
+  }
+
   public crearNuevoGrupo(): void {
     // this.grupoNuevo.grupoActivo = true;
     // this.grupoNuevo.admin = true;
     // this.grupoNuevo.persona = this._personasService.personaActiva;
     // this.grupoNuevo.suscripcion = this.suscripcionNueva;
+    this.estadoCargando = true;
     this.grupoNuevoRaw = {
       grupoActivo : true,
       admin : true,
@@ -290,6 +357,8 @@ export class HomeSuscripcionesComponent implements OnInit {
     this._gruposService.postGrupo(this.grupoNuevoRaw)
       .pipe(finalize(() => {
         console.log('Se ha completado el intento del post grupo');
+        this.consultaObtenerTodasLasSuscripciones();
+        this.estadoCargando = false;
       }))
       .subscribe({
         next: (resp) => {
